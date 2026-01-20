@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Majalaya Gelut Championship - Official Event</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- VARIABLES & RESET --- */
+        :root {
+            --gold-gradient: linear-gradient(135deg, #FFD700 0%, #FDB931 50%, #997f08 100%);
+            --gold-text: #FFD700;
+            --bg-dark: #050505;
+            --bg-glass: rgba(255, 255, 255, 0.03);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --text-white: #ffffff;
+            --text-gray: #888888;
+            --font-head: 'Oswald', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+            /* Noise texture overlay */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        }
+
+        /* Scrollbar Custom */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* --- UTILITIES --- */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section-padding {
+            padding: 120px 0;
+        }
+
+        /* Modern Gradient Text */
+        .text-gradient {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-title {
+            font-family: var(--font-head);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            line-height: 1;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--gold-text);
+            font-size: 1rem;
+            margin-bottom: 80px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 600;
+            opacity: 0.8;
+        }
+
+        /* Modern Button */
+        .btn {
+            position: relative;
+            display: inline-block;
+            padding: 16px 40px;
+            background: var(--gold-gradient);
+            color: #000;
+            font-family: var(--font-head);
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 2px; left: 2px; right: 2px; bottom: 2px;
+            background: #000;
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+            z-index: -1;
+            transition: var(--transition);
+        }
+
+        .btn span {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255, 215, 0, 0.15);
+        }
+
+        .btn:hover::before {
+            background: var(--gold-gradient);
+        }
+
+        .btn:hover span {
+            -webkit-text-fill-color: #000;
+        }
+
+        /* --- ANIMATION CLASSES --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 0;
+            z-index: 1000;
+            transition: var(--transition);
+            border-bottom: 1px solid transparent;
+        }
+
+        .navbar.scrolled {
+            background-color: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border-glass);
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-head);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-white);
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i { color: var(--gold-text); }
+
+        .nav-menu {
+            display: flex;
+            gap: 40px;
+            background: rgba(0,0,0,0.5);
+            padding: 10px 30px;
+            border-radius: 50px;
+            border: 1px solid var(--border-glass);
+            backdrop-filter: blur(5px);
+        }
+
+        .nav-link {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--text-white);
+            letter-spacing: 1px;
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover { opacity: 1; color: var(--gold-text); }
+        .nav-link.active { opacity: 1; color: var(--gold-text); }
+
+        .hamburger { display: none; color: var(--text-white); font-size: 1.5rem; cursor: pointer; }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('a3.jpg') no-repeat center center/cover;
+            filter: brightness(0.4) contrast(1.1) grayscale(30%);
+            z-index: -1;
+            transform: scale(1.1); /* Untuk efek parallax */
+            transition: transform 0.1s linear; /* Smooth parallax */
+        }
+
+        .hero-overlay {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 50%;
+            background: linear-gradient(to top, var(--bg-dark), transparent);
+            z-index: -1;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            padding: 0 20px;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            padding: 8px 20px;
+            border: 1px solid var(--border-glass);
+            border-radius: 50px;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            color: var(--text-gray);
+        }
+
+        .hero-title {
+            font-family: var(--font-head);
+            font-size: clamp(3rem, 10vw, 8rem);
+            line-height: 0.9;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        .hero-title span {
+            display: block;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+        }
+
+        .hero-title .highlight {
+            -webkit-text-stroke: 0;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- COUNTDOWN --- */
+        .countdown-container {
+            margin-top: -60px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .timer-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            padding: 30px 50px;
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            max-width: max-content;
+            margin: 0 auto;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .time-box {
+            text-align: center;
+            min-width: 80px;
+            position: relative;
+        }
+
+        .time-box:not(:last-child)::after {
+            content: ':';
+            position: absolute;
+            right: -12px;
+            top: 10px;
+            font-size: 2rem;
+            color: var(--border-glass);
+        }
+
+        .time-val {
+            font-family: var(--font-head);
+            font-size: 2.5rem;
+            font-weight: 500;
+            color: var(--text-white);
+            line-height: 1;
+        }
+
+        .time-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-gray);
+            letter-spacing: 2px;
+            margin-top: 5px;
+        }
+
+        /* --- ABOUT --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 20px;
+            filter: grayscale(100%);
+            transition: var(--transition);
+        }
+
+        .about-image:hover img {
+            filter: grayscale(0%);
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -20px; left: -20px;
+            width: 100%; height: 100%;
+            border: 2px solid var(--border-glass);
+            border-radius: 20px;
+            z-index: -1;
+        }
+
+        .about-text h3 {
+            font-family: var(--font-head);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .about-text p {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            border-top: 1px solid var(--border-glass);
+            padding-top: 30px;
+        }
+
+        .stat-item h4 {
+            font-size: 2rem;
+            font-family: var(--font-head);
+            color: var(--gold-text);
+        }
+
+        .stat-item span {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            text-transform: uppercase;
+        }
+
+        /* --- FIGHT CARDS (Glassmorphism) --- */
+        .fight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .card {
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 215, 0, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .card-header {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-glass);
+        }
+
+        .match-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--gold-text);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .fighters-visual {
+            position: relative;
+            height: 350px;
+            overflow: hidden;
+        }
+
+        .fighters-visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(80%);
+            transition: transform 0.6s cubic-bezier(0.2, 1, 0.3, 1), filter 0.6s;
+        }
+
+        .card:hover .fighters-visual img {
+            transform: scale(1.05);
+            filter: grayscale(0%);
+        }
+
+        .vs-circle {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px; height: 60px;
+            background: rgba(0,0,0,0.8);
+            border: 1px solid var(--gold-text);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-head);
+            font-weight: 700;
+            font-style: italic;
+            color: var(--gold-text);
+            backdrop-filter: blur(5px);
+            z-index: 2;
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        .fighter-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 8px;
+        }
+
+        .fighter-name {
+            font-family: var(--font-head);
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+        .fighter-name.right { text-align: right; }
+
+        .fighter-meta {
+            font-size: 0.8rem;
+            color: var(--text-gray);
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid var(--border-glass);
+            margin-top: 20px;
+            padding-top: 15px;
+        }
+
+        /* --- SCHEDULE --- */
+        .schedule-container {
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 30px;
+            padding: 50px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .info-item {
+            display: flex;
+            gap: 25px;
+        }
+
+        .info-icon {
+            font-size: 2rem;
+            color: var(--gold-text);
+            opacity: 0.8;
+        }
+
+        .info-content h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--text-white);
+        }
+        .info-content p {
+            color: var(--text-gray);
+            font-weight: 300;
+        }
+
+        .map-frame {
+            border-radius: 20px;
+            overflow: hidden;
+            height: 100%;
+            min-height: 300px;
+            border: 1px solid var(--border-glass);
+        }
+
+        .map-frame iframe {
+            width: 100%;
+            height: 100%;
+            filter: grayscale(100%) invert(92%) contrast(83%);
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+        
+        .map-frame:hover iframe { opacity: 1; }
+
+        /* --- FOOTER --- */
+        footer {
+            border-top: 1px solid var(--border-glass);
+            padding: 80px 0 40px;
+            background: linear-gradient(to bottom, var(--bg-dark), #000);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand h2 {
+            font-family: var(--font-head);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .footer-brand p { color: var(--text-gray); max-width: 300px; }
+
+        .footer-links h4 {
+            color: var(--text-white);
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+
+        .footer-links ul li { margin-bottom: 15px; }
+        .footer-links ul li a { color: var(--text-gray); transition: 0.3s; }
+        .footer-links ul li a:hover { color: var(--gold-text); padding-left: 5px; }
+
+        .social-icons { display: flex; gap: 15px; margin-top: 20px; }
+        .social-icon {
+            width: 45px; height: 45px;
+            border: 1px solid var(--border-glass);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-white);
+            transition: var(--transition);
+        }
+        .social-icon:hover {
+            background: var(--gold-text);
+            color: #000;
+            border-color: var(--gold-text);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            color: #444;
+            font-size: 0.9rem;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            .about-grid, .schedule-container { grid-template-columns: 1fr; gap: 40px; }
+            .about-image { order: -1; }
+            .hero-title { font-size: 5rem; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: absolute;
+                top: 80px; left: 20px; right: 20px;
+                flex-direction: column;
+                background: rgba(10,10,10,0.95);
+                backdrop-filter: blur(20px);
+                border: 1px solid var(--border-glass);
+                border-radius: 20px;
+                padding: 40px;
+                text-align: center;
+                gap: 20px;
+                transform: translateY(-20px);
+                opacity: 0;
+                pointer-events: none;
+                transition: var(--transition);
+            }
+
+            .nav-menu.active {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .hamburger { display: block; }
+            .hero-title { font-size: 3.5rem; }
+            .stats-grid { grid-template-columns: 1fr; text-align: center; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .timer-wrapper { padding: 20px; gap: 10px; }
+            .time-val { font-size: 1.5rem; }
+            .time-box { min-width: 50px; }
+            .time-box:not(:last-child)::after { right: -8px; top: 0; font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+             <img src="mgc.png" alt="Logo MGC" style="height: 40px;">
+                </a>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#fight-card" class="nav-link">Fighters</a></li>
+                <li><a href="#jadwal" class="nav-link">Location</a></li>
+            </ul>
+
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <a href="#daftar" class="btn" style="padding: 10px 25px; font-size: 0.8rem;">
+                    <span>Tickets</span>
+                </a>
+                <div class="hamburger" id="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header id="home" class="hero">
+        <div class="hero-bg" id="heroBg"></div>
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-content">
+            <div class="hero-tag reveal">Majalaya Gelut Championship Vol. 1</div>
+            <h1 class="hero-title reveal">
+                <span>KOTA DOLLAR</span>
+                <span class="highlight">MENTAL PENDEKAR</span>
+            </h1>
+            <p style="color: #aaa; max-width: 500px; margin: 0 auto 40px; font-weight: 300;" class="reveal">
+                Saksikan pertarungan Street Boxing & Freestyle Striking terbesar di Jawa Barat. Tanpa aturan, hanya kehormatan.
+            </p>
+        </div>
+    </header>
+
+    <!-- COUNTDOWN -->
+    <div class="container countdown-container reveal">
+        <div class="timer-wrapper" id="timer">
+            <div class="time-box">
+                <div class="time-val" id="days">00</div>
+                <div class="time-label">Days</div>
+            </div>
+            <div class="time-box">
+                <div class="time-val" id="hours">00</div>
+                <div class="time-label">Hours</div>
+            </div>
+            <div class="time-box">
+                <div class="time-val" id="minutes">00</div>
+                <div class="time-label">Mins</div>
+            </div>
+            <div class="time-box">
+                <div class="time-val" id="seconds">00</div>
+                <div class="time-label">Secs</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="section-padding">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text reveal">
+                    <p class="text-gradient" style="font-weight: 700; letter-spacing: 2px; text-transform: uppercase;">The Arena</p>
+                    <h3>KOTA DOLLAR <br> MENTAL PENDEKAR</h3>
+                    <p>MGC didirikan dengan satu tujuan: memberikan panggung profesional bagi petarung jalanan dan camp di Jawa Barat. Kami menggabungkan estetika pertunjukan modern dengan kebrutalan olahraga tarung.</p>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <h4>150</h4>
+                            <span>Matches</span>
+                        </div>
+                        <div class="stat-item">
+                            <h4>300</h4>
+                            <span>Fighters</span>
+                        </div>
+                        <div class="stat-item">
+                            <h4>2</h4>
+                            <span>Ring</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image reveal">
+                    <img src="https://images.unsplash.com/photo-1591117207239-08891364d262?q=80&w=2070&auto=format&fit=crop" alt="Arena">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FIGHT CARD -->
+    <section id="fight-card" class="section-padding">
+        <div class="container">
+            <h2 class="section-title reveal">Fight Card</h2>
+            <p class="section-subtitle reveal">Malam Pembuktian</p>
+
+            <div class="fight-grid">
+                
+                <!-- Card 1 -->
+                <div class="card reveal">
+                    <div class="card-header">
+                        <span class="match-badge">Main Event</span>
+                    </div>
+                    <div class="fighters-visual">
+                        <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?q=80&w=1974&auto=format&fit=crop" alt="Fighters">
+                        <div class="vs-circle">VS</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="fighter-row">
+                            <div class="fighter-name">?<br><span style="color:var(--text-gray); font-size:0.8rem;">?</span></div>
+                            <div class="fighter-name right">?<br><span style="color:var(--text-gray); font-size:0.8rem;">?</span></div>
+                        </div>
+                        <div class="fighter-meta">
+                            <span>0-0-0 (0 KO)</span>
+                            <span>Street Boxing Pro</span>
+                            <span>0-0-0 (0 KO)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="card reveal" style="transition-delay: 0.1s;">
+                    <div class="card-header">
+                        <span class="match-badge">Co-Main</span>
+                    </div>
+                    <div class="fighters-visual">
+                        <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?q=80&w=1974&auto=format&fit=crop" alt="Fighters">
+                        <div class="vs-circle">VS</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="fighter-row">
+                            <div class="fighter-name">?<br><span style="color:var(--text-gray); font-size:0.8rem;">?</span></div>
+                            <div class="fighter-name right">?<br><span style="color:var(--text-gray); font-size:0.8rem;">?</span></div>
+                        </div>
+                        <div class="fighter-meta">
+                            <span>?</span>
+                            <span>?kg Class</span>
+                            <span>?</span>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- SCHEDULE & LOC -->
+    <section id="jadwal" class="section-padding" style="background: linear-gradient(to bottom, var(--bg-dark), #0a0a0a);">
+        <div class="container">
+            <div class="schedule-container reveal">
+                <div class="info-list">
+                    <h3 style="font-family: var(--font-head); font-size: 2rem; margin-bottom: 20px;">EVENT DETAILS</h3>
+                    
+                    <div class="info-item">
+                        <div class="info-icon"><i class="far fa-calendar-alt"></i></div>
+                        <div class="info-content">
+                            <h4>Date</h4>
+                            <p>Minggu, 28 Juni 2026</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon"><i class="far fa-clock"></i></div>
+                        <div class="info-content">
+                            <h4>Time</h4>
+                            <p>Gates Open: 08:00 WIB</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="info-content">
+                            <h4>Venue</h4>
+                            <p>GOR KONI Majalaya<br>Desa Majakerta, Kab. Bandung</p>
+                        </div>
+                    </div>
+
+                    <a href="#daftar" class="btn" style="margin-top: 20px; text-align: center;">
+                        <span>Get Directions</span>
+                    </a>
+                </div>
+
+                <div class="map-frame">
+                    <iframe src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=gor koni majalaya&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REGISTER -->
+    <section id="daftar" class="section-padding" style="position: relative; overflow: hidden;">
+        <div style="position: absolute; top:0; left:0; width:100%; height:100%; background: url('a1.jpg') center/cover; opacity: 0.2; z-index: -1;"></div>
+        
+        <div class="container" style="text-align: center;">
+            <p class="reveal" style="color: var(--gold-text); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 20px;">Don't Miss The Action</p>
+            <h2 class="section-title reveal" style="margin-bottom: 40px;">SECURE YOUR SEAT</h2>
+            
+            <div class="reveal" style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <button class="btn">
+                    <span>Buy Tickets</span>
+                </button>
+                <button class="btn" style="background: transparent; border: 1px solid var(--gold-text);">
+                    <span style="-webkit-text-fill-color: var(--gold-text);">Fighter Reg</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                  <a href="#" class="logo">
+    <img src="mgc.png" alt="Logo MGC" style="height: 40px;">
+</a>
+                    <p>Liga olahraga bela diri terkemuka di Jawa Barat. Menyatukan disiplin, kekuatan, dan hiburan.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#fight-card">Fight Card</a></li>
+                        <li><a href="#daftar">Tickets</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li>majalayagelutc@gmail.com</li>
+                        <li>+62 851-6716-1320</li>
+                        <li>Majalaya, Indonesia</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                &copy; 2026 Majalaya Gelut Championship. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script>
+        // 1. Mobile Menu
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = hamburger.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.querySelector('i').classList.add('fa-bars');
+                hamburger.querySelector('i').classList.remove('fa-times');
+            });
+        });
+
+        // 2. Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // 3. Parallax Hero Effect
+        const heroBg = document.getElementById('heroBg');
+        window.addEventListener('scroll', () => {
+            const scrollValue = window.scrollY;
+            if (scrollValue < 800) { // Limit calculation
+                heroBg.style.transform = `scale(1.1) translateY(${scrollValue * 0.5}px)`;
+            }
+        });
+
+        // 4. Reveal on Scroll Animation
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            const elementVisible = 100;
+
+            revealElements.forEach((reveal) => {
+                const elementTop = reveal.getBoundingClientRect().top;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        // Trigger once on load
+        revealOnScroll();
+
+        // 5. Countdown
+        // Target Date: 28 Juni 2026, jam 08:00 WIB (UTC+7)
+        const eventDate = new Date("2026-06-28T08:00:00+07:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Cegah angka negatif jika waktu sudah lewat
+            if (distance < 0) {
+                document.getElementById("timer").innerHTML = "<div class='time-val' style='font-size:2rem'>EVENT STARTED</div>";
+                return;
+            }
+
+            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
