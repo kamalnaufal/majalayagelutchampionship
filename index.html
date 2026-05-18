@@ -3,1022 +3,1252 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Majalaya Gelut Championship - Official Event</title>
+    <title>MGC | Dirty Boxing & Freestyle Striking</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            purple: '#6D28D9',
+                            light: '#C4B5FD',
+                            dark: '#4C1D95',
+                            neon: '#8B5CF6'
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['Oswald', 'sans-serif'],
+                        body: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
 
     <style>
-        /* --- VARIABLES & RESET --- */
-        :root {
-            --gold-gradient: linear-gradient(135deg, #FFD700 0%, #FDB931 50%, #997f08 100%);
-            --gold-text: #FFD700;
-            --bg-dark: #050505;
-            --bg-glass: rgba(255, 255, 255, 0.03);
-            --border-glass: rgba(255, 255, 255, 0.08);
-            --text-white: #ffffff;
-            --text-gray: #888888;
-            --font-head: 'Oswald', sans-serif;
-            --font-body: 'Plus Jakarta Sans', sans-serif;
-            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
+        /* Base Styles */
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
-        body {
-            font-family: var(--font-body);
-            background-color: var(--bg-dark);
-            color: var(--text-white);
-            line-height: 1.6;
-            overflow-x: hidden;
-            /* Noise texture overlay */
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        h1, h2, h3, h4, h5, h6 { font-family: 'Oswald', sans-serif; }
+
+        /* Effects */
+        .glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         }
 
-        /* Scrollbar Custom */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #555; }
-
-        a { text-decoration: none; color: inherit; }
-        ul { list-style: none; }
-
-        /* --- UTILITIES --- */
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 24px;
+        .glass-purple {
+            background: rgba(109, 40, 217, 0.9);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(139, 92, 246, 0.5);
+            color: white;
+            box-shadow: 0 10px 30px rgba(109, 40, 217, 0.2);
         }
 
-        .section-padding {
-            padding: 120px 0;
-        }
+        .neon-text { text-shadow: 0 0 10px rgba(139, 92, 246, 0.8), 0 0 20px rgba(139, 92, 246, 0.4); }
+        .neon-box { box-shadow: 0 0 15px rgba(139, 92, 246, 0.3), inset 0 0 10px rgba(139, 92, 246, 0.1); }
 
-        /* Modern Gradient Text */
-        .text-gradient {
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .section-title {
-            font-family: var(--font-head);
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            text-transform: uppercase;
-            text-align: center;
-            margin-bottom: 10px;
-            font-weight: 700;
-            letter-spacing: -1px;
-            line-height: 1;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: var(--gold-text);
-            font-size: 1rem;
-            margin-bottom: 80px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-weight: 600;
-            opacity: 0.8;
-        }
-
-        /* Modern Button */
-        .btn {
-            position: relative;
-            display: inline-block;
-            padding: 16px 40px;
-            background: var(--gold-gradient);
-            color: #000;
-            font-family: var(--font-head);
-            font-weight: 700;
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border: none;
-            cursor: pointer;
-            transition: var(--transition);
-            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-            z-index: 1;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 2px; left: 2px; right: 2px; bottom: 2px;
-            background: #000;
-            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-            z-index: -1;
-            transition: var(--transition);
-        }
-
-        .btn span {
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            transition: var(--transition);
-        }
-
-        .btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(255, 215, 0, 0.15);
-        }
-
-        .btn:hover::before {
-            background: var(--gold-gradient);
-        }
-
-        .btn:hover span {
-            -webkit-text-fill-color: #000;
-        }
-
-        /* --- ANIMATION CLASSES --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease-out;
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* --- NAVBAR --- */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 20px 0;
-            z-index: 1000;
-            transition: var(--transition);
-            border-bottom: 1px solid transparent;
-        }
-
-        .navbar.scrolled {
-            background-color: rgba(5, 5, 5, 0.8);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--border-glass);
-            padding: 15px 0;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: var(--font-head);
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-white);
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo i { color: var(--gold-text); }
-
-        .nav-menu {
-            display: flex;
-            gap: 40px;
-            background: rgba(0,0,0,0.5);
-            padding: 10px 30px;
-            border-radius: 50px;
-            border: 1px solid var(--border-glass);
-            backdrop-filter: blur(5px);
-        }
-
-        .nav-link {
-            font-family: var(--font-body);
-            font-size: 0.9rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            color: var(--text-white);
-            letter-spacing: 1px;
-            opacity: 0.7;
-            transition: var(--transition);
-        }
-
-        .nav-link:hover { opacity: 1; color: var(--gold-text); }
-        .nav-link.active { opacity: 1; color: var(--gold-text); }
-
-        .hamburger { display: none; color: var(--text-white); font-size: 1.5rem; cursor: pointer; }
-
-        /* --- HERO SECTION --- */
-        .hero {
-            height: 100vh;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
+        /* Hero Background */
         .hero-bg {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: url('a3.jpg') no-repeat center center/cover;
-            filter: brightness(0.4) contrast(1.1) grayscale(30%);
-            z-index: -1;
-            transform: scale(1.1); /* Untuk efek parallax */
-            transition: transform 0.1s linear; /* Smooth parallax */
+            background: linear-gradient(-45deg, #f3f4f6, #ffffff, #e0e7ff, #ede9fe);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            position: relative;
         }
 
-        .hero-overlay {
-            position: absolute;
-            bottom: 0; left: 0; width: 100%; height: 50%;
-            background: linear-gradient(to top, var(--bg-dark), transparent);
-            z-index: -1;
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        .hero-content {
-            text-align: center;
-            z-index: 2;
-            padding: 0 20px;
+        .float-anim { animation: floating 4s ease-in-out infinite; }
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
         }
 
-        .hero-tag {
+        /* Marquee */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            background: #4C1D95;
+            padding: 15px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .marquee-content {
             display: inline-block;
-            padding: 8px 20px;
-            border: 1px solid var(--border-glass);
-            border-radius: 50px;
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
-            font-size: 0.9rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 30px;
-            color: var(--text-gray);
+            animation: marquee 25s linear infinite;
         }
-
-        .hero-title {
-            font-family: var(--font-head);
-            font-size: clamp(3rem, 10vw, 8rem);
-            line-height: 0.9;
-            text-transform: uppercase;
-            margin-bottom: 30px;
-            font-weight: 700;
-        }
-
-        .hero-title span {
-            display: block;
-            color: transparent;
-            -webkit-text-stroke: 1px rgba(255,255,255,0.3);
-        }
-
-        .hero-title .highlight {
-            -webkit-text-stroke: 0;
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* --- COUNTDOWN --- */
-        .countdown-container {
-            margin-top: -60px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .timer-wrapper {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(20px);
-            padding: 30px 50px;
-            border: 1px solid var(--border-glass);
-            border-radius: 20px;
-            max-width: max-content;
-            margin: 0 auto;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        }
-
-        .time-box {
-            text-align: center;
-            min-width: 80px;
-            position: relative;
-        }
-
-        .time-box:not(:last-child)::after {
-            content: ':';
-            position: absolute;
-            right: -12px;
-            top: 10px;
-            font-size: 2rem;
-            color: var(--border-glass);
-        }
-
-        .time-val {
-            font-family: var(--font-head);
-            font-size: 2.5rem;
-            font-weight: 500;
-            color: var(--text-white);
-            line-height: 1;
-        }
-
-        .time-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            color: var(--text-gray);
+        .marquee-item {
+            display: inline-block;
+            margin: 0 40px;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-family: 'Oswald', sans-serif;
             letter-spacing: 2px;
-            margin-top: 5px;
         }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* --- ABOUT --- */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 0.8fr 1.2fr;
-            gap: 80px;
-            align-items: center;
-        }
-
-        .about-image {
+        /* Navigation */
+        .nav-btn {
             position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .nav-btn.active {
+            background-color: #6D28D9;
+            color: white;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 15px -3px rgba(109, 40, 217, 0.4);
         }
 
-        .about-image img {
-            width: 100%;
-            border-radius: 20px;
-            filter: grayscale(100%);
-            transition: var(--transition);
+        /* SPA Transitions */
+        .page-view {
+            animation: fadeIn 0.5s ease-out forwards;
+            opacity: 0;
+            display: none;
+        }
+        .page-view.active-view {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .about-image:hover img {
-            filter: grayscale(0%);
-        }
-
-        .about-image::before {
-            content: '';
-            position: absolute;
-            top: -20px; left: -20px;
-            width: 100%; height: 100%;
-            border: 2px solid var(--border-glass);
-            border-radius: 20px;
-            z-index: -1;
-        }
-
-        .about-text h3 {
-            font-family: var(--font-head);
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-
-        .about-text p {
-            color: var(--text-gray);
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            border-top: 1px solid var(--border-glass);
-            padding-top: 30px;
-        }
-
-        .stat-item h4 {
-            font-size: 2rem;
-            font-family: var(--font-head);
-            color: var(--gold-text);
-        }
-
-        .stat-item span {
-            font-size: 0.9rem;
-            color: var(--text-gray);
-            text-transform: uppercase;
-        }
-
-        /* --- FIGHT CARDS (Glassmorphism) --- */
-        .fight-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
-        }
-
-        .card {
-            background: var(--bg-glass);
-            border: 1px solid var(--border-glass);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(255, 215, 0, 0.3);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-        }
-
-        .card-header {
-            padding: 15px;
-            text-align: center;
-            border-bottom: 1px solid var(--border-glass);
-        }
-
-        .match-badge {
-            display: inline-block;
-            padding: 6px 16px;
-            background: rgba(255, 215, 0, 0.1);
-            color: var(--gold-text);
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            border-radius: 50px;
-            border: 1px solid rgba(255, 215, 0, 0.2);
-        }
-
-        .fighters-visual {
-            position: relative;
-            height: 350px;
-            overflow: hidden;
-        }
-
-        .fighters-visual img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(80%);
-            transition: transform 0.6s cubic-bezier(0.2, 1, 0.3, 1), filter 0.6s;
-        }
-
-        .card:hover .fighters-visual img {
-            transform: scale(1.05);
-            filter: grayscale(0%);
-        }
-
-        .vs-circle {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60px; height: 60px;
-            background: rgba(0,0,0,0.8);
-            border: 1px solid var(--gold-text);
+        /* Loaders & Elements */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #6D28D9;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: var(--font-head);
-            font-weight: 700;
-            font-style: italic;
-            color: var(--gold-text);
-            backdrop-filter: blur(5px);
-            z-index: 2;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
         }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        .card-body {
-            padding: 30px;
+        .toast {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 9999;
         }
-
-        .fighter-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-bottom: 8px;
-        }
-
-        .fighter-name {
-            font-family: var(--font-head);
-            font-size: 1.4rem;
-            text-transform: uppercase;
-            line-height: 1;
-        }
-        .fighter-name.right { text-align: right; }
-
-        .fighter-meta {
-            font-size: 0.8rem;
-            color: var(--text-gray);
-            display: flex;
-            justify-content: space-between;
-            border-top: 1px solid var(--border-glass);
-            margin-top: 20px;
-            padding-top: 15px;
-        }
-
-        /* --- SCHEDULE --- */
-        .schedule-container {
-            background: var(--bg-glass);
-            border: 1px solid var(--border-glass);
-            border-radius: 30px;
-            padding: 50px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: start;
-        }
-
-        .info-list {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-        }
-
-        .info-item {
-            display: flex;
-            gap: 25px;
-        }
-
-        .info-icon {
-            font-size: 2rem;
-            color: var(--gold-text);
-            opacity: 0.8;
-        }
-
-        .info-content h4 {
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-            color: var(--text-white);
-        }
-        .info-content p {
-            color: var(--text-gray);
-            font-weight: 300;
-        }
-
-        .map-frame {
-            border-radius: 20px;
-            overflow: hidden;
-            height: 100%;
-            min-height: 300px;
-            border: 1px solid var(--border-glass);
-        }
-
-        .map-frame iframe {
-            width: 100%;
-            height: 100%;
-            filter: grayscale(100%) invert(92%) contrast(83%);
-            opacity: 0.8;
-            transition: var(--transition);
-        }
-        
-        .map-frame:hover iframe { opacity: 1; }
-
-        /* --- FOOTER --- */
-        footer {
-            border-top: 1px solid var(--border-glass);
-            padding: 80px 0 40px;
-            background: linear-gradient(to bottom, var(--bg-dark), #000);
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr;
-            gap: 60px;
-            margin-bottom: 60px;
-        }
-
-        .footer-brand h2 {
-            font-family: var(--font-head);
-            font-size: 2rem;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .footer-brand p { color: var(--text-gray); max-width: 300px; }
-
-        .footer-links h4 {
-            color: var(--text-white);
-            margin-bottom: 25px;
-            font-size: 1.1rem;
-        }
-
-        .footer-links ul li { margin-bottom: 15px; }
-        .footer-links ul li a { color: var(--text-gray); transition: 0.3s; }
-        .footer-links ul li a:hover { color: var(--gold-text); padding-left: 5px; }
-
-        .social-icons { display: flex; gap: 15px; margin-top: 20px; }
-        .social-icon {
-            width: 45px; height: 45px;
-            border: 1px solid var(--border-glass);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-white);
-            transition: var(--transition);
-        }
-        .social-icon:hover {
-            background: var(--gold-text);
-            color: #000;
-            border-color: var(--gold-text);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            color: #444;
-            font-size: 0.9rem;
-            padding-top: 40px;
-            border-top: 1px solid rgba(255,255,255,0.05);
-        }
-
-        /* --- RESPONSIVE --- */
-        @media (max-width: 1024px) {
-            .about-grid, .schedule-container { grid-template-columns: 1fr; gap: 40px; }
-            .about-image { order: -1; }
-            .hero-title { font-size: 5rem; }
-        }
-
-        @media (max-width: 768px) {
-            .nav-menu {
-                position: absolute;
-                top: 80px; left: 20px; right: 20px;
-                flex-direction: column;
-                background: rgba(10,10,10,0.95);
-                backdrop-filter: blur(20px);
-                border: 1px solid var(--border-glass);
-                border-radius: 20px;
-                padding: 40px;
-                text-align: center;
-                gap: 20px;
-                transform: translateY(-20px);
-                opacity: 0;
-                pointer-events: none;
-                transition: var(--transition);
-            }
-
-            .nav-menu.active {
-                transform: translateY(0);
-                opacity: 1;
-                pointer-events: all;
-            }
-
-            .hamburger { display: block; }
-            .hero-title { font-size: 3.5rem; }
-            .stats-grid { grid-template-columns: 1fr; text-align: center; }
-            .footer-grid { grid-template-columns: 1fr; }
-            .timer-wrapper { padding: 20px; gap: 10px; }
-            .time-val { font-size: 1.5rem; }
-            .time-box { min-width: 50px; }
-            .time-box:not(:last-child)::after { right: -8px; top: 0; font-size: 1.5rem; }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
         }
     </style>
 </head>
-<body>
+<body class="antialiased pb-24">
 
-    <!-- NAVBAR -->
-    <nav class="navbar" id="navbar">
-        <div class="container nav-container">
-            <a href="#" class="logo">
-             <img src="mgc.png" alt="Logo MGC" style="height: 40px;">
-                </a>
-            
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="#home" class="nav-link active">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#fight-card" class="nav-link">Fighters</a></li>
-                <li><a href="#jadwal" class="nav-link">Location</a></li>
-            </ul>
+    <!-- FLOATING BOTTOM NAVIGATION -->
+    <nav id="main-nav" class="fixed bottom-4 left-1/2 transform -translate-x-1/2 glass rounded-full px-2 py-2 flex items-center justify-between z-50 border border-purple-200 w-[95%] max-w-[400px]">
+        <a href="#home" class="nav-btn w-1/4 flex flex-col items-center py-2 rounded-full text-brand-dark" data-target="home">
+            <i class="ph ph-house text-2xl"></i>
+            <span class="text-[10px] font-bold mt-1">Home</span>
+        </a>
+        <a href="#fights" class="nav-btn w-1/4 flex flex-col items-center py-2 rounded-full text-brand-dark" data-target="fights">
+            <i class="ph ph-sword text-2xl"></i>
+            <span class="text-[10px] font-bold mt-1">Card</span>
+        </a>
+        <a href="#register" class="nav-btn w-1/4 flex flex-col items-center py-2 rounded-full text-brand-dark" data-target="register">
+            <i class="ph ph-pencil-simple-line text-2xl"></i>
+            <span class="text-[10px] font-bold mt-1">Daftar</span>
+        </a>
+        <a href="#admin-login" class="nav-btn w-1/4 flex flex-col items-center py-2 rounded-full text-gray-400 hover:text-brand-purple" data-target="admin">
+            <i class="ph ph-lock-key text-2xl"></i>
+            <span class="text-[10px] font-bold mt-1">Admin</span>
+        </a>
+    </nav>
 
-            <div style="display: flex; align-items: center; gap: 20px;">
-                <a href="#daftar" class="btn" style="padding: 10px 25px; font-size: 0.8rem;">
-                    <span>Tickets</span>
-                </a>
-                <div class="hamburger" id="hamburger">
-                    <i class="fas fa-bars"></i>
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="toast bg-gray-900 text-white px-6 py-3 rounded-full font-semibold shadow-2xl flex items-center gap-2">
+        <i class="ph-fill ph-check-circle text-green-400"></i>
+        <span id="toast-msg">Teks Disalin</span>
+    </div>
+
+    <!-- MAIN APP CONTAINER -->
+    <main id="app-content">
+        
+        <!-- ============================================== -->
+        <!-- VIEW 1: HOME                                   -->
+        <!-- ============================================== -->
+        <div id="view-home" class="page-view active-view">
+            <!-- HERO SECTION -->
+            <section class="hero-bg min-h-screen flex flex-col justify-center items-center relative pt-10 pb-20">
+                <!-- Background Orbs -->
+                <div class="absolute top-20 left-10 w-48 h-48 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-50 float-anim"></div>
+                <div class="absolute bottom-40 right-10 w-56 h-56 bg-brand-neon rounded-full mix-blend-multiply filter blur-3xl opacity-30 float-anim" style="animation-delay: 2s;"></div>
+
+                <div class="z-10 text-center px-4 max-w-5xl mx-auto flex flex-col items-center mt-10">
+                    <span class="bg-brand-dark text-white px-5 py-1.5 rounded-full text-xs md:text-sm font-bold tracking-widest uppercase mb-6 shadow-lg border border-purple-400 flex items-center gap-2">
+                        <i class="ph-fill ph-warning-circle text-brand-neon"></i> Underground Arena
+                    </span>
+                    
+                    <h1 class="text-6xl md:text-8xl lg:text-9xl font-heading font-bold text-brand-dark leading-none uppercase neon-text tracking-tighter">
+                        Majalaya Gelut <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-purple to-purple-900">Championship</span>
+                    </h1>
+                    
+                    <p class="mt-6 text-lg md:text-xl text-gray-700 font-medium max-w-2xl mx-auto">saksikan serunya adu ketangkasan dan semangat pantang menyerah di atas ring profesional!</p>
+                    
+                    <!-- Event Info Cards -->
+                    <div class="flex flex-wrap justify-center gap-4 mt-8 w-full">
+                        <div class="glass px-6 py-3 rounded-xl flex items-center gap-3">
+                            <i class="ph-fill ph-map-pin text-brand-purple text-2xl"></i>
+                            <div class="text-left">
+                                <p class="text-xs text-gray-500 font-bold uppercase">Lokasi</p>
+                                <p class="font-bold text-brand-dark">Graha Sajabat</p>
+                            </div>
+                        </div>
+                        <div class="glass px-6 py-3 rounded-xl flex items-center gap-3">
+                            <i class="ph-fill ph-calendar-blank text-brand-purple text-2xl"></i>
+                            <div class="text-left">
+                                <p class="text-xs text-gray-500 font-bold uppercase">Waktu</p>
+                                <p class="font-bold text-brand-dark">Oktober 2026</p>
+                            </div>
+                        </div>
+                        <div class="glass px-6 py-3 rounded-xl flex items-center gap-3">
+                            <i class="ph-fill ph-users text-brand-purple text-2xl"></i>
+                            <div class="text-left">
+                                <p class="text-xs text-gray-500 font-bold uppercase">Roster</p>
+                                <p class="font-bold text-brand-dark">300++ Fighters</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Countdown Timer -->
+                    <div class="flex gap-3 md:gap-6 mt-12 glass p-4 md:p-6 rounded-3xl border border-white shadow-xl">
+                        <div class="flex flex-col items-center w-16 md:w-20">
+                            <span id="days" class="text-4xl md:text-5xl font-heading font-bold text-brand-purple">00</span>
+                            <span class="text-[10px] md:text-xs uppercase font-bold text-gray-500 tracking-wider mt-1">Hari</span>
+                        </div>
+                        <span class="text-3xl md:text-4xl font-heading text-brand-light mt-1">:</span>
+                        <div class="flex flex-col items-center w-16 md:w-20">
+                            <span id="hours" class="text-4xl md:text-5xl font-heading font-bold text-brand-purple">00</span>
+                            <span class="text-[10px] md:text-xs uppercase font-bold text-gray-500 tracking-wider mt-1">Jam</span>
+                        </div>
+                        <span class="text-3xl md:text-4xl font-heading text-brand-light mt-1">:</span>
+                        <div class="flex flex-col items-center w-16 md:w-20">
+                            <span id="minutes" class="text-4xl md:text-5xl font-heading font-bold text-brand-purple">00</span>
+                            <span class="text-[10px] md:text-xs uppercase font-bold text-gray-500 tracking-wider mt-1">Menit</span>
+                        </div>
+                        <span class="text-3xl md:text-4xl font-heading text-brand-light mt-1">:</span>
+                        <div class="flex flex-col items-center w-16 md:w-20">
+                            <span id="seconds" class="text-4xl md:text-5xl font-heading font-bold text-brand-purple">00</span>
+                            <span class="text-[10px] md:text-xs uppercase font-bold text-gray-500 tracking-wider mt-1">Detik</span>
+                        </div>
+                    </div>
+
+                    <!-- CTA Button -->
+                    <a href="#register" class="mt-12 bg-brand-purple hover:bg-brand-dark text-white font-bold text-lg md:text-xl py-4 px-10 rounded-full transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(109,40,217,0.6)] flex items-center gap-2">
+                        DAFTAR SEKARANG <i class="ph-bold ph-arrow-right"></i>
+                    </a>
+                </div>
+            </section>
+
+            <!-- SPONSOR MARQUEE -->
+            <div class="marquee-container border-y border-purple-800">
+                <div class="marquee-content">
+                     <!--  <span class="marquee-item"><i class="ph-fill ph-lightning"></i> GRAHA SAJABAT</span>
+                    <span class="marquee-item"><i class="ph-fill ph-fire"></i> FIGHT GEAR PRO</span>
+                    <span class="marquee-item"><i class="ph-fill ph-shield-check"></i> BPJS KESEHATAN</span>
+                    <span class="marquee-item"><i class="ph-fill ph-barbell"></i> GYM MUSCLE MAKER</span>
+                    Duplicate for seamless scroll 
+                    <span class="marquee-item"><i class="ph-fill ph-lightning"></i> GRAHA SAJABAT</span>
+                    <span class="marquee-item"><i class="ph-fill ph-fire"></i> FIGHT GEAR PRO</span>
+                    <span class="marquee-item"><i class="ph-fill ph-shield-check"></i> BPJS KESEHATAN</span>
+                    <span class="marquee-item"><i class="ph-fill ph-barbell"></i> GYM MUSCLE MAKER</span> -->
+                </div> 
+            </div>
+
+            <!-- RULES SECTION -->
+            <section class="py-20 px-4 max-w-6xl mx-auto bg-white/50">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-heading font-bold text-brand-dark uppercase">Peraturan <span class="text-brand-purple">Pertandingan</span></h2>
+                    <p class="text-gray-500 mt-2">Pahami regulasi sebelum Anda melangkah ke atas ring.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                    <!-- Dirty Boxing Rules -->
+                    <div class="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 hover:shadow-2xl transition-all">
+                        <div class="w-16 h-16 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-inner">
+                            <i class="ph-fill ph-hand-fist"></i>
+                        </div>
+                        <h3 class="text-3xl font-heading font-bold text-gray-900 mb-4 uppercase">Dirty Boxing</h3>
+                        <p class="text-gray-600 mb-6 line-clamp-3">Seni bertinju jarak dekat </p>
+                        <ul class="space-y-3 text-sm text-gray-700">
+                            <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-brand-purple text-lg mt-0.5"></i> <span>Pukulan ke arah kepala dan badan diperbolehkan.</span></li>
+                            <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-brand-purple text-lg mt-0.5"></i> <span>Superman Punch, spinning backpish</span></li>
+                            <li class="flex items-start gap-3"><i class="ph-fill ph-x-circle text-red-500 text-lg mt-0.5"></i> <span>tendangan, groin strike</span></li>
+                            <li class="flex items-start gap-3"><i class="ph-fill ph-x-circle text-red-500 text-lg mt-0.5"></i> <span>elbow , knee</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- Freestyle Striking Rules -->
+                    <div class="bg-gray-900 rounded-3xl p-8 shadow-xl border border-gray-800 hover:shadow-2xl hover:shadow-purple-900/50 transition-all text-white relative overflow-hidden">
+                        <!-- BG Element -->
+                        <i class="ph-fill ph-sword absolute -bottom-10 -right-10 text-9xl text-gray-800 opacity-50 transform -rotate-12"></i>
+                        
+                        <div class="w-16 h-16 bg-brand-purple text-white rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-lg relative z-10">
+                            <i class="ph-fill ph-lightning"></i>
+                        </div>
+                        <h3 class="text-3xl font-heading font-bold text-white mb-4 uppercase relative z-10">Freestyle Striking</h3>
+                        <p class="text-gray-400 mb-6 relative z-10">Kombinasi striking bebas berdiri</p>
+                        <ul class="space-y-3 text-sm text-gray-300 relative z-10">
+                            <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-brand-neon text-lg mt-0.5"></i> <span>Pukulan, tendangan, ke badan dan kepala diperbolehkan.</span></li>
+                            <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-brand-neon text-lg mt-0.5"></i> <span>Superman Punch, spinning backpish, spinning back kick</span></li>
+                            <li class="flex items-start gap-3"><i class="ph-fill ph-x-circle text-red-400 text-lg mt-0.5"></i> <span>elbow, knee</span></li>
+                            <li class="flex items-start gap-3"><i class="ph-fill ph-x-circle text-red-400 text-lg mt-0.5"></i> <span>Pertarungan bawah (Ground and Pound / Submission) dilarang.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- VIEW 2: FIGHT CARD                             -->
+        <!-- ============================================== -->
+        <div id="view-fights" class="page-view py-10 px-4 min-h-screen">
+            <div class="max-w-6xl mx-auto pt-10">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl md:text-6xl font-heading font-bold text-brand-dark uppercase">Fight <span class="text-brand-purple">Card</span></h2>
+                    <p class="text-gray-500 mt-2">Daftar petarung yang telah terkonfirmasi berlaga di Graha Sajabat.</p>
+                </div>
+
+                <!-- Dynamic Grid Container -->
+                <div id="public-fight-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+                    <!-- Inject by JS -->
+                </div>
+
+                <!-- WAITING LIST SECTION -->
+                <div class="text-center mb-10 pt-10 border-t border-purple-200">
+                    <h2 class="text-3xl md:text-5xl font-heading font-bold text-gray-800 uppercase"><i class="ph-fill ph-hourglass-high text-brand-purple"></i> Waiting <span class="text-brand-purple">List</span></h2>
+                    <p class="text-gray-500 mt-2">Fighter yang siap tempur namun belum memiliki lawan (Open Challenge).</p>
+                </div>
+
+                <div id="public-waiting-grid" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <!-- Inject by JS -->
                 </div>
             </div>
         </div>
-    </nav>
 
-    <!-- HERO SECTION -->
-    <header id="home" class="hero">
-        <div class="hero-bg" id="heroBg"></div>
-        <div class="hero-overlay"></div>
-        
-        <div class="hero-content">
-            <div class="hero-tag reveal">Majalaya Gelut Championship Vol. 1</div>
-            <h1 class="hero-title reveal">
-                <span>KOTA DOLLAR</span>
-                <span class="highlight">MENTAL PENDEKAR</span>
-            </h1>
-            <p style="color: #aaa; max-width: 500px; margin: 0 auto 40px; font-weight: 300;" class="reveal">
-                Saksikan pertarungan Street Boxing & Freestyle Striking terbesar di Jawa Barat. Tanpa aturan, hanya kehormatan.
-            </p>
+        <!-- ============================================== -->
+        <!-- VIEW 3: REGISTRASI                             -->
+        <!-- ============================================== -->
+        <div id="view-register" class="page-view py-10 px-4 bg-white relative min-h-screen">
+            <div class="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5 pointer-events-none"></div>
+            
+            <div class="max-w-5xl mx-auto pt-10">
+                <div class="text-center mb-10">
+                    <h2 class="text-4xl md:text-6xl font-heading font-bold text-brand-dark uppercase">Form <span class="text-brand-purple">Registrasi</span></h2>
+                    <p class="text-gray-600 mt-3">Lengkapi data diri Anda dengan benar. Kuota terbatas untuk 300 petarung.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 relative z-10">
+                    
+                    <!-- Left Column: Payment & Info -->
+                    <div class="lg:col-span-1">
+                        <div class="glass-purple rounded-3xl p-6 shadow-2xl sticky top-10">
+                            <h3 class="text-xl font-heading mb-2 text-white uppercase flex items-center gap-2">
+                                <i class="ph-fill ph-wallet"></i> Biaya Registrasi
+                            </h3>
+                            <p class="text-xs text-purple-200 mb-6">Lakukan transfer sebelum mengisi form.</p>
+                            
+                            <div class="bg-white rounded-2xl p-5 text-center mb-6 neon-box relative overflow-hidden">
+                                <div class="absolute top-0 left-0 w-full h-2 bg-blue-500"></div>
+                                <img src="danalg.png" alt="DANA" class="h-6 mx-auto mb-3 mt-2">
+                                
+                                <div class="flex items-center justify-center gap-2 mb-1">
+                                    <p id="rekNumber" class="text-2xl font-bold text-brand-dark tracking-wider">085720309608</p>
+                                    <button type="button" onclick="copyToClipboard('085720309608')" class="bg-gray-100 hover:bg-gray-200 text-gray-600 p-2 rounded-lg transition-colors" title="Salin Nomor">
+                                        <i class="ph ph-copy text-lg"></i>
+                                    </button>
+                                </div>
+                                <p class="text-sm font-semibold text-gray-600">a/n Kamal Naufal Ramadhan</p>
+                            </div>
+                            
+                            <div class="bg-purple-900/50 rounded-2xl p-4 border border-purple-500/30">
+                                <h4 class="text-sm font-bold text-white mb-3">Syarat Upload:</h4>
+                                <ul class="text-xs space-y-2 text-purple-100">
+                                    <li class="flex items-start gap-2"><i class="ph-bold ph-check text-green-400 mt-0.5"></i> Bukti Screenshot Transfer DANA.</li>
+                                    <li class="flex items-start gap-2"><i class="ph-bold ph-check text-green-400 mt-0.5"></i> Foto KTP/KK (Jelas, untuk BPJS).</li>
+                                    <li class="flex items-start gap-2"><i class="ph-bold ph-check text-green-400 mt-0.5"></i> Foto Petarung (Setengah badan, hadap depan, mengepal tangan).</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: The Form -->
+                    <div class="lg:col-span-2">
+                        <form id="registrationForm" class="glass rounded-3xl p-6 md:p-8 shadow-xl border border-gray-100">
+                            
+                            <h4 class="font-heading text-xl text-brand-dark mb-4 border-b pb-2">Data Pribadi</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-700 mb-1 uppercase">Nama Lengkap (Sesuai KTP) *</label>
+                                    <input type="text" id="regNama" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-purple outline-none bg-white/50 text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-700 mb-1 uppercase">NIK KTP *</label>
+                                    <input type="number" id="regNIK" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-purple outline-none bg-white/50 text-sm" placeholder="16 Digit NIK">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-700 mb-1 uppercase">Nomor HP / WhatsApp *</label>
+                                    <input type="number" id="regPhone" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-purple outline-none bg-white/50 text-sm" placeholder="08...">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-700 mb-1 uppercase">Email Aktif *</label>
+                                    <input type="email" id="regEmail" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-purple outline-none bg-white/50 text-sm" placeholder="email@contoh.com">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-700 mb-1 uppercase">Umur (Tahun) *</label>
+                                    <input type="number" id="regUmur" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-purple outline-none bg-white/50 text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-700 mb-1 uppercase">Ukuran Baju (Fighter Kit) *</label>
+                                    <select id="regBaju" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-purple outline-none bg-white/50 text-sm">
+                                        <option value="" disabled selected>Pilih Ukuran...</option>
+                                        <option value="S">S</option>
+                                        <option value="M">M</option>
+                                        <option value="L">L</option>
+                                        <option value="XL">XL</option>
+                                        <option value="XXL">XXL</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <h4 class="font-heading text-xl text-brand-dark mb-4 border-b pb-2">Data Petarung</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-700 mb-1 uppercase">Nama Ring / Julukan *</label>
+                                    <input type="text" id="regJulukan" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-purple outline-none bg-white/50 text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-700 mb-1 uppercase">Asal Camp / Sasana *</label>
+                                    <input type="text" id="regCamp" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-purple outline-none bg-white/50 text-sm" placeholder="Kosongkan jika Independent">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-700 mb-1 uppercase">Tinggi Badan (cm) *</label>
+                                    <input type="number" id="regTB" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-purple outline-none bg-white/50 text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-700 mb-1 uppercase">Berat Badan Jalan (kg) *</label>
+                                    <input type="number" id="regBB" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-purple outline-none bg-white/50 text-sm" placeholder="Berat badan normal">
+                                </div>
+                                
+                                <!-- Pilihan Rules -->
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-700 mb-1 uppercase">Rules Yang Dipilih *</label>
+                                    <select id="regRules" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-purple outline-none bg-white/50 text-sm font-bold text-brand-dark">
+                                        <option value="" disabled selected>Pilih Rules Pertandingan...</option>
+                                        <option value="Dirty Boxing">Dirty Boxing</option>
+                                        <option value="Freestyle Striking">Freestyle Striking</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-700 mb-1 uppercase">Kelas Berat *</label>
+                                    <select id="regKelas" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-purple outline-none bg-white/50 text-sm">
+                                        <option value="" disabled selected>Pilih Kelas...</option>
+                                        <option value="Junior">Junior</option>
+                                        <option value="45kg">45 kg</option>
+                                        <option value="48kg">48 kg</option>
+                                        <option value="52kg">52 kg</option>
+                                        <option value="54kg">54 kg</option>
+                                        <option value="57kg">57 kg</option>
+                                        <option value="60kg">60 kg</option>
+                                        <option value="65kg">65 kg</option>
+                                        <option value="70kg">70 kg</option>
+                                        <option value="75kg">75 kg</option>
+                                        <option value="80++kg">80++ kg</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <h4 class="font-heading text-xl text-brand-dark mb-4 border-b pb-2">Upload Dokumen</h4>
+                            <div class="space-y-5 mb-8">
+                                <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                                    <label class="block text-xs font-bold text-gray-700 mb-2 uppercase">1. Foto KTP/KK (Untuk BPJS) *</label>
+                                    <input type="file" id="fileKtp" accept="image/*" required class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-100 file:text-brand-purple hover:file:bg-purple-200 cursor-pointer bg-white rounded-full p-1 border border-gray-300">
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                                    <label class="block text-xs font-bold text-gray-700 mb-2 uppercase">2. Foto Petarung (Mengepal Tangan) *</label>
+                                    <input type="file" id="fileFoto" accept="image/*" required class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-100 file:text-brand-purple hover:file:bg-purple-200 cursor-pointer bg-white rounded-full p-1 border border-gray-300">
+                                </div>
+                                <div class="bg-blue-50 p-4 rounded-xl border border-blue-200">
+                                    <label class="block text-xs font-bold text-blue-800 mb-2 uppercase">3. Bukti Transfer DANA *</label>
+                                    <input type="file" id="fileTransfer" accept="image/*" required class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-100 file:text-blue-700 hover:file:bg-blue-200 cursor-pointer bg-white rounded-full p-1 border border-blue-300">
+                                </div>
+                            </div>
+
+                            <!-- Consent Checkbox -->
+                            <div class="mb-8 flex items-start gap-3">
+                                <input type="checkbox" id="consent" required class="mt-1 w-5 h-5 text-brand-purple rounded focus:ring-brand-purple">
+                                <label for="consent" class="text-xs text-gray-600 leading-tight">
+                                    Saya menyatakan bahwa data yang saya isi adalah benar. Saya memahami resiko olahraga bela diri dan membebaskan pihak penyelenggara dari tuntutan hukum atas cedera yang terjadi.
+                                </label>
+                            </div>
+
+                            <button type="submit" id="btnSubmitForm" class="w-full bg-brand-dark hover:bg-brand-purple text-white font-bold py-4 rounded-xl transition-all shadow-lg flex justify-center items-center gap-2 text-lg">
+                                <span>KIRIM PENDAFTARAN</span>
+                                <i class="ph-bold ph-paper-plane-tilt"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-    </header>
 
-    <!-- COUNTDOWN -->
-    <div class="container countdown-container reveal">
-        <div class="timer-wrapper" id="timer">
-            <div class="time-box">
-                <div class="time-val" id="days">00</div>
-                <div class="time-label">Days</div>
+        <!-- ============================================== -->
+        <!-- VIEW 4: ADMIN PANEL (PROTECTED)                -->
+        <!-- ============================================== -->
+        <div id="view-admin" class="page-view min-h-screen bg-gray-900 pt-10 px-4 text-white">
+            <div class="max-w-7xl mx-auto pb-24 pt-10">
+                
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 border-b border-gray-700 pb-4 gap-4">
+                    <div>
+                        <h2 class="text-3xl font-heading text-brand-neon">Admin Dashboard</h2>
+                        <p class="text-gray-400 text-sm">Kelola Fight Card & Waiting List</p>
+                    </div>
+                    <button onclick="logoutAdmin()" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-colors">
+                        <i class="ph-bold ph-sign-out"></i> Keluar Admin
+                    </button>
+                </div>
+
+                <!-- SECTION 1: MATCH MAKER -->
+                <div class="mb-12">
+                    <h3 class="text-xl font-heading text-white border-l-4 border-brand-neon pl-3 mb-6 uppercase tracking-wider">Kelola Jadwal Pertandingan</h3>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <!-- Form Tambah/Edit Fight -->
+                        <div class="lg:col-span-1">
+                            <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 sticky top-10">
+                                <h3 class="text-xl font-bold mb-4 flex items-center gap-2" id="formAdminTitle">
+                                    <i class="ph-fill ph-plus-circle text-brand-neon"></i> Tambah Match
+                                </h3>
+                                <form id="adminFightForm">
+                                    <input type="hidden" id="editFightId">
+                                    
+                                    <div class="mb-4 p-4 bg-red-900/10 border border-red-500/30 rounded-xl">
+                                        <h4 class="text-red-400 font-bold mb-2 text-xs uppercase"><i class="ph-fill ph-square text-red-500"></i> Red Corner</h4>
+                                        <input type="text" id="redName" placeholder="Nama Petarung" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm mb-2 focus:border-red-500 outline-none">
+                                        <input type="text" id="redStats" placeholder="Camp / Record (cth: MMA Club | 2-0)" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm mb-2 focus:border-red-500 outline-none">
+                                        <label class="text-[10px] text-gray-400 mb-1 block">Foto Red Corner</label>
+                                        <input type="file" id="redPhoto" accept="image/*" class="w-full text-xs text-gray-400 file:mr-2 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-red-900 file:text-red-200 hover:file:bg-red-800 bg-gray-900 rounded-lg border border-gray-600">
+                                    </div>
+
+                                    <div class="mb-4 p-4 bg-blue-900/10 border border-blue-500/30 rounded-xl">
+                                        <h4 class="text-blue-400 font-bold mb-2 text-xs uppercase"><i class="ph-fill ph-square text-blue-500"></i> Blue Corner</h4>
+                                        <input type="text" id="blueName" placeholder="Nama Petarung" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm mb-2 focus:border-blue-500 outline-none">
+                                        <input type="text" id="blueStats" placeholder="Camp / Record (cth: Boxing Gym | 1-1)" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm mb-2 focus:border-blue-500 outline-none">
+                                        <label class="text-[10px] text-gray-400 mb-1 block">Foto Blue Corner</label>
+                                        <input type="file" id="bluePhoto" accept="image/*" class="w-full text-xs text-gray-400 file:mr-2 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-blue-900 file:text-blue-200 hover:file:bg-blue-800 bg-gray-900 rounded-lg border border-gray-600">
+                                    </div>
+
+                                    <div class="mb-6 space-y-3">
+                                        <select id="matchCategory" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none focus:border-brand-purple">
+                                            <option value="" disabled selected>Pilih Kategori...</option>
+                                            <option value="Amatir">Amatir</option>
+                                            <option value="Amatir Pro">Amatir Pro</option>
+                                            <option value="Pro">Pro</option>
+                                        </select>
+                                        <select id="matchRules" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none focus:border-brand-purple">
+                                            <option value="Dirty Boxing">Dirty Boxing</option>
+                                            <option value="Freestyle Striking">Freestyle Striking</option>
+                                        </select>
+                                        <input type="text" id="matchClass" placeholder="Kelas Berat (Misal: 65kg)" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none focus:border-brand-purple">
+                                        <select id="matchStatus" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none focus:border-brand-purple">
+                                            <option value="Prelims">Prelims</option>
+                                            <option value="Main Card">Main Card</option>
+                                            <option value="Co-Main Event">Co-Main Event</option>
+                                            <option value="Main Event">Main Event</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="flex gap-2">
+                                        <button type="submit" class="flex-1 bg-brand-purple hover:bg-brand-neon text-white font-bold py-2 rounded-lg transition-colors text-sm">Simpan Data</button>
+                                        <button type="button" onclick="resetAdminForm()" class="px-4 bg-gray-600 hover:bg-gray-500 rounded-lg font-bold text-sm">Batal</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Table Fight Card -->
+                        <div class="lg:col-span-2">
+                            <div class="bg-gray-800 rounded-2xl border border-gray-700 overflow-hidden">
+                                <div class="p-4 border-b border-gray-700 bg-gray-900/50 flex justify-between items-center">
+                                    <h3 class="font-bold text-white text-sm">Daftar Pertandingan</h3>
+                                    <span class="bg-brand-dark text-xs px-2 py-1 rounded-md" id="adminMatchCount">0 Match</span>
+                                </div>
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-left text-sm whitespace-nowrap">
+                                        <thead class="bg-gray-900/80 uppercase text-gray-400 text-[10px] tracking-wider">
+                                            <tr>
+                                                <th class="px-4 py-3">Fighters</th>
+                                                <th class="px-4 py-3">Kategori & Rules</th>
+                                                <th class="px-4 py-3">Status</th>
+                                                <th class="px-4 py-3 text-right">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="admin-table-body" class="divide-y divide-gray-700/50">
+                                            <!-- Injected via JS -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 2: WAITING LIST -->
+                <div class="mt-16 pt-10 border-t border-gray-700">
+                    <h3 class="text-xl font-heading text-white border-l-4 border-yellow-500 pl-3 mb-6 uppercase tracking-wider">Kelola Waiting List (Belum Ada Lawan)</h3>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <!-- Form Waiting List -->
+                        <div class="lg:col-span-1">
+                            <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                                <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+                                    <i class="ph-fill ph-user-plus text-yellow-500"></i> Tambah Waiting List
+                                </h3>
+                                <form id="adminWaitingForm">
+                                    <div class="space-y-3 mb-4">
+                                        <input type="text" id="waitName" placeholder="Nama Ring / Julukan" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none">
+                                        <input type="text" id="waitCamp" placeholder="Asal Camp" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none">
+                                        
+                                        <div class="grid grid-cols-2 gap-2">
+                                            <select id="waitCategory" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none">
+                                                <option value="Amatir">Amatir</option>
+                                                <option value="Amatir Pro">Amatir Pro</option>
+                                                <option value="Pro">Pro</option>
+                                            </select>
+                                            <input type="text" id="waitClass" placeholder="Kelas (Misal: 60kg)" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none">
+                                        </div>
+
+                                        <select id="waitRules" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none">
+                                            <option value="Dirty Boxing">Dirty Boxing</option>
+                                            <option value="Freestyle Striking">Freestyle Striking</option>
+                                        </select>
+                                        
+                                        <div>
+                                            <label class="text-[10px] text-gray-400 mb-1 block">Foto Fighter (Opsional)</label>
+                                            <input type="file" id="waitPhoto" accept="image/*" class="w-full text-xs text-gray-400 file:mr-2 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-gray-700 file:text-white hover:file:bg-gray-600 bg-gray-900 rounded-lg border border-gray-600">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="w-full bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-2 rounded-lg transition-colors text-sm">Masukan ke Waiting List</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Table Waiting List -->
+                        <div class="lg:col-span-2">
+                            <div class="bg-gray-800 rounded-2xl border border-gray-700 overflow-hidden">
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-left text-sm whitespace-nowrap">
+                                        <thead class="bg-gray-900/80 uppercase text-gray-400 text-[10px] tracking-wider">
+                                            <tr>
+                                                <th class="px-4 py-3">Fighter</th>
+                                                <th class="px-4 py-3">Kategori / Kelas</th>
+                                                <th class="px-4 py-3">Rules Diminta</th>
+                                                <th class="px-4 py-3 text-right">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="admin-waiting-body" class="divide-y divide-gray-700/50">
+                                            <!-- Injected via JS -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            <div class="time-box">
-                <div class="time-val" id="hours">00</div>
-                <div class="time-label">Hours</div>
+        </div>
+
+    </main>
+
+    <!-- ============================================== -->
+    <!-- MODALS & OVERLAYS                              -->
+    <!-- ============================================== -->
+    
+    <!-- Admin Login Modal -->
+    <div id="loginModal" class="fixed inset-0 bg-gray-900/90 z-[100] hidden flex justify-center items-center backdrop-blur-sm">
+        <div class="bg-white rounded-2xl p-8 max-w-sm w-full mx-4 shadow-2xl">
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="ph-fill ph-lock-key text-3xl text-brand-dark"></i>
+                </div>
+                <h3 class="text-2xl font-heading font-bold text-brand-dark">Panel Admin</h3>
+                <p class="text-xs text-gray-500 mt-1">Masukkan password (<b class="text-brand-purple">admin123</b>)</p>
             </div>
-            <div class="time-box">
-                <div class="time-val" id="minutes">00</div>
-                <div class="time-label">Mins</div>
-            </div>
-            <div class="time-box">
-                <div class="time-val" id="seconds">00</div>
-                <div class="time-label">Secs</div>
+            
+            <input type="password" id="adminPassword" placeholder="Kata Sandi" class="w-full px-4 py-3 border border-gray-300 rounded-xl mb-2 focus:ring-2 focus:ring-brand-purple outline-none text-center tracking-widest text-lg">
+            <p id="loginError" class="text-red-500 text-xs hidden mb-4 text-center font-bold">⚠️ Kata sandi tidak valid!</p>
+            
+            <div class="flex gap-2 mt-4">
+                <button onclick="closeLoginModal()" class="flex-1 py-3 text-gray-600 bg-gray-100 rounded-xl font-bold hover:bg-gray-200 transition-colors">Batal</button>
+                <button onclick="verifyAdmin()" class="flex-1 py-3 text-white bg-brand-dark rounded-xl font-bold hover:bg-brand-purple transition-colors">Masuk</button>
             </div>
         </div>
     </div>
 
-    <!-- ABOUT SECTION -->
-    <section id="about" class="section-padding">
-        <div class="container">
-            <div class="about-grid">
-                <div class="about-text reveal">
-                    <p class="text-gradient" style="font-weight: 700; letter-spacing: 2px; text-transform: uppercase;">The Arena</p>
-                    <h3>KOTA DOLLAR <br> MENTAL PENDEKAR</h3>
-                    <p>MGC didirikan dengan satu tujuan: memberikan panggung profesional bagi petarung jalanan dan camp di Jawa Barat. Kami menggabungkan estetika pertunjukan modern dengan kebrutalan olahraga tarung.</p>
-                    
-                    <div class="stats-grid">
-                        <div class="stat-item">
-                            <h4>150</h4>
-                            <span>Matches</span>
-                        </div>
-                        <div class="stat-item">
-                            <h4>300</h4>
-                            <span>Fighters</span>
-                        </div>
-                        <div class="stat-item">
-                            <h4>2</h4>
-                            <span>Ring</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-image reveal">
-                    <img src="https://images.unsplash.com/photo-1591117207239-08891364d262?q=80&w=2070&auto=format&fit=crop" alt="Arena">
-                </div>
+    <!-- Alert / Success Form Modal -->
+    <div id="alertModal" class="fixed inset-0 bg-black/70 z-[100] hidden flex justify-center items-center backdrop-blur-sm">
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full mx-4 text-center shadow-2xl relative overflow-hidden">
+            <!-- Loading State -->
+            <div id="alertLoading" class="block">
+                <div class="loader mx-auto mb-6"></div>
+                <h3 class="text-xl font-bold text-gray-800 mb-2">Memproses Data...</h3>
+                <p class="text-gray-500 text-sm">Mohon jangan tutup halaman ini. Mengunggah dokumen pendaftaran Anda.</p>
             </div>
-        </div>
-    </section>
 
-    <!-- FIGHT CARD -->
-    <section id="fight-card" class="section-padding">
-        <div class="container">
-            <h2 class="section-title reveal">Fight Card</h2>
-            <p class="section-subtitle reveal">Malam Pembuktian</p>
-
-            <div class="fight-grid">
+            <!-- Success State -->
+            <div id="alertSuccess" class="hidden">
+                <i class="ph-fill ph-check-circle text-6xl text-green-500 mb-4 inline-block"></i>
+                <h3 class="text-2xl font-heading font-bold text-gray-900 mb-2">Pendaftaran Berhasil!</h3>
+                <p class="text-gray-600 text-sm mb-6">Data Anda telah masuk ke sistem. Silakan bergabung ke Grup WhatsApp peserta untuk info kurasi & jadwal technical meeting.</p>
                 
-                <!-- Card 1 -->
-                <div class="card reveal">
-                    <div class="card-header">
-                        <span class="match-badge">Main Event</span>
-                    </div>
-                    <div class="fighters-visual">
-                        <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?q=80&w=1974&auto=format&fit=crop" alt="Fighters">
-                        <div class="vs-circle">VS</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="fighter-row">
-                            <div class="fighter-name">?<br><span style="color:var(--text-gray); font-size:0.8rem;">?</span></div>
-                            <div class="fighter-name right">?<br><span style="color:var(--text-gray); font-size:0.8rem;">?</span></div>
-                        </div>
-                        <div class="fighter-meta">
-                            <span>0-0-0 (0 KO)</span>
-                            <span>Street Boxing Pro</span>
-                            <span>0-0-0 (0 KO)</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="card reveal" style="transition-delay: 0.1s;">
-                    <div class="card-header">
-                        <span class="match-badge">Co-Main</span>
-                    </div>
-                    <div class="fighters-visual">
-                        <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?q=80&w=1974&auto=format&fit=crop" alt="Fighters">
-                        <div class="vs-circle">VS</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="fighter-row">
-                            <div class="fighter-name">?<br><span style="color:var(--text-gray); font-size:0.8rem;">?</span></div>
-                            <div class="fighter-name right">?<br><span style="color:var(--text-gray); font-size:0.8rem;">?</span></div>
-                        </div>
-                        <div class="fighter-meta">
-                            <span>?</span>
-                            <span>?kg Class</span>
-                            <span>?</span>
-                        </div>
-                    </div>
-                </div>
-
+                <a href="https://chat.whatsapp.com/Ey7rWPoYdci0OF0gN9F54f?mode=gi_t" target="_blank" class="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-xl font-bold flex justify-center items-center gap-2 mb-3 transition-colors">
+                    <i class="ph-fill ph-whatsapp-logo text-xl"></i> GABUNG GRUP WHATSAPP
+                </a>
                 
-            </div>
-        </div>
-    </section>
-
-    <!-- SCHEDULE & LOC -->
-    <section id="jadwal" class="section-padding" style="background: linear-gradient(to bottom, var(--bg-dark), #0a0a0a);">
-        <div class="container">
-            <div class="schedule-container reveal">
-                <div class="info-list">
-                    <h3 style="font-family: var(--font-head); font-size: 2rem; margin-bottom: 20px;">EVENT DETAILS</h3>
-                    
-                    <div class="info-item">
-                        <div class="info-icon"><i class="far fa-calendar-alt"></i></div>
-                        <div class="info-content">
-                            <h4>Date</h4>
-                            <p>Minggu, 28 Juni 2026</p>
-                        </div>
-                    </div>
-                    
-                    <div class="info-item">
-                        <div class="info-icon"><i class="far fa-clock"></i></div>
-                        <div class="info-content">
-                            <h4>Time</h4>
-                            <p>Gates Open: 08:00 WIB</p>
-                        </div>
-                    </div>
-
-                    <div class="info-item">
-                        <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
-                        <div class="info-content">
-                            <h4>Venue</h4>
-                            <p>GOR KONI Majalaya<br>Desa Majakerta, Kab. Bandung</p>
-                        </div>
-                    </div>
-
-                    <a href="#daftar" class="btn" style="margin-top: 20px; text-align: center;">
-                        <span>Get Directions</span>
-                    </a>
-                </div>
-
-                <div class="map-frame">
-                    <iframe src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=gor koni majalaya&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" allowfullscreen="" loading="lazy"></iframe>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- REGISTER -->
-    <section id="daftar" class="section-padding" style="position: relative; overflow: hidden;">
-        <div style="position: absolute; top:0; left:0; width:100%; height:100%; background: url('a1.jpg') center/cover; opacity: 0.2; z-index: -1;"></div>
-        
-        <div class="container" style="text-align: center;">
-            <p class="reveal" style="color: var(--gold-text); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 20px;">Don't Miss The Action</p>
-            <h2 class="section-title reveal" style="margin-bottom: 40px;">SECURE YOUR SEAT</h2>
-            
-            <div class="reveal" style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-                <button class="btn">
-                    <span>Buy Tickets</span>
-                </button>
-                <button class="btn" style="background: transparent; border: 1px solid var(--gold-text);">
-                    <span style="-webkit-text-fill-color: var(--gold-text);">Fighter Reg</span>
+                <button onclick="closeAlert()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-xl font-bold transition-colors">
+                    Tutup
                 </button>
             </div>
-        </div>
-    </section>
 
-    <!-- FOOTER -->
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                  <a href="#" class="logo">
-    <img src="mgc.png" alt="Logo MGC" style="height: 40px;">
-</a>
-                    <p>Liga olahraga bela diri terkemuka di Jawa Barat. Menyatukan disiplin, kekuatan, dan hiburan.</p>
-                    <div class="social-icons">
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-links">
-                    <h4>Navigation</h4>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#fight-card">Fight Card</a></li>
-                        <li><a href="#daftar">Tickets</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li>majalayagelutc@gmail.com</li>
-                        <li>+62 851-6716-1320</li>
-                        <li>Majalaya, Indonesia</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                &copy; 2026 Majalaya Gelut Championship. All Rights Reserved.
+            <!-- Error State -->
+            <div id="alertError" class="hidden">
+                <i class="ph-fill ph-x-circle text-6xl text-red-500 mb-4 inline-block"></i>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Terjadi Kesalahan</h3>
+                <p class="text-gray-600 text-sm mb-6">Gagal mengirim data. Periksa koneksi internet atau ukuran file gambar Anda.</p>
+                <button onclick="closeAlert()" class="w-full bg-red-500 text-white py-3 rounded-xl font-bold">Coba Lagi</button>
             </div>
         </div>
-    </footer>
+    </div>
 
-    <!-- JS -->
+    <!-- ============================================== -->
+    <!-- JAVASCRIPT LOGIC                               -->
+    <!-- ============================================== -->
     <script>
-        // 1. Mobile Menu
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('navMenu');
-        const navLinks = document.querySelectorAll('.nav-link');
+        // Format data diperbarui untuk mengakomodasi "Kategori" dan "Foto"
+         let fightsData = [];
+        let waitingListData = [];
 
-        hamburger.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            const icon = hamburger.querySelector('i');
-            icon.classList.toggle('fa-bars');
-            icon.classList.toggle('fa-times');
+        document.addEventListener('DOMContentLoaded', () => {
+            handleRouting();
+            renderPublicFights();
+            renderAdminTable();
+            renderAdminWaitingList();
+            startCountdown();
         });
 
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-                hamburger.querySelector('i').classList.add('fa-bars');
-                hamburger.querySelector('i').classList.remove('fa-times');
-            });
-        });
+        // --- 2. ROUTING (SPA) ---
+        window.addEventListener('hashchange', handleRouting);
 
-        // 2. Navbar Scroll Effect
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-
-        // 3. Parallax Hero Effect
-        const heroBg = document.getElementById('heroBg');
-        window.addEventListener('scroll', () => {
-            const scrollValue = window.scrollY;
-            if (scrollValue < 800) { // Limit calculation
-                heroBg.style.transform = `scale(1.1) translateY(${scrollValue * 0.5}px)`;
-            }
-        });
-
-        // 4. Reveal on Scroll Animation
-        const revealElements = document.querySelectorAll('.reveal');
-
-        const revealOnScroll = () => {
-            const windowHeight = window.innerHeight;
-            const elementVisible = 100;
-
-            revealElements.forEach((reveal) => {
-                const elementTop = reveal.getBoundingClientRect().top;
-                if (elementTop < windowHeight - elementVisible) {
-                    reveal.classList.add('active');
+        function handleRouting() {
+            let hash = window.location.hash.replace('#', '') || 'home';
+            
+            if (hash === 'admin') {
+                if (sessionStorage.getItem('isAdmin') !== 'true') {
+                    showLoginModal();
+                    history.replaceState(null, null, ' ');
+                    return;
                 }
+            }
+
+            document.getElementById('main-nav').style.display = (hash === 'admin') ? 'none' : 'flex';
+
+            document.querySelectorAll('.page-view').forEach(view => {
+                view.classList.remove('active-view');
             });
-        };
 
-        window.addEventListener('scroll', revealOnScroll);
-        // Trigger once on load
-        revealOnScroll();
+            const targetView = document.getElementById(`view-${hash}`);
+            if (targetView) {
+                targetView.classList.add('active-view');
+            } else {
+                document.getElementById('view-home').classList.add('active-view');
+            }
 
-        // 5. Countdown
-        // Target Date: 28 Juni 2026, jam 08:00 WIB (UTC+7)
-        const eventDate = new Date("2026-06-28T08:00:00+07:00").getTime();
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            let targetBtn = document.querySelector(`.nav-btn[data-target="${hash}"]`);
+            if(targetBtn && hash !== 'admin') targetBtn.classList.add('active');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = eventDate - now;
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast("Nomor DANA berhasil disalin!");
+            }).catch(err => {
+                const el = document.createElement('textarea');
+                el.value = text;
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand('copy');
+                document.body.removeChild(el);
+                showToast("Nomor DANA berhasil disalin!");
+            });
+        }
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').innerText = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
 
-            // Cegah angka negatif jika waktu sudah lewat
-            if (distance < 0) {
-                document.getElementById("timer").innerHTML = "<div class='time-val' style='font-size:2rem'>EVENT STARTED</div>";
+        // --- 4. ADMIN AUTH ---
+        function showLoginModal() {
+            document.getElementById('loginModal').classList.remove('hidden');
+            setTimeout(() => document.getElementById('adminPassword').focus(), 100);
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').classList.add('hidden');
+            document.getElementById('adminPassword').value = '';
+            document.getElementById('loginError').classList.add('hidden');
+        }
+
+        function verifyAdmin() {
+            if(document.getElementById('adminPassword').value === 'admin123') {
+                sessionStorage.setItem('isAdmin', 'true');
+                closeLoginModal();
+                window.location.hash = 'admin';
+            } else {
+                document.getElementById('loginError').classList.remove('hidden');
+            }
+        }
+
+        function logoutAdmin() {
+            sessionStorage.removeItem('isAdmin');
+            window.location.hash = 'home';
+        }
+
+        // File Reader Helper
+        function getBase64Image(fileInputId) {
+            return new Promise((resolve, reject) => {
+                const file = document.getElementById(fileInputId).files[0];
+                if (!file) {
+                    resolve(null);
+                    return;
+                }
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        // --- 5. RENDER PUBLIC DATA ---
+        function renderPublicFights() {
+            const container = document.getElementById('public-fight-grid');
+            container.innerHTML = '';
+
+            if(fightsData.length === 0){
+                container.innerHTML = `<p class="col-span-full text-center text-gray-500 py-10">Fight Card belum dirilis. Harap tunggu pengumuman selanjutnya.</p>`;
+            } else {
+                fightsData.forEach(fight => {
+                    let badgeColor = 'bg-gray-200 text-gray-700';
+                    if(fight.status === 'Main Event') badgeColor = 'bg-red-600 text-white';
+                    if(fight.status === 'Co-Main Event') badgeColor = 'bg-brand-neon text-white';
+                    if(fight.status === 'Main Card') badgeColor = 'bg-brand-dark text-white';
+
+                    let rulesIcon = fight.rules === 'Dirty Boxing' ? '<i class="ph-fill ph-hand-fist"></i>' : '<i class="ph-fill ph-lightning"></i>';
+                    
+                    // Photo logic
+                    let redPhotoHTML = fight.redPhoto 
+                        ? `<img src="${fight.redPhoto}" class="w-16 h-16 mx-auto rounded-full mb-2 border-2 border-white object-cover shadow-[0_0_10px_rgba(239,68,68,0.3)]">` 
+                        : `<div class="w-16 h-16 mx-auto bg-gradient-to-br from-red-500 to-red-800 rounded-full mb-2 border-2 border-white shadow-[0_0_10px_rgba(239,68,68,0.3)]"></div>`;
+                    let bluePhotoHTML = fight.bluePhoto 
+                        ? `<img src="${fight.bluePhoto}" class="w-16 h-16 mx-auto rounded-full mb-2 border-2 border-white object-cover shadow-[0_0_10px_rgba(59,130,246,0.3)]">` 
+                        : `<div class="w-16 h-16 mx-auto bg-gradient-to-br from-blue-500 to-blue-800 rounded-full mb-2 border-2 border-white shadow-[0_0_10px_rgba(59,130,246,0.3)]"></div>`;
+
+                    const card = `
+                        <div class="glass rounded-3xl p-6 relative overflow-hidden transition-all hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(109,40,217,0.15)] border border-white">
+                            <div class="absolute top-0 right-0 ${badgeColor} px-4 py-1.5 rounded-bl-xl font-bold text-[10px] uppercase tracking-wider shadow-sm">
+                                ${fight.status}
+                            </div>
+                            <div class="absolute top-0 left-0 bg-brand-dark text-white px-3 py-1.5 rounded-br-xl font-bold text-[10px] uppercase tracking-wider shadow-sm">
+                                ${fight.category}
+                            </div>
+                            
+                            <div class="text-center mb-5 mt-5">
+                                <span class="inline-flex items-center gap-1.5 bg-gray-100 text-brand-dark px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest border border-gray-200">
+                                    ${rulesIcon} ${fight.rules} <span class="text-gray-400 mx-1">|</span> ${fight.class}
+                                </span>
+                            </div>
+                            
+                            <div class="flex justify-between items-center relative">
+                                <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-900 text-white w-9 h-9 rounded-full flex justify-center items-center font-heading text-lg italic z-10 border-2 border-white shadow-md">VS</div>
+                                <!-- Red Corner -->
+                                <div class="text-center w-[45%]">
+                                    ${redPhotoHTML}
+                                    <h3 class="font-heading text-lg font-bold text-gray-900 leading-tight min-h-[40px] flex items-center justify-center">${fight.redName}</h3>
+                                    <p class="text-[10px] text-red-700 font-bold mt-1 bg-red-50 py-1 px-2 rounded-md border border-red-100 truncate">${fight.redStats}</p>
+                                </div>
+                                <!-- Blue Corner -->
+                                <div class="text-center w-[45%]">
+                                    ${bluePhotoHTML}
+                                    <h3 class="font-heading text-lg font-bold text-gray-900 leading-tight min-h-[40px] flex items-center justify-center">${fight.blueName}</h3>
+                                    <p class="text-[10px] text-blue-700 font-bold mt-1 bg-blue-50 py-1 px-2 rounded-md border border-blue-100 truncate">${fight.blueStats}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.innerHTML += card;
+                });
+            }
+            renderPublicWaitingList();
+        }
+
+        function renderPublicWaitingList() {
+            const container = document.getElementById('public-waiting-grid');
+            container.innerHTML = '';
+            
+            if(waitingListData.length === 0) {
+                container.innerHTML = `<p class="col-span-full text-center text-gray-500 py-4">Tidak ada fighter di waiting list saat ini.</p>`;
                 return;
             }
 
-            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
-            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
-            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
-            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+            waitingListData.forEach(fighter => {
+                let photoHTML = fighter.photo 
+                    ? `<img src="${fighter.photo}" class="w-14 h-14 rounded-full border-2 border-brand-purple object-cover">`
+                    : `<div class="w-14 h-14 rounded-full border-2 border-brand-purple bg-gray-200 flex items-center justify-center text-xl text-gray-400"><i class="ph-fill ph-user"></i></div>`;
+
+                const rulesIcon = fighter.rules === 'Dirty Boxing' ? '<i class="ph-fill ph-hand-fist text-red-500"></i>' : '<i class="ph-fill ph-lightning text-brand-neon"></i>';
+
+                const card = `
+                    <div class="glass p-5 rounded-2xl border border-gray-100 flex flex-col items-center text-center relative overflow-hidden group">
+                        <div class="absolute -right-4 -top-4 w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center group-hover:scale-150 transition-transform duration-300 z-0"></div>
+                        
+                        <div class="relative z-10 mb-3">${photoHTML}</div>
+                        <h4 class="font-heading font-bold text-lg text-gray-900 relative z-10">${fighter.name}</h4>
+                        <p class="text-[10px] text-gray-500 font-bold uppercase mb-2 relative z-10">${fighter.camp}</p>
+                        
+                        <div class="w-full bg-gray-50 rounded-lg p-2 text-xs text-gray-700 relative z-10 border border-gray-100 mt-auto">
+                            <div class="flex justify-between border-b border-gray-200 pb-1 mb-1">
+                                <span class="font-bold text-gray-400">Kategori</span>
+                                <span class="font-bold">${fighter.category} (${fighter.class})</span>
+                            </div>
+                            <div class="flex justify-between items-center pt-1">
+                                <span class="font-bold text-gray-400">Rules</span>
+                                <span class="font-bold flex items-center gap-1">${rulesIcon} ${fighter.rules}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += card;
+            });
         }
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
+
+        // --- 6. RENDER & CRUD ADMIN ---
+        function renderAdminTable() {
+            const tbody = document.getElementById('admin-table-body');
+            tbody.innerHTML = '';
+            document.getElementById('adminMatchCount').innerText = `${fightsData.length} Match`;
+
+            fightsData.forEach(fight => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-gray-800 transition-colors";
+                tr.innerHTML = `
+                    <td class="px-4 py-3">
+                        <div class="flex flex-col">
+                            <span class="text-red-400 font-bold text-xs"><i class="ph-fill ph-square text-[10px]"></i> ${fight.redName} ${fight.redPhoto ? '🖼️' : ''}</span>
+                            <span class="text-gray-600 text-[10px] italic pl-3">vs</span>
+                            <span class="text-blue-400 font-bold text-xs"><i class="ph-fill ph-square text-[10px]"></i> ${fight.blueName} ${fight.bluePhoto ? '🖼️' : ''}</span>
+                        </div>
+                    </td>
+                    <td class="px-4 py-3">
+                        <div class="text-gray-300 text-xs font-bold">${fight.category} | ${fight.rules}</div>
+                        <div class="text-gray-500 text-[10px]">${fight.class}</div>
+                    </td>
+                    <td class="px-4 py-3">
+                        <span class="px-2 py-1 rounded text-[10px] font-bold bg-gray-700 text-gray-300 border border-gray-600">${fight.status}</span>
+                    </td>
+                    <td class="px-4 py-3 text-right">
+                        <button onclick="editFight(${fight.id})" class="text-blue-400 hover:text-blue-300 mr-2 p-1 bg-blue-900/30 rounded"><i class="ph-bold ph-pencil-simple text-sm"></i></button>
+                        <button onclick="deleteFight(${fight.id})" class="text-red-500 hover:text-red-400 p-1 bg-red-900/30 rounded"><i class="ph-bold ph-trash text-sm"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+            renderPublicFights(); // Sinkronkan
+        }
+
+        function renderAdminWaitingList() {
+            const tbody = document.getElementById('admin-waiting-body');
+            tbody.innerHTML = '';
+            
+            waitingListData.forEach(fighter => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-gray-800 transition-colors";
+                tr.innerHTML = `
+                    <td class="px-4 py-3">
+                        <div class="font-bold text-xs text-white">${fighter.name} ${fighter.photo ? '🖼️' : ''}</div>
+                        <div class="text-[10px] text-gray-500">${fighter.camp}</div>
+                    </td>
+                    <td class="px-4 py-3">
+                        <div class="text-yellow-500 text-xs font-bold">${fighter.category}</div>
+                        <div class="text-gray-400 text-[10px]">${fighter.class}</div>
+                    </td>
+                    <td class="px-4 py-3 text-xs text-gray-300">${fighter.rules}</td>
+                    <td class="px-4 py-3 text-right">
+                        <button onclick="deleteWaiting(${fighter.id})" class="text-red-500 hover:text-red-400 p-1 bg-red-900/30 rounded" title="Hapus dari Waiting List"><i class="ph-bold ph-trash text-sm"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        document.getElementById('adminFightForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Generate Base64 for images if uploaded
+            let rPhoto = await getBase64Image('redPhoto');
+            let bPhoto = await getBase64Image('bluePhoto');
+            
+            const id = document.getElementById('editFightId').value;
+            
+            // Retrieve existing photos if we are editing and didn't upload new ones
+            if (id) {
+                const existingFight = fightsData.find(f => f.id === parseInt(id));
+                if (existingFight) {
+                    if (!rPhoto) rPhoto = existingFight.redPhoto;
+                    if (!bPhoto) bPhoto = existingFight.bluePhoto;
+                }
+            }
+
+            const newFight = {
+                id: id ? parseInt(id) : Date.now(),
+                redName: document.getElementById('redName').value,
+                redStats: document.getElementById('redStats').value,
+                redPhoto: rPhoto,
+                blueName: document.getElementById('blueName').value,
+                blueStats: document.getElementById('blueStats').value,
+                bluePhoto: bPhoto,
+                category: document.getElementById('matchCategory').value,
+                rules: document.getElementById('matchRules').value,
+                class: document.getElementById('matchClass').value,
+                status: document.getElementById('matchStatus').value
+            };
+
+            if(id) {
+                const index = fightsData.findIndex(f => f.id === parseInt(id));
+                fightsData[index] = newFight;
+            } else {
+                fightsData.push(newFight);
+            }
+            resetAdminForm();
+            renderAdminTable();
+        });
+
+        document.getElementById('adminWaitingForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            let wPhoto = await getBase64Image('waitPhoto');
+            
+            const newFighter = {
+                id: Date.now(),
+                name: document.getElementById('waitName').value,
+                camp: document.getElementById('waitCamp').value,
+                category: document.getElementById('waitCategory').value,
+                class: document.getElementById('waitClass').value,
+                rules: document.getElementById('waitRules').value,
+                photo: wPhoto
+            };
+            
+            waitingListData.push(newFighter);
+            this.reset();
+            renderAdminWaitingList();
+            renderPublicFights(); // Ini memanggil render waiting list publik juga
+        });
+
+        function editFight(id) {
+            const fight = fightsData.find(f => f.id === id);
+            if(fight) {
+                document.getElementById('formAdminTitle').innerHTML = '<i class="ph-fill ph-pencil-simple text-brand-neon"></i> Edit Match';
+                document.getElementById('editFightId').value = fight.id;
+                document.getElementById('redName').value = fight.redName;
+                document.getElementById('redStats').value = fight.redStats;
+                document.getElementById('blueName').value = fight.blueName;
+                document.getElementById('blueStats').value = fight.blueStats;
+                document.getElementById('matchCategory').value = fight.category;
+                document.getElementById('matchRules').value = fight.rules;
+                document.getElementById('matchClass').value = fight.class;
+                document.getElementById('matchStatus').value = fight.status;
+                // Kosongkan file input saat edit (foto tidak bisa di-set dari js demi keamanan browser)
+                document.getElementById('redPhoto').value = ''; 
+                document.getElementById('bluePhoto').value = '';
+                
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function deleteFight(id) {
+            if(confirm("Yakin ingin menghapus pertandingan ini?")) {
+                fightsData = fightsData.filter(f => f.id !== id);
+                renderAdminTable();
+            }
+        }
+
+        function deleteWaiting(id) {
+            if(confirm("Hapus fighter ini dari Waiting List?")) {
+                waitingListData = waitingListData.filter(f => f.id !== id);
+                renderAdminWaitingList();
+                renderPublicFights();
+            }
+        }
+
+        function resetAdminForm() {
+            document.getElementById('adminFightForm').reset();
+            document.getElementById('editFightId').value = '';
+            document.getElementById('formAdminTitle').innerHTML = '<i class="ph-fill ph-plus-circle text-brand-neon"></i> Tambah Match';
+        }
+
+        // --- 7. COUNTDOWN TIMER ---
+        function startCountdown() {
+            const countDownDate = new Date("Oct 3, 2026 00:00:00").getTime();
+            
+            const timer = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = countDownDate - now;
+                
+                if (distance < 0) {
+                    clearInterval(timer);
+                    document.getElementById("days").innerHTML = "00";
+                    document.getElementById("hours").innerHTML = "00";
+                    document.getElementById("minutes").innerHTML = "00";
+                    document.getElementById("seconds").innerHTML = "00";
+                    return;
+                }
+
+                document.getElementById("days").innerHTML = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+                document.getElementById("hours").innerHTML = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+                document.getElementById("minutes").innerHTML = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+                document.getElementById("seconds").innerHTML = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+            }, 1000);
+        }
+
+        // --- 8. FORM SUBMISSION (REGISTRASI) ---
+        function showFormState(state) {
+            const modal = document.getElementById('alertModal');
+            const loading = document.getElementById('alertLoading');
+            const success = document.getElementById('alertSuccess');
+            const error = document.getElementById('alertError');
+
+            modal.classList.remove('hidden');
+            loading.classList.add('hidden');
+            success.classList.add('hidden');
+            error.classList.add('hidden');
+
+            if(state === 'loading') loading.classList.remove('hidden');
+            if(state === 'success') success.classList.remove('hidden');
+            if(state === 'error') error.classList.remove('hidden');
+        }
+
+        function closeAlert() { 
+            document.getElementById('alertModal').classList.add('hidden'); 
+        }
+
+        document.getElementById('registrationForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const fileKtpInput = document.getElementById('fileKtp');
+            const fileFotoInput = document.getElementById('fileFoto');
+            const fileTransferInput = document.getElementById('fileTransfer');
+
+            if(!fileKtpInput.files[0] || !fileFotoInput.files[0] || !fileTransferInput.files[0]) {
+                alert("Harap upload semua dokumen yang diminta (KTP, Foto, Bukti Transfer)!");
+                return;
+            }
+
+            showFormState('loading');
+
+            try {
+                // Konversi gambar ke format Base64 menggunakan fungsi yang sudah ada di HTML Anda
+                let ktpBase64 = await getBase64Image('fileKtp');
+                let fotoBase64 = await getBase64Image('fileFoto');
+                let transferBase64 = await getBase64Image('fileTransfer');
+
+                // Siapkan paket data untuk dikirim ke Google Spreadsheet
+                const payload = {
+                    nama: document.getElementById('regNama').value,
+                    nik: document.getElementById('regNIK').value,
+                    phone: document.getElementById('regPhone').value,
+                    email: document.getElementById('regEmail').value,
+                    umur: document.getElementById('regUmur').value,
+                    baju: document.getElementById('regBaju').value,
+                    julukan: document.getElementById('regJulukan').value,
+                    camp: document.getElementById('regCamp').value,
+                    tinggi: document.getElementById('regTB').value,
+                    berat: document.getElementById('regBB').value,
+                    rules: document.getElementById('regRules').value,
+                    kelas: document.getElementById('regKelas').value,
+                    fileKtpBase64: ktpBase64,
+                    fileKtpName: "KTP_" + document.getElementById('regNama').value.replace(/\s+/g, '_') + ".jpg",
+                    fileFotoBase64: fotoBase64,
+                    fileFotoName: "FOTO_" + document.getElementById('regNama').value.replace(/\s+/g, '_') + ".jpg",
+                    fileTransferBase64: transferBase64,
+                    fileTransferName: "TRANSFER_" + document.getElementById('regNama').value.replace(/\s+/g, '_') + ".jpg"
+                };
+
+                // GANTI STRING DI BAWAH INI DENGAN URL WEB APP DARI LANGKAH 3
+                const scriptURL = 'https://script.google.com/macros/s/AKfycbwKU76DDHPG5pHL-Qz4U84mfv23Q2qecSNEpUDWUWimnKxFAViV8bv3HkQiH_66WFUe/exec'; 
+
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    body: JSON.stringify(payload),
+                    // Menggunakan text/plain untuk menghindari isu error CORS preflight dari Google
+                    headers: {
+                        'Content-Type': 'text/plain;charset=utf-8',
+                    }
+                });
+
+                const result = await response.json();
+
+                if(result.result === 'success') {
+                    showFormState('success');
+                    this.reset(); 
+                } else {
+                    console.error(result.error);
+                    showFormState('error');
+                }
+
+            } catch (err) {
+                console.error("Terjadi Kesalahan:", err);
+                showFormState('error');
+            }
+        });
     </script>
 </body>
 </html>
