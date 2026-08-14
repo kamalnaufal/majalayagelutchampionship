@@ -651,38 +651,24 @@
                     <h3 class="text-xl font-heading text-white border-l-4 border-yellow-500 pl-3 mb-6 uppercase tracking-wider">Kelola Waiting List (Belum Ada Lawan)</h3>
                     
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        <!-- Form Waiting List -->
+                        <!-- Info Waiting List -->
                         <div class="lg:col-span-1">
-                            <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
-                                <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
-                                    <i class="ph-fill ph-user-plus text-yellow-500"></i> Tambah Waiting List
-                                </h3>
-                                <form id="adminWaitingForm">
-                                    <div class="space-y-3 mb-4">
-                                        <input type="text" id="waitName" placeholder="Nama Ring / Julukan" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none">
-                                        <input type="text" id="waitCamp" placeholder="Asal Camp" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none">
-                                        
-                                        <div class="grid grid-cols-2 gap-2">
-                                            <select id="waitCategory" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none">
-                                                <option value="Amatir">Amatir</option>
-                                                <option value="Amatir Pro">Amatir Pro</option>
-                                                <option value="Pro">Pro</option>
-                                            </select>
-                                            <input type="text" id="waitClass" placeholder="Kelas (Misal: 60kg)" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none">
-                                        </div>
-
-                                        <select id="waitRules" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none">
-                                            <option value="Dirty Boxing">Dirty Boxing</option>
-                                            <option value="Freestyle Striking">Freestyle Striking</option>
-                                        </select>
-                                        
-                                        <div>
-                                            <label class="text-[10px] text-gray-400 mb-1 block">Foto Fighter (Opsional)</label>
-                                            <input type="file" id="waitPhoto" accept="image/*" class="w-full text-xs text-gray-400 file:mr-2 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-gray-700 file:text-white hover:file:bg-gray-600 bg-gray-900 rounded-lg border border-gray-600">
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="w-full bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-2 rounded-lg transition-colors text-sm">Masukan ke Waiting List</button>
-                                </form>
+                            <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 sticky top-10">
+                                <div class="w-14 h-14 rounded-2xl bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center mb-5">
+                                    <i class="ph-fill ph-database text-3xl text-yellow-500"></i>
+                                </div>
+                                <h3 class="text-lg font-bold mb-3">Waiting List dari Spreadsheet</h3>
+                                <p class="text-sm text-gray-400 leading-relaxed mb-5">
+                                    Data Waiting List tidak lagi disimpan di browser. Data diambil langsung dari Google Spreadsheet berdasarkan kolom <b class="text-yellow-400">Status</b>.
+                                </p>
+                                <div class="bg-gray-900 rounded-xl p-4 border border-gray-700 text-xs text-gray-400 space-y-2">
+                                    <div class="flex justify-between gap-3"><span>Status tampil</span><b class="text-green-400">WAITING</b></div>
+                                    <div class="flex justify-between gap-3"><span>Status tidak tampil</span><b class="text-gray-500">MATCHED</b></div>
+                                    <div class="flex justify-between gap-3"><span>Auto refresh</span><b class="text-white">30 detik</b></div>
+                                </div>
+                                <button type="button" onclick="loadWaitingListFromSpreadsheet()" class="w-full mt-5 bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 rounded-lg transition-colors text-sm flex items-center justify-center gap-2">
+                                    <i class="ph-bold ph-arrows-clockwise"></i> Refresh Waiting List
+                                </button>
                             </div>
                         </div>
 
@@ -782,12 +768,74 @@
          let fightsData = [];
         let waitingListData = [];
 
-        document.addEventListener('DOMContentLoaded', () => {
+        // URL Web App Google Apps Script
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwkDp2RtpG0VxZZ9n13FyhEK1SLgCLJCcAhsLwSYEntqy96SnyqqRT2x8pCNdDQqWie/exec';
+
+        // ==========================================
+        // LOAD WAITING LIST DARI GOOGLE SPREADSHEET
+        // ==========================================
+        async function loadWaitingListFromSpreadsheet() {
+            const container = document.getElementById('public-waiting-grid');
+
+            if (!container) return;
+
+            container.innerHTML = `
+                <div class="col-span-full flex flex-col items-center justify-center py-10">
+                    <div class="loader mb-4"></div>
+                    <p class="text-gray-500 text-sm font-semibold">Memuat Waiting List...</p>
+                </div>
+            `;
+
+            try {
+                const response = await fetch(SCRIPT_URL + '?action=waiting&t=' + Date.now(), {
+                    method: 'GET',
+                    cache: 'no-store'
+                });
+
+                if (!response.ok) {
+                    throw new Error('Gagal mengambil data dari Google Spreadsheet.');
+                }
+
+                const result = await response.json();
+
+                if (result.result !== 'success') {
+                    throw new Error(result.error || 'Gagal mengambil Waiting List.');
+                }
+
+                waitingListData = Array.isArray(result.data) ? result.data : [];
+
+                renderPublicWaitingList();
+                renderAdminWaitingList();
+
+            } catch (error) {
+                console.error('Waiting List Error:', error);
+
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-10">
+                        <i class="ph-fill ph-warning-circle text-4xl text-red-500"></i>
+                        <p class="text-red-500 font-bold mt-3">Gagal memuat Waiting List</p>
+                        <p class="text-gray-500 text-xs mt-1">Periksa URL Apps Script dan deployment Web App.</p>
+                        <button onclick="loadWaitingListFromSpreadsheet()" class="mt-4 bg-brand-purple text-white px-5 py-2 rounded-lg text-sm font-bold">
+                            Coba Lagi
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
             handleRouting();
+
+            // Waiting List sekarang diambil langsung dari Google Spreadsheet
+            await loadWaitingListFromSpreadsheet();
+
             renderPublicFights();
             renderAdminTable();
             renderAdminWaitingList();
             startCountdown();
+
+            // Refresh Waiting List setiap 30 detik
+            setInterval(loadWaitingListFromSpreadsheet, 30000);
         });
 
         // --- 2. ROUTING (SPA) ---
@@ -1043,7 +1091,7 @@
                     </td>
                     <td class="px-4 py-3 text-xs text-gray-300">${fighter.rules}</td>
                     <td class="px-4 py-3 text-right">
-                        <button onclick="deleteWaiting(${fighter.id})" class="text-red-500 hover:text-red-400 p-1 bg-red-900/30 rounded" title="Hapus dari Waiting List"><i class="ph-bold ph-trash text-sm"></i></button>
+                        <button onclick="deleteWaiting(${fighter.id})" class="text-yellow-500 hover:text-yellow-400 p-1 bg-yellow-900/30 rounded" title="Cara menghapus dari Waiting List"><i class="ph-bold ph-info text-sm"></i></button>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -1092,25 +1140,8 @@
             renderAdminTable();
         });
 
-        document.getElementById('adminWaitingForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            let wPhoto = await getBase64Image('waitPhoto');
-            
-            const newFighter = {
-                id: Date.now(),
-                name: document.getElementById('waitName').value,
-                camp: document.getElementById('waitCamp').value,
-                category: document.getElementById('waitCategory').value,
-                class: document.getElementById('waitClass').value,
-                rules: document.getElementById('waitRules').value,
-                photo: wPhoto
-            };
-            
-            waitingListData.push(newFighter);
-            this.reset();
-            renderAdminWaitingList();
-            renderPublicFights(); // Ini memanggil render waiting list publik juga
-        });
+        // Waiting List tidak lagi menggunakan form lokal.
+        // Data sepenuhnya berasal dari Google Spreadsheet melalui loadWaitingListFromSpreadsheet().
 
         function editFight(id) {
             const fight = fightsData.find(f => f.id === id);
@@ -1141,11 +1172,7 @@
         }
 
         function deleteWaiting(id) {
-            if(confirm("Hapus fighter ini dari Waiting List?")) {
-                waitingListData = waitingListData.filter(f => f.id !== id);
-                renderAdminWaitingList();
-                renderPublicFights();
-            }
+            alert('Waiting List terhubung ke Google Spreadsheet. Ubah kolom Status peserta menjadi MATCHED pada Spreadsheet agar fighter hilang dari Waiting List.');
         }
 
         function resetAdminForm() {
@@ -1249,10 +1276,7 @@
                 
                 // (Lanjutkan dengan kode fetch/AJAX untuk mengirim data 'payload' ke Script URL Anda...)
 
-                // GANTI STRING DI BAWAH INI DENGAN URL WEB APP DARI LANGKAH 3
-                const scriptURL = 'https://script.google.com/macros/s/AKfycbwkDp2RtpG0VxZZ9n13FyhEK1SLgCLJCcAhsLwSYEntqy96SnyqqRT2x8pCNdDQqWie/exec'; 
-
-                const response = await fetch(scriptURL, {
+                const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
                     body: JSON.stringify(payload),
                     // Menggunakan text/plain untuk menghindari isu error CORS preflight dari Google
