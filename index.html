@@ -651,24 +651,38 @@
                     <h3 class="text-xl font-heading text-white border-l-4 border-yellow-500 pl-3 mb-6 uppercase tracking-wider">Kelola Waiting List (Belum Ada Lawan)</h3>
                     
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        <!-- Info Waiting List -->
+                        <!-- Form Waiting List -->
                         <div class="lg:col-span-1">
-                            <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 sticky top-10">
-                                <div class="w-14 h-14 rounded-2xl bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center mb-5">
-                                    <i class="ph-fill ph-database text-3xl text-yellow-500"></i>
-                                </div>
-                                <h3 class="text-lg font-bold mb-3">Waiting List dari Spreadsheet</h3>
-                                <p class="text-sm text-gray-400 leading-relaxed mb-5">
-                                    Data Waiting List tidak lagi disimpan di browser. Data diambil langsung dari Google Spreadsheet berdasarkan kolom <b class="text-yellow-400">Status</b>.
-                                </p>
-                                <div class="bg-gray-900 rounded-xl p-4 border border-gray-700 text-xs text-gray-400 space-y-2">
-                                    <div class="flex justify-between gap-3"><span>Status tampil</span><b class="text-green-400">WAITING</b></div>
-                                    <div class="flex justify-between gap-3"><span>Status tidak tampil</span><b class="text-gray-500">MATCHED</b></div>
-                                    <div class="flex justify-between gap-3"><span>Auto refresh</span><b class="text-white">30 detik</b></div>
-                                </div>
-                                <button type="button" onclick="loadWaitingListFromSpreadsheet()" class="w-full mt-5 bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 rounded-lg transition-colors text-sm flex items-center justify-center gap-2">
-                                    <i class="ph-bold ph-arrows-clockwise"></i> Refresh Waiting List
-                                </button>
+                            <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                                <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+                                    <i class="ph-fill ph-user-plus text-yellow-500"></i> Tambah Waiting List
+                                </h3>
+                                <form id="adminWaitingForm">
+                                    <div class="space-y-3 mb-4">
+                                        <input type="text" id="waitName" placeholder="Nama Ring / Julukan" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none">
+                                        <input type="text" id="waitCamp" placeholder="Asal Camp" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none">
+                                        
+                                        <div class="grid grid-cols-2 gap-2">
+                                            <select id="waitCategory" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none">
+                                                <option value="Amatir">Amatir</option>
+                                                <option value="Amatir Pro">Amatir Pro</option>
+                                                <option value="Pro">Pro</option>
+                                            </select>
+                                            <input type="text" id="waitClass" placeholder="Kelas (Misal: 60kg)" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none">
+                                        </div>
+
+                                        <select id="waitRules" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none">
+                                            <option value="Dirty Boxing">Dirty Boxing</option>
+                                            <option value="Freestyle Striking">Freestyle Striking</option>
+                                        </select>
+                                        
+                                        <div>
+                                            <label class="text-[10px] text-gray-400 mb-1 block">Foto Fighter (Opsional)</label>
+                                            <input type="file" id="waitPhoto" accept="image/*" class="w-full text-xs text-gray-400 file:mr-2 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-gray-700 file:text-white hover:file:bg-gray-600 bg-gray-900 rounded-lg border border-gray-600">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="w-full bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-2 rounded-lg transition-colors text-sm">Masukan ke Waiting List</button>
+                                </form>
                             </div>
                         </div>
 
@@ -765,76 +779,69 @@
     <!-- ============================================== -->
     <script>
         // Format data diperbarui untuk mengakomodasi "Kategori" dan "Foto"
-         let fightsData = [];
-        let waitingListData = [];
 
-        // URL Web App Google Apps Script
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwoGTYWbu3uzYuRUVdm_pt_p-w2nTvYtJWShkD2blH5lGV06yNNKT770rAVVlH3Ur87Rg/exec';
 
-        // ==========================================
-        // LOAD WAITING LIST DARI GOOGLE SPREADSHEET
-        // ==========================================
+        const SCRIPT_URL = 'GANTI_DENGAN_URL_APPS_SCRIPT_BARU_ANDA';
+
+        function escapeHtml(value) {
+            return String(value ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function escapeAttribute(value) {
+            return String(value ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/"/g, '&quot;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+
         async function loadWaitingListFromSpreadsheet() {
-            const container = document.getElementById('public-waiting-grid');
-
-            if (!container) return;
-
-            container.innerHTML = `
-                <div class="col-span-full flex flex-col items-center justify-center py-10">
-                    <div class="loader mb-4"></div>
-                    <p class="text-gray-500 text-sm font-semibold">Memuat Waiting List...</p>
-                </div>
-            `;
+            if (!SCRIPT_URL || SCRIPT_URL.includes('GANTI_DENGAN')) {
+                console.warn('SCRIPT_URL belum diisi.');
+                waitingListData = [];
+                renderPublicWaitingList();
+                return;
+            }
 
             try {
-                const response = await fetch(SCRIPT_URL + '?action=waiting&t=' + Date.now(), {
-                    method: 'GET',
-                    cache: 'no-store'
-                });
+                const response = await fetch(
+                    SCRIPT_URL + '?action=waiting&t=' + Date.now(),
+                    { method: 'GET', cache: 'no-store' }
+                );
 
-                if (!response.ok) {
-                    throw new Error('Gagal mengambil data dari Google Spreadsheet.');
-                }
+                if (!response.ok) throw new Error('HTTP ' + response.status);
 
                 const result = await response.json();
+                console.log('Waiting List API:', result);
 
-                if (result.result !== 'success') {
-                    throw new Error(result.error || 'Gagal mengambil Waiting List.');
-                }
-
-                waitingListData = Array.isArray(result.data) ? result.data : [];
+                waitingListData =
+                    result.result === 'success' && Array.isArray(result.data)
+                    ? result.data
+                    : [];
 
                 renderPublicWaitingList();
                 renderAdminWaitingList();
-
             } catch (error) {
-                console.error('Waiting List Error:', error);
-
-                container.innerHTML = `
-                    <div class="col-span-full text-center py-10">
-                        <i class="ph-fill ph-warning-circle text-4xl text-red-500"></i>
-                        <p class="text-red-500 font-bold mt-3">Gagal memuat Waiting List</p>
-                        <p class="text-gray-500 text-xs mt-1">Periksa URL Apps Script dan deployment Web App.</p>
-                        <button onclick="loadWaitingListFromSpreadsheet()" class="mt-4 bg-brand-purple text-white px-5 py-2 rounded-lg text-sm font-bold">
-                            Coba Lagi
-                        </button>
-                    </div>
-                `;
+                console.error('Gagal mengambil Waiting List:', error);
+                waitingListData = [];
+                renderPublicWaitingList();
+                renderAdminWaitingList();
             }
         }
 
-        document.addEventListener('DOMContentLoaded', async () => {
+
+        document.addEventListener('DOMContentLoaded', () => {
             handleRouting();
-
-            // Waiting List sekarang diambil langsung dari Google Spreadsheet
-            await loadWaitingListFromSpreadsheet();
-
             renderPublicFights();
             renderAdminTable();
             renderAdminWaitingList();
             startCountdown();
-
-            // Refresh Waiting List setiap 30 detik
+            loadWaitingListFromSpreadsheet();
             setInterval(loadWaitingListFromSpreadsheet, 30000);
         });
 
@@ -1001,41 +1008,60 @@
 
         function renderPublicWaitingList() {
             const container = document.getElementById('public-waiting-grid');
+            if (!container) return;
             container.innerHTML = '';
-            
-            if(waitingListData.length === 0) {
-                container.innerHTML = `<p class="col-span-full text-center text-gray-500 py-4">Tidak ada fighter di waiting list saat ini.</p>`;
+
+            if (!waitingListData || waitingListData.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-10">
+                        <i class="ph ph-hourglass-high text-4xl text-gray-300"></i>
+                        <p class="text-gray-500 mt-3">Tidak ada fighter di waiting list saat ini.</p>
+                    </div>`;
                 return;
             }
 
             waitingListData.forEach(fighter => {
-                let photoHTML = fighter.photo 
-                    ? `<img src="${fighter.photo}" class="w-14 h-14 rounded-full border-2 border-brand-purple object-cover">`
-                    : `<div class="w-14 h-14 rounded-full border-2 border-brand-purple bg-gray-200 flex items-center justify-center text-xl text-gray-400"><i class="ph-fill ph-user"></i></div>`;
+                const name = escapeHtml(fighter.nama || '-');
+                const camp = escapeHtml(fighter.camp || '-');
+                const berat = escapeHtml(fighter.berat || '-');
+                const tinggi = escapeHtml(fighter.tinggi || '-');
+                const umur = escapeHtml(fighter.umur || '-');
+                const photo = fighter.fotoUrl || '';
 
-                const rulesIcon = fighter.rules === 'Dirty Boxing' ? '<i class="ph-fill ph-hand-fist text-red-500"></i>' : '<i class="ph-fill ph-lightning text-brand-neon"></i>';
+                const photoHTML = photo ? `
+                    <img src="${escapeAttribute(photo)}" alt="${name}" loading="lazy"
+                         class="w-24 h-24 rounded-full border-4 border-brand-purple object-cover shadow-lg bg-gray-100"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="w-24 h-24 rounded-full border-4 border-brand-purple bg-gray-200 items-center justify-center text-3xl text-gray-400" style="display:none">
+                        <i class="ph-fill ph-user"></i>
+                    </div>` : `
+                    <div class="w-24 h-24 rounded-full border-4 border-brand-purple bg-gray-200 flex items-center justify-center text-3xl text-gray-400">
+                        <i class="ph-fill ph-user"></i>
+                    </div>`;
 
-                const card = `
-                    <div class="glass p-5 rounded-2xl border border-gray-100 flex flex-col items-center text-center relative overflow-hidden group">
-                        <div class="absolute -right-4 -top-4 w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center group-hover:scale-150 transition-transform duration-300 z-0"></div>
-                        
-                        <div class="relative z-10 mb-3">${photoHTML}</div>
-                        <h4 class="font-heading font-bold text-lg text-gray-900 relative z-10">${fighter.name}</h4>
-                        <p class="text-[10px] text-gray-500 font-bold uppercase mb-2 relative z-10">${fighter.camp}</p>
-                        
-                        <div class="w-full bg-gray-50 rounded-lg p-2 text-xs text-gray-700 relative z-10 border border-gray-100 mt-auto">
-                            <div class="flex justify-between border-b border-gray-200 pb-1 mb-1">
-                                <span class="font-bold text-gray-400">Kategori</span>
-                                <span class="font-bold">${fighter.category} (${fighter.class})</span>
+                container.insertAdjacentHTML('beforeend', `
+                    <div class="glass p-5 rounded-2xl border border-gray-100 flex flex-col items-center text-center relative overflow-hidden group hover:-translate-y-1 transition-all duration-300">
+                        <div class="absolute -right-6 -top-6 w-20 h-20 bg-purple-100 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+                        <div class="relative z-10 mb-4">${photoHTML}</div>
+
+                        <h4 class="font-heading font-bold text-xl text-gray-900 uppercase relative z-10 leading-tight">${name}</h4>
+                        <p class="text-xs text-brand-purple font-bold uppercase mt-1 mb-4 relative z-10">${camp}</p>
+
+                        <div class="w-full bg-gray-50 rounded-xl p-3 text-sm text-gray-700 relative z-10 border border-gray-100">
+                            <div class="flex justify-between items-center border-b border-gray-200 pb-2 mb-2">
+                                <span class="font-bold text-gray-400 flex items-center gap-1"><i class="ph-fill ph-scales"></i> Berat</span>
+                                <span class="font-bold text-gray-900">${berat} kg</span>
                             </div>
-                            <div class="flex justify-between items-center pt-1">
-                                <span class="font-bold text-gray-400">Rules</span>
-                                <span class="font-bold flex items-center gap-1">${rulesIcon} ${fighter.rules}</span>
+                            <div class="flex justify-between items-center border-b border-gray-200 pb-2 mb-2">
+                                <span class="font-bold text-gray-400 flex items-center gap-1"><i class="ph-fill ph-ruler"></i> Tinggi</span>
+                                <span class="font-bold text-gray-900">${tinggi} cm</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-gray-400 flex items-center gap-1"><i class="ph-fill ph-user"></i> Umur</span>
+                                <span class="font-bold text-gray-900">${umur} tahun</span>
                             </div>
                         </div>
-                    </div>
-                `;
-                container.innerHTML += card;
+                    </div>`);
             });
         }
 
@@ -1075,25 +1101,25 @@
 
         function renderAdminWaitingList() {
             const tbody = document.getElementById('admin-waiting-body');
+            if (!tbody) return;
             tbody.innerHTML = '';
-            
+
             waitingListData.forEach(fighter => {
                 const tr = document.createElement('tr');
                 tr.className = "hover:bg-gray-800 transition-colors";
                 tr.innerHTML = `
                     <td class="px-4 py-3">
-                        <div class="font-bold text-xs text-white">${fighter.name} ${fighter.photo ? '🖼️' : ''}</div>
-                        <div class="text-[10px] text-gray-500">${fighter.camp}</div>
+                        <div class="font-bold text-xs text-white">${escapeHtml(fighter.nama || '-')}</div>
+                        <div class="text-[10px] text-gray-500">${escapeHtml(fighter.camp || '-')}</div>
                     </td>
                     <td class="px-4 py-3">
-                        <div class="text-yellow-500 text-xs font-bold">${fighter.category}</div>
-                        <div class="text-gray-400 text-[10px]">${fighter.class}</div>
+                        <div class="text-yellow-500 text-xs font-bold">${escapeHtml(fighter.berat || '-')} kg</div>
+                        <div class="text-gray-400 text-[10px]">${escapeHtml(fighter.tinggi || '-')} cm</div>
                     </td>
-                    <td class="px-4 py-3 text-xs text-gray-300">${fighter.rules}</td>
+                    <td class="px-4 py-3 text-xs text-gray-300">${escapeHtml(fighter.umur || '-')} tahun</td>
                     <td class="px-4 py-3 text-right">
-                        <button onclick="deleteWaiting(${fighter.id})" class="text-yellow-500 hover:text-yellow-400 p-1 bg-yellow-900/30 rounded" title="Cara menghapus dari Waiting List"><i class="ph-bold ph-info text-sm"></i></button>
-                    </td>
-                `;
+                        <span class="px-2 py-1 rounded bg-yellow-900/40 text-yellow-400 text-[10px] font-bold">WAITING</span>
+                    </td>`;
                 tbody.appendChild(tr);
             });
         }
@@ -1140,8 +1166,25 @@
             renderAdminTable();
         });
 
-        // Waiting List tidak lagi menggunakan form lokal.
-        // Data sepenuhnya berasal dari Google Spreadsheet melalui loadWaitingListFromSpreadsheet().
+        document.getElementById('adminWaitingForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            let wPhoto = await getBase64Image('waitPhoto');
+            
+            const newFighter = {
+                id: Date.now(),
+                name: document.getElementById('waitName').value,
+                camp: document.getElementById('waitCamp').value,
+                category: document.getElementById('waitCategory').value,
+                class: document.getElementById('waitClass').value,
+                rules: document.getElementById('waitRules').value,
+                photo: wPhoto
+            };
+            
+            waitingListData.push(newFighter);
+            this.reset();
+            renderAdminWaitingList();
+            renderPublicFights(); // Ini memanggil render waiting list publik juga
+        });
 
         function editFight(id) {
             const fight = fightsData.find(f => f.id === id);
@@ -1172,7 +1215,11 @@
         }
 
         function deleteWaiting(id) {
-            alert('Waiting List terhubung ke Google Spreadsheet. Ubah kolom Status peserta menjadi MATCHED pada Spreadsheet agar fighter hilang dari Waiting List.');
+            if(confirm("Hapus fighter ini dari Waiting List?")) {
+                waitingListData = waitingListData.filter(f => f.id !== id);
+                renderAdminWaitingList();
+                renderPublicFights();
+            }
         }
 
         function resetAdminForm() {
@@ -1276,7 +1323,10 @@
                 
                 // (Lanjutkan dengan kode fetch/AJAX untuk mengirim data 'payload' ke Script URL Anda...)
 
-                const response = await fetch(SCRIPT_URL, {
+                // GANTI STRING DI BAWAH INI DENGAN URL WEB APP DARI LANGKAH 3
+                const scriptURL = SCRIPT_URL; 
+
+                const response = await fetch(scriptURL, {
                     method: 'POST',
                     body: JSON.stringify(payload),
                     // Menggunakan text/plain untuk menghindari isu error CORS preflight dari Google
