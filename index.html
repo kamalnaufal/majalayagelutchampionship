@@ -779,7 +779,8 @@
     <!-- ============================================== -->
     <script>
         // Format data diperbarui untuk mengakomodasi "Kategori" dan "Foto"
-
+        let fightsData = [];
+        let waitingListData = [];
 
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwoGTYWbu3uzYuRUVdm_pt_p-w2nTvYtJWShkD2blH5lGV06yNNKT770rAVVlH3Ur87Rg/exec';
 
@@ -1045,7 +1046,12 @@
                         <div class="relative z-10 mb-4">${photoHTML}</div>
 
                         <h4 class="font-heading font-bold text-xl text-gray-900 uppercase relative z-10 leading-tight">${name}</h4>
-                        <p class="text-xs text-brand-purple font-bold uppercase mt-1 mb-4 relative z-10">${camp}</p>
+                        <p class="text-xs text-brand-purple font-bold uppercase mt-1 relative z-10">${camp}</p>
+                        <div class="flex flex-wrap justify-center gap-1 mt-2 mb-4 relative z-10">
+                            <span class="px-2 py-1 rounded-full bg-purple-100 text-brand-purple text-[10px] font-bold">${escapeHtml(fighter.record || 'OPEN CHALLENGE')}</span>
+                            <span class="px-2 py-1 rounded-full bg-gray-100 text-gray-700 text-[10px] font-bold">${escapeHtml(fighter.kelas || '-')}</span>
+                            <span class="px-2 py-1 rounded-full bg-yellow-100 text-yellow-700 text-[10px] font-bold">${escapeHtml(fighter.rules || '-')}</span>
+                        </div>
 
                         <div class="w-full bg-gray-50 rounded-xl p-3 text-sm text-gray-700 relative z-10 border border-gray-100">
                             <div class="flex justify-between items-center border-b border-gray-200 pb-2 mb-2">
@@ -1104,6 +1110,16 @@
             if (!tbody) return;
             tbody.innerHTML = '';
 
+            if (!waitingListData || waitingListData.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="4" class="px-4 py-8 text-center text-gray-500 text-sm">
+                            Belum ada fighter di Waiting List.
+                        </td>
+                    </tr>`;
+                return;
+            }
+
             waitingListData.forEach(fighter => {
                 const tr = document.createElement('tr');
                 tr.className = "hover:bg-gray-800 transition-colors";
@@ -1113,12 +1129,15 @@
                         <div class="text-[10px] text-gray-500">${escapeHtml(fighter.camp || '-')}</div>
                     </td>
                     <td class="px-4 py-3">
-                        <div class="text-yellow-500 text-xs font-bold">${escapeHtml(fighter.berat || '-')} kg</div>
-                        <div class="text-gray-400 text-[10px]">${escapeHtml(fighter.tinggi || '-')} cm</div>
+                        <div class="text-yellow-500 text-xs font-bold">${escapeHtml(fighter.kelas || '-')}</div>
+                        <div class="text-gray-400 text-[10px]">${escapeHtml(fighter.record || '-')}</div>
                     </td>
-                    <td class="px-4 py-3 text-xs text-gray-300">${escapeHtml(fighter.umur || '-')} tahun</td>
+                    <td class="px-4 py-3 text-xs text-gray-300">${escapeHtml(fighter.rules || '-')}</td>
                     <td class="px-4 py-3 text-right">
-                        <span class="px-2 py-1 rounded bg-yellow-900/40 text-yellow-400 text-[10px] font-bold">WAITING</span>
+                        <span class="px-2 py-1 rounded bg-yellow-900/40 text-yellow-400 text-[10px] font-bold mr-2">WAITING</span>
+                        <button onclick="deleteWaiting(${Number(fighter.id)})" class="text-red-500 hover:text-red-400 p-1 bg-red-900/30 rounded" title="Hapus Waiting">
+                            <i class="ph-bold ph-trash text-sm"></i>
+                        </button>
                     </td>`;
                 tbody.appendChild(tr);
             });
@@ -1168,22 +1187,62 @@
 
         document.getElementById('adminWaitingForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            let wPhoto = await getBase64Image('waitPhoto');
-            
-            const newFighter = {
-                id: Date.now(),
-                name: document.getElementById('waitName').value,
-                camp: document.getElementById('waitCamp').value,
-                category: document.getElementById('waitCategory').value,
-                class: document.getElementById('waitClass').value,
-                rules: document.getElementById('waitRules').value,
-                photo: wPhoto
-            };
-            
-            waitingListData.push(newFighter);
-            this.reset();
-            renderAdminWaitingList();
-            renderPublicFights(); // Ini memanggil render waiting list publik juga
+
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton ? submitButton.innerHTML : '';
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.innerHTML = '<i class="ph ph-spinner-gap animate-spin"></i> Menyimpan...';
+            }
+
+            try {
+                const wPhoto = await getBase64Image('waitPhoto');
+                const waitName = document.getElementById('waitName').value.trim();
+                const waitCamp = document.getElementById('waitCamp').value.trim();
+                const waitCategory = document.getElementById('waitCategory').value;
+                const waitClass = document.getElementById('waitClass').value.trim();
+                const waitRules = document.getElementById('waitRules').value;
+
+                const payload = {
+                    type: 'waiting',
+                    nama: waitName,
+                    camp: waitCamp,
+                    kelas: waitClass,
+                    rules: waitRules,
+                    record: waitCategory,
+                    umur: '',
+                    tinggi: '',
+                    berat: (waitClass.match(/\d+(?:\.\d+)?/) || [''])[0],
+                    ig: '',
+                    fileFotoBase64: wPhoto,
+                    fileFotoName: 'WAITING_' + waitName.replace(/\s+/g, '_') + '_' + Date.now() + '.jpg'
+                };
+
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(payload),
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+                });
+
+                const result = await response.json();
+
+                if (result.result !== 'success') {
+                    throw new Error(result.error || 'Waiting List gagal disimpan.');
+                }
+
+                this.reset();
+                showToast('Waiting List berhasil disimpan.');
+                await loadWaitingListFromSpreadsheet();
+
+            } catch (error) {
+                console.error('Gagal menyimpan Waiting List:', error);
+                alert('Gagal menyimpan Waiting List.\n\n' + error.message);
+            } finally {
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = originalButtonText;
+                }
+            }
         });
 
         function editFight(id) {
@@ -1214,11 +1273,26 @@
             }
         }
 
-        function deleteWaiting(id) {
-            if(confirm("Hapus fighter ini dari Waiting List?")) {
-                waitingListData = waitingListData.filter(f => f.id !== id);
-                renderAdminWaitingList();
-                renderPublicFights();
+        async function deleteWaiting(id) {
+            if (!confirm("Hapus fighter ini dari Waiting List?")) return;
+
+            try {
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({ type: 'remove_waiting', id: id }),
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+                });
+
+                const result = await response.json();
+                if (result.result !== 'success') {
+                    throw new Error(result.error || 'Gagal menghapus Waiting List.');
+                }
+
+                showToast('Waiting List berhasil dihapus.');
+                await loadWaitingListFromSpreadsheet();
+            } catch (error) {
+                console.error('Gagal menghapus Waiting List:', error);
+                alert('Gagal menghapus Waiting List.\n\n' + error.message);
             }
         }
 
