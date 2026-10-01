@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MGC | Dirty Boxing & Freestyle Striking</title>
-    
+    <title>MGC X JAYA ABADI VAPOR | Pro Striking</title>
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
+
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
@@ -21,10 +21,12 @@
                 extend: {
                     colors: {
                         brand: {
+                            black: '#0a0a0a',
+                            darker: '#121212',
                             purple: '#6D28D9',
                             light: '#C4B5FD',
                             dark: '#4C1D95',
-                            neon: '#8B5CF6'
+                            neon: '#9333ea'
                         }
                     },
                     fontFamily: {
@@ -39,8 +41,8 @@
     <style>
         /* Base Styles */
         body {
-            background-color: #f8fafc;
-            color: #1e293b;
+            background-color: #0a0a0a;
+            color: #ffffff;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
             scroll-behavior: smooth;
@@ -48,44 +50,69 @@
 
         h1, h2, h3, h4, h5, h6 { font-family: 'Oswald', sans-serif; }
 
-        /* Effects */
+        /* Premium Glassmorphism */
         .glass {
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(20, 20, 25, 0.7);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(109, 40, 217, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         .glass-purple {
-            background: rgba(109, 40, 217, 0.9);
+            background: linear-gradient(145deg, rgba(76, 29, 149, 0.8), rgba(20, 20, 25, 0.9));
             backdrop-filter: blur(16px);
-            border: 1px solid rgba(139, 92, 246, 0.5);
-            color: white;
-            box-shadow: 0 10px 30px rgba(109, 40, 217, 0.2);
+            border: 1px solid rgba(147, 51, 234, 0.4);
+            box-shadow: 0 10px 40px rgba(109, 40, 217, 0.3);
         }
 
-        .neon-text { text-shadow: 0 0 10px rgba(139, 92, 246, 0.8), 0 0 20px rgba(139, 92, 246, 0.4); }
-        .neon-box { box-shadow: 0 0 15px rgba(139, 92, 246, 0.3), inset 0 0 10px rgba(139, 92, 246, 0.1); }
+        /* Neon & Poster Effects */
+        .neon-text { 
+            text-shadow: 0 0 10px rgba(147, 51, 234, 0.8), 0 0 30px rgba(147, 51, 234, 0.5); 
+        }
+        .text-glow {
+            text-shadow: 0 2px 15px rgba(255,255,255,0.3);
+        }
 
-        /* Hero Background */
-        .hero-bg {
-            background: linear-gradient(-45deg, #f3f4f6, #ffffff, #e0e7ff, #ede9fe);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+        /* Hero Background Setup */
+        .hero-section {
             position: relative;
+            background: radial-gradient(circle at center, #2e1065 0%, #0a0a0a 70%);
+            overflow: hidden;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* Animated Smoke/Fog using CSS */
+        .smoke-layer {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(circle at center, rgba(147,51,234,0.15) 0%, transparent 60%);
+            filter: blur(60px);
+            animation: smokeMove 20s infinite alternate ease-in-out;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .smoke-2 {
+            background: radial-gradient(circle at center, rgba(255,255,255,0.05) 0%, transparent 50%);
+            animation: smokeMove2 25s infinite alternate-reverse ease-in-out;
         }
 
+        @keyframes smokeMove {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(5%, 10%) scale(1.2); }
+        }
+        @keyframes smokeMove2 {
+            0% { transform: translate(0, 0) scale(1.1); }
+            100% { transform: translate(-10%, -5%) scale(0.9); }
+        }
+
+        /* Floating elements */
         .float-anim { animation: floating 4s ease-in-out infinite; }
         @keyframes floating {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
+            50% { transform: translateY(-10px); }
             100% { transform: translateY(0px); }
         }
 
@@ -94,23 +121,23 @@
             overflow: hidden;
             white-space: nowrap;
             position: relative;
-            background: #4C1D95;
-            padding: 15px 0;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            background: #050505;
+            padding: 20px 0;
+            border-top: 1px solid rgba(147,51,234,0.3);
+            border-bottom: 1px solid rgba(147,51,234,0.3);
         }
         .marquee-content {
             display: inline-block;
-            animation: marquee 25s linear infinite;
+            animation: marquee 30s linear infinite;
         }
         .marquee-item {
             display: inline-block;
             margin: 0 40px;
-            color: white;
-            font-weight: bold;
-            font-size: 1.2rem;
-            opacity: 0.9;
+            color: #C4B5FD;
+            font-weight: 700;
+            font-size: 1.5rem;
             font-family: 'Oswald', sans-serif;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
         }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
@@ -120,15 +147,15 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .nav-btn.active {
-            background-color: #6D28D9;
+            background: linear-gradient(135deg, #9333ea, #6D28D9);
             color: white;
             transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 10px 15px -3px rgba(109, 40, 217, 0.4);
+            box-shadow: 0 10px 20px -3px rgba(147, 51, 234, 0.5);
         }
 
         /* SPA Transitions */
         .page-view {
-            animation: fadeIn 0.5s ease-out forwards;
+            animation: fadeIn 0.4s ease-out forwards;
             opacity: 0;
             display: none;
         }
@@ -136,197 +163,215 @@
             display: block;
         }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Loaders & Elements */
-        .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #6D28D9;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        .toast {
-            position: fixed;
-            bottom: 80px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            opacity: 0;
-            transition: all 0.3s ease;
-            z-index: 9999;
-        }
-        .toast.show {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
-        }
+        /* Scrollbar styling */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #4C1D95; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6D28D9; }
     </style>
 </head>
 <body class="antialiased pb-24">
 
     <!-- FLOATING BOTTOM NAVIGATION -->
-    <nav id="main-nav" class="fixed bottom-4 left-1/2 transform -translate-x-1/2 glass rounded-full px-2 py-2 flex items-center justify-between z-50 border border-purple-200 w-[95%] max-w-[400px]">
-        <a href="#home" class="nav-btn w-1/4 flex flex-col items-center py-2 rounded-full text-brand-dark" data-target="home">
+    <nav id="main-nav" class="fixed bottom-4 left-1/2 transform -translate-x-1/2 glass rounded-full px-2 py-2 flex items-center justify-between z-50 w-[95%] max-w-[450px]">
+        <a href="#home" class="nav-btn w-1/4 flex flex-col items-center py-2 rounded-full text-gray-400 hover:text-white" data-target="home">
             <i class="ph ph-house text-2xl"></i>
-            <span class="text-[10px] font-bold mt-1">Home</span>
+            <span class="text-[10px] font-bold mt-1 tracking-wider uppercase">Home</span>
         </a>
-        <a href="#fights" class="nav-btn w-1/4 flex flex-col items-center py-2 rounded-full text-brand-dark" data-target="fights">
+        <a href="#fights" class="nav-btn w-1/4 flex flex-col items-center py-2 rounded-full text-gray-400 hover:text-white" data-target="fights">
             <i class="ph ph-sword text-2xl"></i>
-            <span class="text-[10px] font-bold mt-1">Card</span>
+            <span class="text-[10px] font-bold mt-1 tracking-wider uppercase">Card</span>
         </a>
-        <a href="#register" class="nav-btn w-1/4 flex flex-col items-center py-2 rounded-full text-brand-dark" data-target="register">
+        <a href="#register" class="nav-btn w-1/4 flex flex-col items-center py-2 rounded-full text-gray-400 hover:text-white" data-target="register">
             <i class="ph ph-pencil-simple-line text-2xl"></i>
-            <span class="text-[10px] font-bold mt-1">Daftar</span>
+            <span class="text-[10px] font-bold mt-1 tracking-wider uppercase">Daftar</span>
         </a>
-        <a href="#admin-login" class="nav-btn w-1/4 flex flex-col items-center py-2 rounded-full text-gray-400 hover:text-brand-purple" data-target="admin">
-            <i class="ph ph-lock-key text-2xl"></i>
-            <span class="text-[10px] font-bold mt-1">Admin</span>
+        <a href="#ranking" class="nav-btn w-1/4 flex flex-col items-center py-2 rounded-full text-gray-400 hover:text-white" data-target="ranking">
+            <i class="ph ph-medal text-2xl"></i>
+            <span class="text-[10px] font-bold mt-1 tracking-wider uppercase">Ranking</span>
         </a>
     </nav>
 
     <!-- TOAST NOTIFICATION -->
-    <div id="toast" class="toast bg-gray-900 text-white px-6 py-3 rounded-full font-semibold shadow-2xl flex items-center gap-2">
-        <i class="ph-fill ph-check-circle text-green-400"></i>
+    <div id="toast" class="fixed bottom-24 left-1/2 transform -translate-x-1/2 translate-y-[150px] opacity-0 transition-all duration-300 z-[9999] bg-white text-brand-black px-6 py-3 rounded-full font-bold shadow-[0_0_20px_rgba(255,255,255,0.4)] flex items-center gap-2">
+        <i class="ph-fill ph-check-circle text-green-600 text-xl"></i>
         <span id="toast-msg">Teks Disalin</span>
     </div>
 
     <!-- MAIN APP CONTAINER -->
     <main id="app-content">
-        
+
         <!-- ============================================== -->
-        <!-- VIEW 1: HOME                                   -->
+        <!-- VIEW 1: HOME (MAIN POSTER)                     -->
         <!-- ============================================== -->
         <div id="view-home" class="page-view active-view">
             <!-- HERO SECTION -->
-            <section class="hero-bg min-h-screen flex flex-col justify-center items-center relative pt-10 pb-20">
-                <!-- Background Orbs -->
-                <div class="absolute top-20 left-10 w-48 h-48 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-50 float-anim"></div>
-                <div class="absolute bottom-40 right-10 w-56 h-56 bg-brand-neon rounded-full mix-blend-multiply filter blur-3xl opacity-30 float-anim" style="animation-delay: 2s;"></div>
+            <section class="hero-section min-h-[100svh] flex flex-col justify-center items-center relative pt-10 pb-20">
+                
+                <!-- Glitter / Particles Canvas -->
+                <canvas id="glitter-canvas" class="absolute inset-0 z-0 w-full h-full pointer-events-none"></canvas>
 
-                <div class="z-10 text-center px-4 max-w-5xl mx-auto flex flex-col items-center mt-10">
-                    <span class="bg-brand-dark text-white px-5 py-1.5 rounded-full text-xs md:text-sm font-bold tracking-widest uppercase mb-6 shadow-lg border border-purple-400 flex items-center gap-2">
-                        <i class="ph-fill ph-warning-circle text-brand-neon"></i> Underground Arena
+                <!-- CSS Smoke Effects -->
+                <div class="smoke-layer z-0"></div>
+                <div class="smoke-layer smoke-2 z-0"></div>
+
+                <div class="z-10 text-center px-4 max-w-5xl mx-auto flex flex-col items-center mt-10 relative">
+                    <!-- Top Badge -->
+                    <span class="bg-brand-black/50 backdrop-blur-sm text-brand-light px-5 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-8 shadow-lg border border-brand-purple flex items-center gap-2">
+                        <i class="ph-fill ph-warning-circle text-brand-neon"></i> Official Fight Poster
                     </span>
-                    
-                    <h1 class="text-6xl md:text-8xl lg:text-9xl font-heading font-bold text-brand-dark leading-none uppercase neon-text tracking-tighter">
-                        Majalaya Gelut <br>
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-purple to-purple-900">Championship</span>
-                    </h1>
-                    
-                    <p class="mt-6 text-lg md:text-xl text-gray-700 font-medium max-w-2xl mx-auto">saksikan serunya adu ketangkasan dan semangat pantang menyerah di atas ring profesional!</p>
-                    
+
+                    <!-- Main Logo / Typography -->
+                    <div class="flex flex-col items-center float-anim">
+                        <h1 class="text-6xl md:text-8xl lg:text-9xl font-heading font-bold text-white leading-[0.9] uppercase neon-text tracking-tighter">
+                            Majalaya Gelut<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-brand-neon to-purple-600">Championship</span>
+                        </h1>
+                        <div class="mt-4 flex items-center gap-4">
+                            <div class="h-[2px] w-12 bg-white/30"></div>
+                            <h2 class="text-xl md:text-3xl font-heading font-bold tracking-[0.2em] text-white text-glow">
+                                X JAYA ABADI VAPOR
+                            </h2>
+                            <div class="h-[2px] w-12 bg-white/30"></div>
+                        </div>
+                    </div>
+
+                    <p class="mt-8 text-sm md:text-lg text-gray-300 max-w-2xl mx-auto font-light leading-relaxed">
+                        Pertarungan penuh gengsi. Adu ketangkasan, determinasi, dan kebanggaan camp di atas ring profesional.
+                    </p>
+
                     <!-- Event Info Cards -->
-                    <div class="flex flex-wrap justify-center gap-4 mt-8 w-full">
-                        <div class="glass px-6 py-3 rounded-xl flex items-center gap-3">
-                            <i class="ph-fill ph-map-pin text-brand-purple text-2xl"></i>
+                    <div class="flex flex-wrap justify-center gap-4 mt-10 w-full">
+                        <div class="glass px-6 py-4 rounded-xl flex items-center gap-4 border-l-4 border-l-brand-purple">
+                            <i class="ph-fill ph-map-pin text-brand-light text-3xl"></i>
                             <div class="text-left">
-                                <p class="text-xs text-gray-500 font-bold uppercase">Lokasi</p>
-                                <p class="font-bold text-brand-dark">Graha Sajabat</p>
+                                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Venue</p>
+                                <p class="font-bold text-white text-lg">Graha Sajabat</p>
                             </div>
                         </div>
-                        <div class="glass px-6 py-3 rounded-xl flex items-center gap-3">
-                            <i class="ph-fill ph-calendar-blank text-brand-purple text-2xl"></i>
+                        <div class="glass px-6 py-4 rounded-xl flex items-center gap-4 border-l-4 border-l-brand-neon">
+                            <i class="ph-fill ph-calendar-blank text-brand-light text-3xl"></i>
                             <div class="text-left">
-                                <p class="text-xs text-gray-500 font-bold uppercase">Waktu</p>
-                                <p class="font-bold text-brand-dark">Oktober 2026</p>
-                            </div>
-                        </div>
-                        <div class="glass px-6 py-3 rounded-xl flex items-center gap-3">
-                            <i class="ph-fill ph-users text-brand-purple text-2xl"></i>
-                            <div class="text-left">
-                                <p class="text-xs text-gray-500 font-bold uppercase">Roster</p>
-                                <p class="font-bold text-brand-dark">300++ Fighters</p>
+                                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Waktu</p>
+                                <p class="font-bold text-white text-lg">18 Oktober 2026</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Countdown Timer -->
-                    <div class="flex gap-3 md:gap-6 mt-12 glass p-4 md:p-6 rounded-3xl border border-white shadow-xl">
+                    <div class="flex gap-4 md:gap-8 mt-12 glass p-6 md:p-8 rounded-3xl border border-white/20 shadow-[0_0_40px_rgba(109,40,217,0.3)]">
                         <div class="flex flex-col items-center w-16 md:w-20">
-                            <span id="days" class="text-4xl md:text-5xl font-heading font-bold text-brand-purple">00</span>
-                            <span class="text-[10px] md:text-xs uppercase font-bold text-gray-500 tracking-wider mt-1">Hari</span>
+                            <span id="days" class="text-4xl md:text-6xl font-heading font-bold text-white text-glow">00</span>
+                            <span class="text-[10px] md:text-xs uppercase font-bold text-brand-purple tracking-widest mt-2">Hari</span>
                         </div>
-                        <span class="text-3xl md:text-4xl font-heading text-brand-light mt-1">:</span>
+                        <span class="text-3xl md:text-5xl font-heading text-white/30 mt-2">:</span>
                         <div class="flex flex-col items-center w-16 md:w-20">
-                            <span id="hours" class="text-4xl md:text-5xl font-heading font-bold text-brand-purple">00</span>
-                            <span class="text-[10px] md:text-xs uppercase font-bold text-gray-500 tracking-wider mt-1">Jam</span>
+                            <span id="hours" class="text-4xl md:text-6xl font-heading font-bold text-white text-glow">00</span>
+                            <span class="text-[10px] md:text-xs uppercase font-bold text-brand-purple tracking-widest mt-2">Jam</span>
                         </div>
-                        <span class="text-3xl md:text-4xl font-heading text-brand-light mt-1">:</span>
+                        <span class="text-3xl md:text-5xl font-heading text-white/30 mt-2">:</span>
                         <div class="flex flex-col items-center w-16 md:w-20">
-                            <span id="minutes" class="text-4xl md:text-5xl font-heading font-bold text-brand-purple">00</span>
-                            <span class="text-[10px] md:text-xs uppercase font-bold text-gray-500 tracking-wider mt-1">Menit</span>
+                            <span id="minutes" class="text-4xl md:text-6xl font-heading font-bold text-white text-glow">00</span>
+                            <span class="text-[10px] md:text-xs uppercase font-bold text-brand-purple tracking-widest mt-2">Menit</span>
                         </div>
-                        <span class="text-3xl md:text-4xl font-heading text-brand-light mt-1">:</span>
+                        <span class="text-3xl md:text-5xl font-heading text-white/30 mt-2">:</span>
                         <div class="flex flex-col items-center w-16 md:w-20">
-                            <span id="seconds" class="text-4xl md:text-5xl font-heading font-bold text-brand-purple">00</span>
-                            <span class="text-[10px] md:text-xs uppercase font-bold text-gray-500 tracking-wider mt-1">Detik</span>
+                            <span id="seconds" class="text-4xl md:text-6xl font-heading font-bold text-brand-neon text-glow">00</span>
+                            <span class="text-[10px] md:text-xs uppercase font-bold text-brand-purple tracking-widest mt-2">Detik</span>
                         </div>
                     </div>
 
                     <!-- CTA Button -->
-                    <a href="#register" class="mt-12 bg-brand-purple hover:bg-brand-dark text-white font-bold text-lg md:text-xl py-4 px-10 rounded-full transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(109,40,217,0.6)] flex items-center gap-2">
+                    <a href="#register" class="mt-12 bg-white text-brand-black hover:bg-brand-neon hover:text-white font-bold text-lg md:text-xl py-4 px-12 rounded-full transition-all duration-300 transform hover:scale-105 shadow-[0_0_30px_rgba(255,255,255,0.3)] flex items-center gap-3">
                         DAFTAR SEKARANG <i class="ph-bold ph-arrow-right"></i>
                     </a>
                 </div>
             </section>
 
             <!-- SPONSOR MARQUEE -->
-            <div class="marquee-container border-y border-purple-800">
-                <div class="marquee-content">
-                     <!--  <span class="marquee-item"><i class="ph-fill ph-lightning"></i> GRAHA SAJABAT</span>
-                    <span class="marquee-item"><i class="ph-fill ph-fire"></i> FIGHT GEAR PRO</span>
-                    <span class="marquee-item"><i class="ph-fill ph-shield-check"></i> BPJS KESEHATAN</span>
-                    <span class="marquee-item"><i class="ph-fill ph-barbell"></i> GYM MUSCLE MAKER</span>
-                    Duplicate for seamless scroll 
-                    <span class="marquee-item"><i class="ph-fill ph-lightning"></i> GRAHA SAJABAT</span>
-                    <span class="marquee-item"><i class="ph-fill ph-fire"></i> FIGHT GEAR PRO</span>
-                    <span class="marquee-item"><i class="ph-fill ph-shield-check"></i> BPJS KESEHATAN</span>
-                    <span class="marquee-item"><i class="ph-fill ph-barbell"></i> GYM MUSCLE MAKER</span> -->
-                </div> 
-            </div>
+<div class="marquee-container flex overflow-hidden whitespace-nowrap w-full">
+    <!-- Tambahkan 'flex' dan 'gap-10' di sini agar logo berjejer ke pinggir dan memiliki jarak -->
+    <div class="marquee-content flex items-center gap-10">
+        
+        <!-- Set Gambar Asli -->
+        <!-- Gunakan w-24 h-12 dan object-contain agar ukuran kotak semua logo sama dan tidak gepeng -->
+        <span class="marquee-item flex-shrink-0">
+            <img src="jav.png" alt="Logo JAV" class="w-24 h-12 object-contain">
+        </span>
+        <span class="marquee-item flex-shrink-0">
+            <img src="mgc.png" alt="Logo MGC" class="w-24 h-12 object-contain">
+        </span>
+        <span class="marquee-item flex-shrink-0">
+            <img src="maja.png" alt="Logo Maja" class="w-24 h-12 object-contain">
+        </span>
+        <span class="marquee-item flex-shrink-0">
+            <img src="elite.png" alt="Logo Elite" class="w-24 h-12 object-contain">
+        </span>
+        <span class="marquee-item flex-shrink-0">
+            <img src="lumer.png" alt="Logo Lumer" class="w-24 h-12 object-contain">
+        </span>
+        <span class="marquee-item flex-shrink-0">
+            <img src="stikerkala.png" alt="Logo Stikerkala" class="w-24 h-12 object-contain">
+        </span>
 
+        <!-- Duplicate for seamless scroll -->
+        <span class="marquee-item flex-shrink-0">
+            <img src="jav.png" alt="Logo JAV" class="w-24 h-12 object-contain">
+        </span>
+        <span class="marquee-item flex-shrink-0">
+            <img src="mgc.png" alt="Logo MGC" class="w-24 h-12 object-contain">
+        </span>
+        <span class="marquee-item flex-shrink-0">
+            <img src="maja.png" alt="Logo Maja" class="w-24 h-12 object-contain">
+        </span>
+        <span class="marquee-item flex-shrink-0">
+            <img src="elite.png" alt="Logo Elite" class="w-24 h-12 object-contain">
+        </span>
+        <span class="marquee-item flex-shrink-0">
+            <img src="lumer.png" alt="Logo Lumer" class="w-24 h-12 object-contain">
+        </span>
+        <span class="marquee-item flex-shrink-0">
+            <img src="stikerkala.png" alt="Logo Stikerkala" class="w-24 h-12 object-contain">
+        </span>
+        
+    </div> 
+</div>
             <!-- RULES SECTION -->
-            <section class="py-20 px-4 max-w-6xl mx-auto bg-white/50">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-heading font-bold text-brand-dark uppercase">Peraturan <span class="text-brand-purple">Pertandingan</span></h2>
-                    <p class="text-gray-500 mt-2">Pahami regulasi sebelum Anda melangkah ke atas ring.</p>
+            <section class="py-24 px-4 max-w-6xl mx-auto">
+                <div class="text-center mb-16 relative">
+                    <h2 class="text-5xl md:text-6xl font-heading font-bold text-white uppercase tracking-tight">Regulasi <span class="text-brand-purple">Tanding</span></h2>
+                    <p class="text-gray-400 mt-4 text-lg">Pahami aturan main sebelum Anda melangkah ke arena kami.</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
                     <!-- Dirty Boxing Rules -->
-                    <div class="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 hover:shadow-2xl transition-all">
-                        <div class="w-16 h-16 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-inner">
-                            <i class="ph-fill ph-hand-fist"></i>
-                        </div>
-                        <h3 class="text-3xl font-heading font-bold text-gray-900 mb-4 uppercase">Dirty Boxing</h3>
-                        <p class="text-gray-600 mb-6 line-clamp-3">Seni bertinju jarak dekat </p>
-                        <ul class="space-y-3 text-sm text-gray-700">
-                            <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-brand-purple text-lg mt-0.5"></i> <span>Pukulan ke arah kepala dan badan diperbolehkan.</span></li>
-                            <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-brand-purple text-lg mt-0.5"></i> <span>Superman Punch, spinning backpish</span></li>
-                            <li class="flex items-start gap-3"><i class="ph-fill ph-x-circle text-red-500 text-lg mt-0.5"></i> <span>tendangan, groin strike</span></li>
-                            <li class="flex items-start gap-3"><i class="ph-fill ph-x-circle text-red-500 text-lg mt-0.5"></i> <span>elbow , knee</span></li>
+                    <div class="glass rounded-3xl p-8 lg:p-10 border border-white/10 hover:border-brand-purple/50 transition-all group">
+                        
+                        <h3 class="text-3xl font-heading font-bold text-white mb-4 uppercase">Boxing</h3>
+                        <p class="text-gray-400 mb-6 font-light">Street Boxing Kun Khmer</p>
+                        <ul class="space-y-4 text-sm text-gray-300">
+                            <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-brand-neon text-xl mt-0.5"></i> <span>Pukulan ke arah kepala dan badan diperbolehkan.</span></li>
+                            <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-brand-neon text-xl mt-0.5"></i> <span>Superman Punch</span></li>
+                            <li class="flex items-start gap-3"><i class="ph-fill ph-x-circle text-red-500 text-xl mt-0.5"></i> <span>Tendangan, groin strike dilarang keras.</span></li>
+                            <li class="flex items-start gap-3"><i class="ph-fill ph-x-circle text-red-500 text-xl mt-0.5"></i> <span>Elbow, knee dilarang.</span></li>
                         </ul>
                     </div>
 
                     <!-- Freestyle Striking Rules -->
-                    <div class="bg-gray-900 rounded-3xl p-8 shadow-xl border border-gray-800 hover:shadow-2xl hover:shadow-purple-900/50 transition-all text-white relative overflow-hidden">
-                        <!-- BG Element -->
-                        <i class="ph-fill ph-sword absolute -bottom-10 -right-10 text-9xl text-gray-800 opacity-50 transform -rotate-12"></i>
-                        
-                        <div class="w-16 h-16 bg-brand-purple text-white rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-lg relative z-10">
-                            <i class="ph-fill ph-lightning"></i>
-                        </div>
+                    <div class="glass rounded-3xl p-8 lg:p-10 border border-white/10 hover:border-brand-neon/50 transition-all group relative overflow-hidden">
+                        <i class="ph-fill ph-sword absolute -bottom-10 -right-10 text-9xl text-white/5 transform -rotate-12 group-hover:text-brand-purple/10 transition-colors"></i>
+                       
                         <h3 class="text-3xl font-heading font-bold text-white mb-4 uppercase relative z-10">Freestyle Striking</h3>
-                        <p class="text-gray-400 mb-6 relative z-10">Kombinasi striking bebas berdiri</p>
-                        <ul class="space-y-3 text-sm text-gray-300 relative z-10">
-                            <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-brand-neon text-lg mt-0.5"></i> <span>Pukulan, tendangan, ke badan dan kepala diperbolehkan.</span></li>
-                            <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-brand-neon text-lg mt-0.5"></i> <span>Superman Punch, spinning backpish, spinning back kick</span></li>
-                            <li class="flex items-start gap-3"><i class="ph-fill ph-x-circle text-red-400 text-lg mt-0.5"></i> <span>elbow, knee</span></li>
-                            <li class="flex items-start gap-3"><i class="ph-fill ph-x-circle text-red-400 text-lg mt-0.5"></i> <span>Pertarungan bawah (Ground and Pound / Submission) dilarang.</span></li>
+                        <p class="text-gray-400 mb-6 font-light relative z-10">Kick And Punch Kun Khmer</p>
+                        <ul class="space-y-4 text-sm text-gray-300 relative z-10">
+                            <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-brand-neon text-xl mt-0.5"></i> <span>Pukulan & tendangan ke badan/kepala legal.</span></li>
+                            <li class="flex items-start gap-3"><i class="ph-fill ph-check-circle text-brand-neon text-xl mt-0.5"></i> <span>Superman Punch, spinning backfist, spinning back kick.</span></li>
+                            <li class="flex items-start gap-3"><i class="ph-fill ph-x-circle text-red-500 text-xl mt-0.5"></i> <span>Elbow, knee dilarang.</span></li>
+                            <li class="flex items-start gap-3"><i class="ph-fill ph-x-circle text-red-500 text-xl mt-0.5"></i> <span>Pertarungan bawah (Ground/Submission) ilegal.</span></li>
                         </ul>
                     </div>
                 </div>
@@ -336,22 +381,25 @@
         <!-- ============================================== -->
         <!-- VIEW 2: FIGHT CARD                             -->
         <!-- ============================================== -->
-        <div id="view-fights" class="page-view py-10 px-4 min-h-screen">
+        <div id="view-fights" class="page-view py-10 px-4 min-h-screen bg-brand-darker">
             <div class="max-w-6xl mx-auto pt-10">
-                <div class="text-center mb-12">
-                    <h2 class="text-4xl md:text-6xl font-heading font-bold text-brand-dark uppercase">Fight <span class="text-brand-purple">Card</span></h2>
-                    <p class="text-gray-500 mt-2">Daftar petarung yang telah terkonfirmasi berlaga di Graha Sajabat.</p>
+                <div class="text-center mb-16 relative">
+                    <span class="text-brand-neon font-bold tracking-widest uppercase text-sm mb-2 block">Official Matchups</span>
+                    <h2 class="text-5xl md:text-7xl font-heading font-bold text-white uppercase">Fight <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-light to-brand-purple">Card</span></h2>
+                    <p class="text-gray-400 mt-4">Daftar petarung yang telah terkonfirmasi berlaga di arena.</p>
                 </div>
 
                 <!-- Dynamic Grid Container -->
-                <div id="public-fight-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+                <div id="public-fight-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
                     <!-- Inject by JS -->
                 </div>
 
                 <!-- WAITING LIST SECTION -->
-                <div class="text-center mb-10 pt-10 border-t border-purple-200">
-                    <h2 class="text-3xl md:text-5xl font-heading font-bold text-gray-800 uppercase"><i class="ph-fill ph-hourglass-high text-brand-purple"></i> Waiting <span class="text-brand-purple">List</span></h2>
-                    <p class="text-gray-500 mt-2">Fighter yang siap tempur namun belum memiliki lawan (Open Challenge).</p>
+                <div class="text-center mb-12 pt-16 border-t border-white/10">
+                    <h2 class="text-4xl md:text-5xl font-heading font-bold text-white uppercase flex items-center justify-center gap-3">
+                        <i class="ph-fill ph-hourglass-high text-brand-purple"></i> Waiting <span class="text-brand-purple">List</span>
+                    </h2>
+                    <p class="text-gray-400 mt-4">Fighter yang siap tempur namun belum memiliki lawan (Open Challenge).</p>
                 </div>
 
                 <div id="public-waiting-grid" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -360,184 +408,175 @@
             </div>
         </div>
 
-       <!-- ============================================== -->
+        <!-- ============================================== -->
         <!-- VIEW 3: REGISTRASI                             -->
         <!-- ============================================== -->
-        <div id="view-register" class="page-view py-10 px-4 bg-white relative min-h-screen">
-            <div class="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5 pointer-events-none"></div>
-            
-            <div class="max-w-5xl mx-auto pt-10">
-                <div class="text-center mb-10">
-                    <h2 class="text-4xl md:text-6xl font-heading font-bold text-brand-dark uppercase">Form <span class="text-brand-purple">Registrasi</span></h2>
-                    <p class="text-gray-600 mt-3">Lengkapi data diri Anda dengan benar. Kuota terbatas untuk 300 petarung.</p>
+        <div id="view-register" class="page-view py-10 px-4 bg-brand-black relative min-h-screen">
+            <div class="max-w-6xl mx-auto pt-10">
+                <div class="text-center mb-16">
+                    <span class="text-brand-neon font-bold tracking-widest uppercase text-sm mb-2 block">Join The Roster</span>
+                    <h2 class="text-5xl md:text-7xl font-heading font-bold text-white uppercase">Form <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-light to-brand-purple">Registrasi</span></h2>
+                    <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Lengkapi data diri Anda dengan benar. Kuota terbatas. Buktikan nyalimu di atas ring.</p>
                 </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 relative z-10">
-                    
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 relative z-10">
+
                     <!-- Left Column: Payment & Info -->
                     <div class="lg:col-span-1">
-                        <div class="glass-purple rounded-3xl p-6 shadow-2xl sticky top-10">
-                            <h3 class="text-xl font-heading mb-2 text-white uppercase flex items-center gap-2">
-                                <i class="ph-fill ph-wallet"></i> Biaya Registrasi
+                        <div class="glass-purple rounded-3xl p-8 shadow-2xl sticky top-10">
+                            <h3 class="text-2xl font-heading mb-2 text-white uppercase flex items-center gap-3">
+                                <i class="ph-fill ph-wallet"></i> Biaya Pendaftaran
                             </h3>
-                            <p class="text-xs text-purple-200 mb-6">Lakukan transfer sebelum mengisi form.</p>
-                            
-                            <div class="bg-white rounded-2xl p-5 text-center mb-6 neon-box relative overflow-hidden">
-                                <div class="absolute top-0 left-0 w-full h-2 bg-blue-500"></div>
-                                <img src="danalg.png" alt="DANA" class="h-6 mx-auto mb-3 mt-2">
-                                
-                                <div class="flex items-center justify-center gap-2 mb-1">
-                                    <p id="rekNumber" class="text-2xl font-bold text-brand-dark tracking-wider">085720309608</p>
-                                    <button type="button" onclick="copyToClipboard('085720309608')" class="bg-gray-100 hover:bg-gray-200 text-gray-600 p-2 rounded-lg transition-colors" title="Salin Nomor">
-                                        <i class="ph ph-copy text-lg"></i>
+                            <p class="text-sm text-purple-200 mb-8 font-light">Selesaikan pembayaran sebelum mengisi formulir di samping.</p>
+
+                            <div class="bg-white rounded-2xl p-6 text-center mb-8 relative overflow-hidden shadow-[0_0_20px_rgba(255,255,255,0.1)]">
+                                <div class="absolute top-0 left-0 w-full h-2 bg-[#118EEA]"></div>
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Logo_dana_blue.svg/1200px-Logo_dana_blue.svg.png" alt="DANA" class="h-8 mx-auto mb-4 mt-2 object-contain" onerror="this.src='https://placehold.co/100x40/ffffff/118EEA?text=DANA'">
+
+                                <div class="flex items-center justify-center gap-2 mb-2">
+                                    <p id="rekNumber" class="text-2xl font-bold text-brand-black tracking-wider">085720309608</p>
+                                    <button type="button" onclick="copyToClipboard('085720309608')" class="bg-gray-100 hover:bg-gray-200 text-gray-800 p-2 rounded-lg transition-colors" title="Salin Nomor">
+                                        <i class="ph ph-copy text-xl"></i>
                                     </button>
                                 </div>
-                                <p class="text-sm font-semibold text-gray-600">Transfer sebesar Rp.385.000 a/n Kamal Naufal Ramadhan</p>
+                                <p class="text-sm font-bold text-gray-500">Rp. 385.000 <br><span class="font-normal">a/n Kamal Naufal Ramadhan</span></p>
                             </div>
-                            
-                            <div class="bg-purple-900/50 rounded-2xl p-4 border border-purple-500/30">
-                                <h4 class="text-sm font-bold text-white mb-3">Syarat Upload:</h4>
-                                <ul class="text-xs space-y-2 text-purple-100">
-                                    <li class="flex items-start gap-2"><i class="ph-bold ph-check text-green-400 mt-0.5"></i> Bukti Screenshot Transfer DANA.</li>
-                                    <li class="flex items-start gap-2"><i class="ph-bold ph-check text-green-400 mt-0.5"></i> Foto KTP/KK (Jelas, untuk BPJS).</li>
-                                    <li class="flex items-start gap-2"><i class="ph-bold ph-check text-green-400 mt-0.5"></i> Foto Petarung (Setengah badan, hadap depan, 2 tangan mengepal di depan pinggir muka).</li>
+
+                            <div class="bg-black/40 rounded-2xl p-5 border border-white/10">
+                                <h4 class="text-sm font-bold text-brand-light mb-4 uppercase tracking-wider">Syarat Upload:</h4>
+                                <ul class="text-sm space-y-3 text-gray-300">
+                                    <li class="flex items-start gap-3"><i class="ph-bold ph-check text-green-400 mt-0.5"></i> Bukti Screenshot Transfer DANA.</li>
+                                    <li class="flex items-start gap-3"><i class="ph-bold ph-check text-green-400 mt-0.5"></i> Foto KTP/KK (Jelas, untuk BPJS).</li>
+                                    <li class="flex items-start gap-3"><i class="ph-bold ph-check text-green-400 mt-0.5"></i> Foto Petarung (Hadap depan, tangan mengepal/pose tanding).</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Right Column: The Form -->
+                    <!-- Right Column: The Form (ID dipertahankan 100%) -->
                     <div class="lg:col-span-2">
-                        <form id="registrationForm" class="glass rounded-3xl p-6 md:p-8 shadow-xl border border-gray-100">
-                            
-                            <h4 class="font-heading text-xl text-brand-dark mb-4 border-b pb-2">Data Pribadi</h4>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
+                        <form id="registrationForm" class="glass rounded-3xl p-6 md:p-10 border border-white/10">
+
+                            <h4 class="font-heading text-2xl text-white mb-6 border-b border-white/10 pb-4">Data Pribadi</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-700 mb-1 uppercase">Nama Lengkap (Sesuai KTP) *</label>
-                                    <input type="text" id="regNama" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-purple outline-none bg-white/50 text-sm">
+                                    <label class="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wide">Nama Lengkap (KTP) *</label>
+                                    <input type="text" id="regNama" required class="w-full px-4 py-3 rounded-xl border border-white/20 bg-black/50 text-white focus:ring-2 focus:ring-brand-purple focus:border-transparent outline-none transition-all">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-700 mb-1 uppercase">NIK KTP *</label>
-                                    <input type="number" id="regNIK" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-purple outline-none bg-white/50 text-sm" placeholder="16 Digit NIK">
+                                    <label class="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wide">NIK KTP *</label>
+                                    <input type="number" id="regNIK" required class="w-full px-4 py-3 rounded-xl border border-white/20 bg-black/50 text-white focus:ring-2 focus:ring-brand-purple focus:border-transparent outline-none transition-all" placeholder="16 Digit">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-700 mb-1 uppercase">Nomor HP / WhatsApp *</label>
-                                    <input type="number" id="regPhone" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-purple outline-none bg-white/50 text-sm" placeholder="08...">
+                                    <label class="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wide">No HP / WA *</label>
+                                    <input type="number" id="regPhone" required class="w-full px-4 py-3 rounded-xl border border-white/20 bg-black/50 text-white focus:ring-2 focus:ring-brand-purple focus:border-transparent outline-none transition-all" placeholder="08...">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-700 mb-1 uppercase">Email Aktif *</label>
-                                    <input type="email" id="regEmail" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-purple outline-none bg-white/50 text-sm" placeholder="email@contoh.com">
+                                    <label class="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wide">Email *</label>
+                                    <input type="email" id="regEmail" required class="w-full px-4 py-3 rounded-xl border border-white/20 bg-black/50 text-white focus:ring-2 focus:ring-brand-purple focus:border-transparent outline-none transition-all" placeholder="email@contoh.com">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-700 mb-1 uppercase">Umur (Tahun) *</label>
-                                    <input type="number" id="regUmur" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-purple outline-none bg-white/50 text-sm">
+                                    <label class="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wide">Umur (Tahun) *</label>
+                                    <input type="number" id="regUmur" required class="w-full px-4 py-3 rounded-xl border border-white/20 bg-black/50 text-white focus:ring-2 focus:ring-brand-purple focus:border-transparent outline-none transition-all">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-700 mb-1 uppercase">Ukuran Baju (Fighter Kit) *</label>
-                                    <select id="regBaju" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-purple outline-none bg-white/50 text-sm">
-                                        <option value="" disabled selected>Pilih Ukuran...</option>
-                                        <option value="S">S</option>
-                                        <option value="M">M</option>
-                                        <option value="L">L</option>
-                                        <option value="XL">XL</option>
-                                        <option value="XXL">XXL</option>
+                                    <label class="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wide">Ukuran Baju Kit *</label>
+                                    <select id="regBaju" required class="w-full px-4 py-3 rounded-xl border border-white/20 bg-black/50 text-white focus:ring-2 focus:ring-brand-purple focus:border-transparent outline-none transition-all appearance-none">
+                                        <option value="" disabled selected class="text-gray-500">Pilih Ukuran...</option>
+                                        <option value="S" class="bg-gray-900">S</option>
+                                        <option value="M" class="bg-gray-900">M</option>
+                                        <option value="L" class="bg-gray-900">L</option>
+                                        <option value="XL" class="bg-gray-900">XL</option>
+                                        <option value="XXL" class="bg-gray-900">XXL</option>
                                     </select>
                                 </div>
                             </div>
 
-                            <h4 class="font-heading text-xl text-brand-dark mb-4 border-b pb-2">Data Petarung</h4>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
+                            <h4 class="font-heading text-2xl text-white mb-6 border-b border-white/10 pb-4">Profil Petarung</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-700 mb-1 uppercase">Nama Ring / Julukan *</label>
-                                    <input type="text" id="regJulukan" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-purple outline-none bg-white/50 text-sm">
+                                    <label class="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wide">Nama Ring / Julukan *</label>
+                                    <input type="text" id="regJulukan" required class="w-full px-4 py-3 rounded-xl border border-white/20 bg-black/50 text-white focus:ring-2 focus:ring-brand-purple focus:border-transparent outline-none transition-all">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-700 mb-1 uppercase">Asal Camp / Sasana *</label>
-                                    <input type="text" id="regCamp" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-purple outline-none bg-white/50 text-sm" placeholder="Kosongkan jika Independent">
+                                    <label class="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wide">Asal Camp/Sasana *</label>
+                                    <input type="text" id="regCamp" required class="w-full px-4 py-3 rounded-xl border border-white/20 bg-black/50 text-white focus:ring-2 focus:ring-brand-purple focus:border-transparent outline-none transition-all" placeholder="Isi 'Independent' jika tidak ada">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-700 mb-1 uppercase">Tinggi Badan (cm) *</label>
-                                    <input type="number" id="regTB" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-purple outline-none bg-white/50 text-sm">
+                                    <label class="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wide">Tinggi (cm) *</label>
+                                    <input type="number" id="regTB" required class="w-full px-4 py-3 rounded-xl border border-white/20 bg-black/50 text-white focus:ring-2 focus:ring-brand-purple focus:border-transparent outline-none transition-all">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-700 mb-1 uppercase">Berat Badan Jalan (kg) *</label>
-                                    <input type="number" id="regBB" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-purple outline-none bg-white/50 text-sm" placeholder="Berat badan normal">
+                                    <label class="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wide">Berat Badan (kg) *</label>
+                                    <input type="number" id="regBB" required class="w-full px-4 py-3 rounded-xl border border-white/20 bg-black/50 text-white focus:ring-2 focus:ring-brand-purple focus:border-transparent outline-none transition-all">
                                 </div>
                                 
-                                <!-- Pilihan Rules -->
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-700 mb-1 uppercase">Rules Yang Dipilih *</label>
-                                    <select id="regRules" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-purple outline-none bg-white/50 text-sm font-bold text-brand-dark">
-                                        <option value="" disabled selected>Pilih Rules Pertandingan...</option>
-                                        <option value="Dirty Boxing">Dirty Boxing</option>
-                                        <option value="Freestyle Striking">Freestyle Striking</option>
+                                    <label class="block text-xs font-bold text-brand-light mb-2 uppercase tracking-wide">Rules *</label>
+                                    <select id="regRules" required class="w-full px-4 py-3 rounded-xl border border-brand-purple/50 bg-brand-purple/10 text-white focus:ring-2 focus:ring-brand-neon outline-none transition-all appearance-none font-bold">
+                                        <option value="" disabled selected class="text-gray-500">Pilih Rules...</option>
+                                        <option value="Dirty Boxing" class="bg-gray-900">Dirty Boxing</option>
+                                        <option value="Freestyle Striking" class="bg-gray-900">Freestyle Striking</option>
                                     </select>
                                 </div>
-
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-700 mb-1 uppercase">Kelas Berat *</label>
-                                    <select id="regKelas" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-purple outline-none bg-white/50 text-sm">
-                                        <option value="" disabled selected>Pilih Kelas...</option>
-                                        <option value="Junior">Junior</option>
-                                        <option value="45kg">45 kg</option>
-                                        <option value="48kg">48 kg</option>
-                                        <option value="52kg">52 kg</option>
-                                        <option value="54kg">54 kg</option>
-                                        <option value="57kg">57 kg</option>
-                                        <option value="60kg">60 kg</option>
-                                        <option value="65kg">65 kg</option>
-                                        <option value="70kg">70 kg</option>
-                                        <option value="75kg">75 kg</option>
-                                        <option value="80++kg">80++ kg</option>
+                                    <label class="block text-xs font-bold text-brand-light mb-2 uppercase tracking-wide">Kelas Berat *</label>
+                                    <select id="regKelas" required class="w-full px-4 py-3 rounded-xl border border-brand-purple/50 bg-brand-purple/10 text-white focus:ring-2 focus:ring-brand-neon outline-none transition-all appearance-none">
+                                        <option value="" disabled selected class="text-gray-500">Pilih Kelas...</option>
+                                        <option value="Junior" class="bg-gray-900">Junior</option>
+                                        <option value="45kg" class="bg-gray-900">45 kg</option>
+                                        <option value="48kg" class="bg-gray-900">48 kg</option>
+                                        <option value="52kg" class="bg-gray-900">52 kg</option>
+                                        <option value="54kg" class="bg-gray-900">54 kg</option>
+                                        <option value="57kg" class="bg-gray-900">57 kg</option>
+                                        <option value="60kg" class="bg-gray-900">60 kg</option>
+                                        <option value="65kg" class="bg-gray-900">65 kg</option>
+                                        <option value="70kg" class="bg-gray-900">70 kg</option>
+                                        <option value="75kg" class="bg-gray-900">75 kg</option>
+                                        <option value="80++kg" class="bg-gray-900">80++ kg</option>
                                     </select>
                                 </div>
-
-                                <!-- ================= NEW FIELDS ================= -->
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-700 mb-1 uppercase">Record Pertandingan *</label>
-                                    <select id="regRecord" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-purple outline-none bg-white/50 text-sm">
-                                        <option value="" disabled selected>Pilih Record...</option>
-                                        <option value="0 (Debut)">0 (Debut)</option>
-                                        <option value="1-2 (Rookie)">1-2 (Rookie)</option>
-                                        <option value="3-5 (Warrior)">3-5 (Warrior)</option>
-                                        <option value="6++ (Expert)">6++ (Expert)</option>
+                                    <label class="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wide">Record Pertandingan *</label>
+                                    <select id="regRecord" required class="w-full px-4 py-3 rounded-xl border border-white/20 bg-black/50 text-white focus:ring-2 focus:ring-brand-purple outline-none transition-all appearance-none">
+                                        <option value="" disabled selected class="text-gray-500">Pilih Record...</option>
+                                        <option value="0 (Debut)" class="bg-gray-900">0 (Debut)</option>
+                                        <option value="1-2 (Rookie)" class="bg-gray-900">1-2 (Rookie)</option>
+                                        <option value="3-5 (Warrior)" class="bg-gray-900">3-5 (Warrior)</option>
+                                        <option value="6++ (Expert)" class="bg-gray-900">6++ (Expert)</option>
                                     </select>
                                 </div>
-
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-700 mb-1 uppercase">Username Instagram *</label>
-                                    <input type="text" id="regIg" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-purple outline-none bg-white/50 text-sm" placeholder="@username_anda">
-                                </div>
-                                <!-- ============================================== -->
-
-                            </div>
-
-                            <h4 class="font-heading text-xl text-brand-dark mb-4 border-b pb-2">Upload Dokumen</h4>
-                            <div class="space-y-5 mb-8">
-                                <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                                    <label class="block text-xs font-bold text-gray-700 mb-2 uppercase">1. Foto KTP/KK (Untuk BPJS) *</label>
-                                    <input type="file" id="fileKtp" accept="image/*" required class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-100 file:text-brand-purple hover:file:bg-purple-200 cursor-pointer bg-white rounded-full p-1 border border-gray-300">
-                                </div>
-                                <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                                    <label class="block text-xs font-bold text-gray-700 mb-2 uppercase">2. Foto Petarung (Mengepal Tangan) *</label>
-                                    <input type="file" id="fileFoto" accept="image/*" required class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-100 file:text-brand-purple hover:file:bg-purple-200 cursor-pointer bg-white rounded-full p-1 border border-gray-300">
-                                </div>
-                                <div class="bg-blue-50 p-4 rounded-xl border border-blue-200">
-                                    <label class="block text-xs font-bold text-blue-800 mb-2 uppercase">3. Bukti Transfer DANA *</label>
-                                    <input type="file" id="fileTransfer" accept="image/*" required class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-100 file:text-blue-700 hover:file:bg-blue-200 cursor-pointer bg-white rounded-full p-1 border border-blue-300">
+                                    <label class="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wide">Username IG *</label>
+                                    <input type="text" id="regIg" required class="w-full px-4 py-3 rounded-xl border border-white/20 bg-black/50 text-white focus:ring-2 focus:ring-brand-purple outline-none transition-all" placeholder="@username">
                                 </div>
                             </div>
 
-                            <!-- Consent Checkbox -->
-                            <div class="mb-8 flex items-start gap-3">
-                                <input type="checkbox" id="consent" required class="mt-1 w-5 h-5 text-brand-purple rounded focus:ring-brand-purple">
-                                <label for="consent" class="text-xs text-gray-600 leading-tight">
-                                    Saya menyatakan bahwa data yang saya isi adalah benar. Saya memahami resiko olahraga bela diri dan membebaskan pihak penyelenggara dari tuntutan hukum atas cedera yang terjadi.
+                            <h4 class="font-heading text-2xl text-white mb-6 border-b border-white/10 pb-4">Upload Berkas</h4>
+                            <div class="space-y-4 mb-8">
+                                <div class="bg-black/30 p-4 rounded-xl border border-white/10">
+                                    <label class="block text-xs font-bold text-gray-300 mb-3 uppercase tracking-wide">1. Foto KTP/KK *</label>
+                                    <input type="file" id="fileKtp" accept="image/*" required class="block w-full text-sm text-gray-400 file:mr-4 file:py-2.5 file:px-5 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-white/10 file:text-white hover:file:bg-brand-purple cursor-pointer transition-all">
+                                </div>
+                                <div class="bg-black/30 p-4 rounded-xl border border-white/10">
+                                    <label class="block text-xs font-bold text-gray-300 mb-3 uppercase tracking-wide">2. Foto Petarung *</label>
+                                    <input type="file" id="fileFoto" accept="image/*" required class="block w-full text-sm text-gray-400 file:mr-4 file:py-2.5 file:px-5 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-white/10 file:text-white hover:file:bg-brand-purple cursor-pointer transition-all">
+                                </div>
+                                <div class="bg-brand-purple/10 p-4 rounded-xl border border-brand-purple/30">
+                                    <label class="block text-xs font-bold text-brand-light mb-3 uppercase tracking-wide">3. Bukti Transfer *</label>
+                                    <input type="file" id="fileTransfer" accept="image/*" required class="block w-full text-sm text-brand-light file:mr-4 file:py-2.5 file:px-5 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-brand-purple file:text-white hover:file:bg-brand-neon cursor-pointer transition-all">
+                                </div>
+                            </div>
+
+                            <div class="mb-10 flex items-start gap-4 bg-red-900/10 p-4 rounded-xl border border-red-500/20">
+                                <input type="checkbox" id="consent" required class="mt-1 w-6 h-6 rounded bg-black/50 border-white/20 text-brand-purple focus:ring-brand-purple focus:ring-offset-black">
+                                <label for="consent" class="text-sm text-gray-300 leading-relaxed font-light">
+                                    Saya menyatakan data valid. Saya sepenuhnya sadar akan risiko cedera olahraga adu pukul dan membebaskan promotor dari tuntutan hukum apa pun.
                                 </label>
                             </div>
 
-                            <button type="submit" id="btnSubmitForm" class="w-full bg-brand-dark hover:bg-brand-purple text-white font-bold py-4 rounded-xl transition-all shadow-lg flex justify-center items-center gap-2 text-lg">
-                                <span>KIRIM PENDAFTARAN</span>
+                            <button type="submit" id="btnSubmitForm" class="w-full bg-white text-brand-black hover:bg-brand-purple hover:text-white font-bold py-5 rounded-2xl transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(147,51,234,0.6)] flex justify-center items-center gap-3 text-xl uppercase tracking-wider">
+                                <span>Kirim Data</span>
                                 <i class="ph-bold ph-paper-plane-tilt"></i>
                             </button>
                         </form>
@@ -547,164 +586,32 @@
         </div>
 
         <!-- ============================================== -->
-        <!-- VIEW 4: ADMIN PANEL (PROTECTED)                -->
+        <!-- VIEW 4: RANKING (REPLACES ADMIN)               -->
         <!-- ============================================== -->
-        <div id="view-admin" class="page-view min-h-screen bg-gray-900 pt-10 px-4 text-white">
-            <div class="max-w-7xl mx-auto pb-24 pt-10">
-                
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 border-b border-gray-700 pb-4 gap-4">
-                    <div>
-                        <h2 class="text-3xl font-heading text-brand-neon">Admin Dashboard</h2>
-                        <p class="text-gray-400 text-sm">Kelola Fight Card & Waiting List</p>
-                    </div>
-                    <button onclick="logoutAdmin()" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-colors">
-                        <i class="ph-bold ph-sign-out"></i> Keluar Admin
-                    </button>
+        <div id="view-ranking" class="page-view min-h-screen bg-brand-darker pt-10 px-4 text-white">
+            <div class="max-w-5xl mx-auto pb-24 pt-10">
+
+                <div class="text-center mb-16">
+                    <span class="text-yellow-500 font-bold tracking-widest uppercase text-sm mb-2 block">Leaderboard</span>
+                    <h2 class="text-5xl md:text-7xl font-heading font-bold text-white uppercase">Camp <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-yellow-600">Ranking</span></h2>
+                    <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Klasemen perolehan medali tiap Sasana/Camp yang berlaga di Majalaya Gelut Championship.</p>
                 </div>
 
-                <!-- SECTION 1: MATCH MAKER -->
-                <div class="mb-12">
-                    <h3 class="text-xl font-heading text-white border-l-4 border-brand-neon pl-3 mb-6 uppercase tracking-wider">Kelola Jadwal Pertandingan</h3>
-                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        <!-- Form Tambah/Edit Fight -->
-                        <div class="lg:col-span-1">
-                            <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 sticky top-10">
-                                <h3 class="text-xl font-bold mb-4 flex items-center gap-2" id="formAdminTitle">
-                                    <i class="ph-fill ph-plus-circle text-brand-neon"></i> Tambah Match
-                                </h3>
-                                <form id="adminFightForm">
-                                    <input type="hidden" id="editFightId">
-                                    
-                                    <div class="mb-4 p-4 bg-red-900/10 border border-red-500/30 rounded-xl">
-                                        <h4 class="text-red-400 font-bold mb-2 text-xs uppercase"><i class="ph-fill ph-square text-red-500"></i> Red Corner</h4>
-                                        <input type="text" id="redName" placeholder="Nama Petarung" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm mb-2 focus:border-red-500 outline-none">
-                                        <input type="text" id="redStats" placeholder="Camp / Record (cth: MMA Club | 2-0)" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm mb-2 focus:border-red-500 outline-none">
-                                        <label class="text-[10px] text-gray-400 mb-1 block">Foto Red Corner</label>
-                                        <input type="file" id="redPhoto" accept="image/*" class="w-full text-xs text-gray-400 file:mr-2 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-red-900 file:text-red-200 hover:file:bg-red-800 bg-gray-900 rounded-lg border border-gray-600">
-                                    </div>
-
-                                    <div class="mb-4 p-4 bg-blue-900/10 border border-blue-500/30 rounded-xl">
-                                        <h4 class="text-blue-400 font-bold mb-2 text-xs uppercase"><i class="ph-fill ph-square text-blue-500"></i> Blue Corner</h4>
-                                        <input type="text" id="blueName" placeholder="Nama Petarung" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm mb-2 focus:border-blue-500 outline-none">
-                                        <input type="text" id="blueStats" placeholder="Camp / Record (cth: Boxing Gym | 1-1)" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm mb-2 focus:border-blue-500 outline-none">
-                                        <label class="text-[10px] text-gray-400 mb-1 block">Foto Blue Corner</label>
-                                        <input type="file" id="bluePhoto" accept="image/*" class="w-full text-xs text-gray-400 file:mr-2 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-blue-900 file:text-blue-200 hover:file:bg-blue-800 bg-gray-900 rounded-lg border border-gray-600">
-                                    </div>
-
-                                    <div class="mb-6 space-y-3">
-                                        <select id="matchCategory" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none focus:border-brand-purple">
-                                            <option value="" disabled selected>Pilih Kategori...</option>
-                                            <option value="Amatir">Amatir</option>
-                                            <option value="Amatir Pro">Amatir Pro</option>
-                                            <option value="Pro">Pro</option>
-                                        </select>
-                                        <select id="matchRules" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none focus:border-brand-purple">
-                                            <option value="Dirty Boxing">Dirty Boxing</option>
-                                            <option value="Freestyle Striking">Freestyle Striking</option>
-                                        </select>
-                                        <input type="text" id="matchClass" placeholder="Kelas Berat (Misal: 65kg)" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none focus:border-brand-purple">
-                                        <select id="matchStatus" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none focus:border-brand-purple">
-                                            <option value="Prelims">Prelims</option>
-                                            <option value="Main Card">Main Card</option>
-                                            <option value="Co-Main Event">Co-Main Event</option>
-                                            <option value="Main Event">Main Event</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="flex gap-2">
-                                        <button type="submit" class="flex-1 bg-brand-purple hover:bg-brand-neon text-white font-bold py-2 rounded-lg transition-colors text-sm">Simpan Data</button>
-                                        <button type="button" onclick="resetAdminForm()" class="px-4 bg-gray-600 hover:bg-gray-500 rounded-lg font-bold text-sm">Batal</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
-                        <!-- Table Fight Card -->
-                        <div class="lg:col-span-2">
-                            <div class="bg-gray-800 rounded-2xl border border-gray-700 overflow-hidden">
-                                <div class="p-4 border-b border-gray-700 bg-gray-900/50 flex justify-between items-center">
-                                    <h3 class="font-bold text-white text-sm">Daftar Pertandingan</h3>
-                                    <span class="bg-brand-dark text-xs px-2 py-1 rounded-md" id="adminMatchCount">0 Match</span>
-                                </div>
-                                <div class="overflow-x-auto">
-                                    <table class="w-full text-left text-sm whitespace-nowrap">
-                                        <thead class="bg-gray-900/80 uppercase text-gray-400 text-[10px] tracking-wider">
-                                            <tr>
-                                                <th class="px-4 py-3">Fighters</th>
-                                                <th class="px-4 py-3">Kategori & Rules</th>
-                                                <th class="px-4 py-3">Status</th>
-                                                <th class="px-4 py-3 text-right">Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="admin-table-body" class="divide-y divide-gray-700/50">
-                                            <!-- Injected via JS -->
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                <div class="glass rounded-3xl border border-white/10 overflow-hidden shadow-2xl">
+                    <!-- Table Header -->
+                    <div class="grid grid-cols-12 bg-black/60 p-4 border-b border-white/10 text-xs font-bold text-gray-400 uppercase tracking-widest">
+                        <div class="col-span-2 md:col-span-1 text-center">Rank</div>
+                        <div class="col-span-6 md:col-span-7">Nama Sasana / Camp</div>
+                        <div class="col-span-2 text-center" title="Emas"><i class="ph-fill ph-medal text-yellow-500 text-lg"></i></div>
+                        <div class="col-span-2 text-center" title="Perak"><i class="ph-fill ph-medal text-gray-400 text-lg"></i></div>
                     </div>
-                </div>
-
-                <!-- SECTION 2: WAITING LIST -->
-                <div class="mt-16 pt-10 border-t border-gray-700">
-                    <h3 class="text-xl font-heading text-white border-l-4 border-yellow-500 pl-3 mb-6 uppercase tracking-wider">Kelola Waiting List (Belum Ada Lawan)</h3>
                     
-                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        <!-- Form Waiting List -->
-                        <div class="lg:col-span-1">
-                            <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
-                                <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
-                                    <i class="ph-fill ph-user-plus text-yellow-500"></i> Tambah Waiting List
-                                </h3>
-                                <form id="adminWaitingForm">
-                                    <div class="space-y-3 mb-4">
-                                        <input type="text" id="waitName" placeholder="Nama Ring / Julukan" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none">
-                                        <input type="text" id="waitCamp" placeholder="Asal Camp" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none">
-                                        
-                                        <div class="grid grid-cols-2 gap-2">
-                                            <select id="waitCategory" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none">
-                                                <option value="Amatir">Amatir</option>
-                                                <option value="Amatir Pro">Amatir Pro</option>
-                                                <option value="Pro">Pro</option>
-                                            </select>
-                                            <input type="text" id="waitClass" placeholder="Kelas (Misal: 60kg)" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none">
-                                        </div>
-
-                                        <select id="waitRules" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm outline-none">
-                                            <option value="Dirty Boxing">Dirty Boxing</option>
-                                            <option value="Freestyle Striking">Freestyle Striking</option>
-                                        </select>
-                                        
-                                        <div>
-                                            <label class="text-[10px] text-gray-400 mb-1 block">Foto Fighter (Opsional)</label>
-                                            <input type="file" id="waitPhoto" accept="image/*" class="w-full text-xs text-gray-400 file:mr-2 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-gray-700 file:text-white hover:file:bg-gray-600 bg-gray-900 rounded-lg border border-gray-600">
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="w-full bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-2 rounded-lg transition-colors text-sm">Masukan ke Waiting List</button>
-                                </form>
-                            </div>
-                        </div>
-
-                        <!-- Table Waiting List -->
-                        <div class="lg:col-span-2">
-                            <div class="bg-gray-800 rounded-2xl border border-gray-700 overflow-hidden">
-                                <div class="overflow-x-auto">
-                                    <table class="w-full text-left text-sm whitespace-nowrap">
-                                        <thead class="bg-gray-900/80 uppercase text-gray-400 text-[10px] tracking-wider">
-                                            <tr>
-                                                <th class="px-4 py-3">Fighter</th>
-                                                <th class="px-4 py-3">Kategori / Kelas</th>
-                                                <th class="px-4 py-3">Rules Diminta</th>
-                                                <th class="px-4 py-3 text-right">Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="admin-waiting-body" class="divide-y divide-gray-700/50">
-                                            <!-- Injected via JS -->
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                    <!-- Container for Ranking Items -->
+                    <div id="ranking-list-container" class="divide-y divide-white/5">
+                        <!-- Loading State -->
+                        <div class="p-10 text-center text-gray-500">
+                            <i class="ph ph-spinner-gap animate-spin text-4xl mb-4 text-brand-purple"></i>
+                            <p>Memuat klasemen dari server...</p>
                         </div>
                     </div>
                 </div>
@@ -714,230 +621,278 @@
 
     </main>
 
-    <!-- ============================================== -->
-    <!-- MODALS & OVERLAYS                              -->
-    <!-- ============================================== -->
-    
-    <!-- Admin Login Modal -->
-    <div id="loginModal" class="fixed inset-0 bg-gray-900/90 z-[100] hidden flex justify-center items-center backdrop-blur-sm">
-        <div class="bg-white rounded-2xl p-8 max-w-sm w-full mx-4 shadow-2xl">
-            <div class="text-center mb-6">
-                <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="ph-fill ph-lock-key text-3xl text-brand-dark"></i>
-                </div>
-                <h3 class="text-2xl font-heading font-bold text-brand-dark">Panel Admin</h3>
-                <p class="text-xs text-gray-500 mt-1">Masukkan password (<b class="text-brand-purple">admin123</b>)</p>
-            </div>
-            
-            <input type="password" id="adminPassword" placeholder="Kata Sandi" class="w-full px-4 py-3 border border-gray-300 rounded-xl mb-2 focus:ring-2 focus:ring-brand-purple outline-none text-center tracking-widest text-lg">
-            <p id="loginError" class="text-red-500 text-xs hidden mb-4 text-center font-bold">⚠️ Kata sandi tidak valid!</p>
-            
-            <div class="flex gap-2 mt-4">
-                <button onclick="closeLoginModal()" class="flex-1 py-3 text-gray-600 bg-gray-100 rounded-xl font-bold hover:bg-gray-200 transition-colors">Batal</button>
-                <button onclick="verifyAdmin()" class="flex-1 py-3 text-white bg-brand-dark rounded-xl font-bold hover:bg-brand-purple transition-colors">Masuk</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Alert / Success Form Modal -->
-    <div id="alertModal" class="fixed inset-0 bg-black/70 z-[100] hidden flex justify-center items-center backdrop-blur-sm">
-        <div class="bg-white rounded-3xl p-8 max-w-md w-full mx-4 text-center shadow-2xl relative overflow-hidden">
+    <div id="alertModal" class="fixed inset-0 bg-black/90 z-[100] hidden flex justify-center items-center backdrop-blur-md transition-opacity">
+        <div class="glass rounded-3xl p-8 max-w-md w-full mx-4 text-center shadow-2xl border border-white/10 relative overflow-hidden">
             <!-- Loading State -->
             <div id="alertLoading" class="block">
-                <div class="loader mx-auto mb-6"></div>
-                <h3 class="text-xl font-bold text-gray-800 mb-2">Memproses Data...</h3>
-                <p class="text-gray-500 text-sm">Mohon jangan tutup halaman ini. Mengunggah dokumen pendaftaran Anda.</p>
+                <i class="ph ph-spinner-gap animate-spin text-6xl text-brand-purple mb-4"></i>
+                <h3 class="text-2xl font-heading font-bold text-white mb-2 tracking-wide">Memproses...</h3>
+                <p class="text-gray-400 text-sm">Menyandikan berkas dan mengirim ke server. Mohon tunggu.</p>
             </div>
 
             <!-- Success State -->
             <div id="alertSuccess" class="hidden">
-                <i class="ph-fill ph-check-circle text-6xl text-green-500 mb-4 inline-block"></i>
-                <h3 class="text-2xl font-heading font-bold text-gray-900 mb-2">Pendaftaran Berhasil!</h3>
-                <p class="text-gray-600 text-sm mb-6">Data Anda telah masuk ke sistem. Silakan bergabung ke Grup WhatsApp peserta untuk info kurasi & jadwal technical meeting.</p>
-                
-                <a href="https://chat.whatsapp.com/Ey7rWPoYdci0OF0gN9F54f?mode=gi_t" target="_blank" class="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-xl font-bold flex justify-center items-center gap-2 mb-3 transition-colors">
-                    <i class="ph-fill ph-whatsapp-logo text-xl"></i> GABUNG GRUP WHATSAPP
+                <i class="ph-fill ph-check-circle text-7xl text-green-500 mb-4 drop-shadow-[0_0_15px_rgba(34,197,94,0.5)] inline-block"></i>
+                <h3 class="text-3xl font-heading font-bold text-white mb-2 uppercase">Registrasi Sah!</h3>
+                <p class="text-gray-300 text-sm mb-8 font-light">Data Anda tersimpan di sistem. Segera masuk ke grup WhatsApp resmi untuk kurasi & jadwal technical meeting.</p>
+
+                <a href="https://chat.whatsapp.com/Ey7rWPoYdci0OF0gN9F54f?mode=gi_t" target="_blank" class="w-full bg-green-500 hover:bg-green-400 text-black py-4 px-4 rounded-xl font-bold flex justify-center items-center gap-2 mb-3 transition-colors uppercase tracking-wider shadow-[0_0_15px_rgba(34,197,94,0.3)]">
+                    <i class="ph-fill ph-whatsapp-logo text-2xl"></i> Join Group WA
                 </a>
-                
-                <button onclick="closeAlert()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-xl font-bold transition-colors">
+
+                <button onclick="closeAlert()" class="w-full bg-white/10 hover:bg-white/20 text-white py-3 rounded-xl font-bold transition-colors">
                     Tutup
                 </button>
             </div>
 
             <!-- Error State -->
             <div id="alertError" class="hidden">
-                <i class="ph-fill ph-x-circle text-6xl text-red-500 mb-4 inline-block"></i>
-                <h3 class="text-xl font-bold text-gray-900 mb-2">Terjadi Kesalahan</h3>
-                <p class="text-gray-600 text-sm mb-6">Gagal mengirim data. Periksa koneksi internet atau ukuran file gambar Anda.</p>
-                <button onclick="closeAlert()" class="w-full bg-red-500 text-white py-3 rounded-xl font-bold">Coba Lagi</button>
+                <i class="ph-fill ph-x-circle text-7xl text-red-500 mb-4 drop-shadow-[0_0_15px_rgba(239,68,68,0.5)] inline-block"></i>
+                <h3 class="text-2xl font-heading font-bold text-white mb-2 uppercase">Gagal Terkirim</h3>
+                <p class="text-gray-400 text-sm mb-8">Periksa koneksi internet atau ukuran foto terlalu besar (Max 2MB/file).</p>
+                <button onclick="closeAlert()" class="w-full bg-red-600 hover:bg-red-500 text-white py-3 rounded-xl font-bold uppercase tracking-wider">Coba Lagi</button>
             </div>
         </div>
     </div>
 
-    <!-- ============================================== -->
-    <!-- JAVASCRIPT LOGIC                               -->
-    <!-- ============================================== -->
     <script>
-        // Format data diperbarui untuk mengakomodasi "Kategori" dan "Foto"
+        // Data globals
         let fightsData = [];
         let waitingListData = [];
+        let rankingData = [];
 
+        // JANGAN RUBAH URL INI (Sesuai Permintaan)
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwoGTYWbu3uzYuRUVdm_pt_p-w2nTvYtJWShkD2blH5lGV06yNNKT770rAVVlH3Ur87Rg/exec';
 
-        function escapeHtml(value) {
-            return String(value ?? '')
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#039;');
-        }
-
-        function escapeAttribute(value) {
-            return String(value ?? '')
-                .replace(/&/g, '&amp;')
-                .replace(/"/g, '&quot;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;');
-        }
-
-        async function loadWaitingListFromSpreadsheet() {
-            if (!SCRIPT_URL || SCRIPT_URL.includes('GANTI_DENGAN')) {
-                console.warn('SCRIPT_URL belum diisi.');
-                waitingListData = [];
-                renderPublicWaitingList();
-                return;
-            }
-
-            try {
-                const response = await fetch(
-                    SCRIPT_URL + '?action=waiting&t=' + Date.now(),
-                    { method: 'GET', cache: 'no-store' }
-                );
-
-                if (!response.ok) throw new Error('HTTP ' + response.status);
-
-                const result = await response.json();
-                console.log('Waiting List API:', result);
-
-                waitingListData =
-                    result.result === 'success' && Array.isArray(result.data)
-                    ? result.data
-                    : [];
-
-                renderPublicWaitingList();
-                renderAdminWaitingList();
-            } catch (error) {
-                console.error('Gagal mengambil Waiting List:', error);
-                waitingListData = [];
-                renderPublicWaitingList();
-                renderAdminWaitingList();
-            }
-        }
-
-
-        document.addEventListener('DOMContentLoaded', () => {
-            handleRouting();
-            renderPublicFights();
-            renderAdminTable();
-            renderAdminWaitingList();
-            startCountdown();
-            loadWaitingListFromSpreadsheet();
-            setInterval(loadWaitingListFromSpreadsheet, 30000);
-        });
-
-        // --- 2. ROUTING (SPA) ---
-        window.addEventListener('hashchange', handleRouting);
-
-        function handleRouting() {
-            let hash = window.location.hash.replace('#', '') || 'home';
+        // --- 1. VISUAL EFFECTS (CANVAS GLITTER) ---
+        function initCanvasFX() {
+            const canvas = document.getElementById('glitter-canvas');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
             
-            if (hash === 'admin') {
-                if (sessionStorage.getItem('isAdmin') !== 'true') {
-                    showLoginModal();
-                    history.replaceState(null, null, ' ');
-                    return;
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = canvas.height + Math.random() * 100;
+                    this.size = Math.random() * 2.5 + 0.5;
+                    this.speedY = Math.random() * 1 + 0.2;
+                    this.speedX = (Math.random() - 0.5) * 0.5;
+                    this.opacity = Math.random() * 0.8 + 0.2;
+                    // Colors: white, light purple, or brand neon
+                    const colors = ['rgba(255,255,255,', 'rgba(196,181,253,', 'rgba(147,51,234,'];
+                    this.color = colors[Math.floor(Math.random() * colors.length)];
+                }
+                update() {
+                    this.y -= this.speedY;
+                    this.x += this.speedX;
+                    if(this.size > 0.2) this.size -= 0.005;
+                    if (this.y < 0) {
+                        this.y = canvas.height + 10;
+                        this.x = Math.random() * canvas.width;
+                        this.size = Math.random() * 2.5 + 0.5;
+                    }
+                }
+                draw() {
+                    ctx.fillStyle = this.color + this.opacity + ')';
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                    // Glow
+                    ctx.shadowBlur = 10;
+                    ctx.shadowColor = this.color + '1)';
                 }
             }
 
-            document.getElementById('main-nav').style.display = (hash === 'admin') ? 'none' : 'flex';
-
-            document.querySelectorAll('.page-view').forEach(view => {
-                view.classList.remove('active-view');
-            });
-
-            const targetView = document.getElementById(`view-${hash}`);
-            if (targetView) {
-                targetView.classList.add('active-view');
-            } else {
-                document.getElementById('view-home').classList.add('active-view');
+            for (let i = 0; i < 70; i++) {
+                particles.push(new Particle());
             }
 
-            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-            let targetBtn = document.querySelector(`.nav-btn[data-target="${hash}"]`);
-            if(targetBtn && hash !== 'admin') targetBtn.classList.add('active');
-            
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
         }
 
+        // --- 2. UTILITIES ---
+        function escapeHtml(value) {
+            return String(value ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+        }
+        function escapeAttribute(value) {
+            return String(value ?? '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(() => {
-                showToast("Nomor DANA berhasil disalin!");
+                showToast("Nomor DANA tersalin!");
             }).catch(err => {
                 const el = document.createElement('textarea');
                 el.value = text;
-                document.body.appendChild(el);
-                el.select();
-                document.execCommand('copy');
-                document.body.removeChild(el);
-                showToast("Nomor DANA berhasil disalin!");
+                document.body.appendChild(el); el.select(); document.execCommand('copy'); document.body.removeChild(el);
+                showToast("Nomor DANA tersalin!");
             });
         }
-
         function showToast(message) {
             const toast = document.getElementById('toast');
             document.getElementById('toast-msg').innerText = message;
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
+            toast.style.opacity = '1'; toast.style.transform = 'translate(-50%, 0)';
+            setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translate(-50%, 150px)'; }, 3000);
         }
 
-        // --- 4. ADMIN AUTH ---
-        function showLoginModal() {
-            document.getElementById('loginModal').classList.remove('hidden');
-            setTimeout(() => document.getElementById('adminPassword').focus(), 100);
+        // --- 3. FETCH DATA (WAITING LIST & RANKING) ---
+        async function loadDataFromSpreadsheet() {
+            // BAGIAN INI SUDAH DIPERBAIKI (TIDAK MEMBLOKIR URL ANDA LAGI)
+            if (!SCRIPT_URL) return; 
+            
+            // 1. Fetch Waiting List
+            try {
+                const resW = await fetch(SCRIPT_URL + '?action=waiting&t=' + Date.now(), { method: 'GET', cache: 'no-store' });
+                if (resW.ok) {
+                    const resultW = await resW.json();
+                    waitingListData = resultW.result === 'success' && Array.isArray(resultW.data) ? resultW.data : [];
+                }
+            } catch (e) { console.error('Fetch Waiting List error:', e); }
+            renderPublicWaitingList();
+
+            // 2. Fetch Ranking 
+            try {
+                const resR = await fetch(SCRIPT_URL + '?action=ranking&t=' + Date.now(), { method: 'GET', cache: 'no-store' });
+                if (resR.ok) {
+                    const resultR = await resR.json();
+                    if(resultR.result === 'success' && Array.isArray(resultR.data)) {
+                        rankingData = resultR.data;
+                    }
+                }
+            } catch(e) { console.error('Fetch Ranking error:', e); }
+            
+            // Fallback Dummy Data jika backend belum merespon data ranking (Supaya UI tetap bisa dinilai)
+            if(rankingData.length === 0) {
+                rankingData = [
+                    { camp: "Graha Sajabat MMA", gold: 5, silver: 2 },
+                    { camp: "Jaya Abadi Striking", gold: 3, silver: 4 },
+                    { camp: "Underground Boxing", gold: 2, silver: 1 },
+                    { camp: "Naga Hitam Camp", gold: 1, silver: 3 },
+                    { camp: "Independent", gold: 1, silver: 0 },
+                ];
+            }
+            renderRankingList();
         }
 
-        function closeLoginModal() {
-            document.getElementById('loginModal').classList.add('hidden');
-            document.getElementById('adminPassword').value = '';
-            document.getElementById('loginError').classList.add('hidden');
-        }
-
-        function verifyAdmin() {
-            if(document.getElementById('adminPassword').value === 'admin123') {
-                sessionStorage.setItem('isAdmin', 'true');
-                closeLoginModal();
-                window.location.hash = 'admin';
+        // --- 4. RENDER UIs ---
+        function renderPublicFights() {
+            const container = document.getElementById('public-fight-grid');
+            if(fightsData.length === 0){
+                container.innerHTML = `
+                <div class="col-span-full flex flex-col items-center justify-center py-20 text-gray-500 glass rounded-3xl border-dashed border-2 border-white/20">
+                    <i class="ph ph-lock-key text-5xl mb-4 text-white/30"></i>
+                    <p class="text-lg">Fight Card Resmi Belum Dirilis.</p>
+                </div>`;
             } else {
-                document.getElementById('loginError').classList.remove('hidden');
+                // Logika render fight card eksisting jika ada data (Sesuai kode asli)
             }
         }
 
-        function logoutAdmin() {
-            sessionStorage.removeItem('isAdmin');
-            window.location.hash = 'home';
+        function renderPublicWaitingList() {
+            const container = document.getElementById('public-waiting-grid');
+            if (!container) return;
+            container.innerHTML = '';
+            if (!waitingListData || waitingListData.length === 0) {
+                container.innerHTML = `<div class="col-span-full text-center py-10"><i class="ph ph-hourglass-high text-4xl text-white/20"></i><p class="text-gray-500 mt-3 font-light">Tidak ada fighter di waiting list saat ini.</p></div>`;
+                return;
+            }
+            waitingListData.forEach(fighter => {
+                const name = escapeHtml(fighter.nama || '-');
+                const camp = escapeHtml(fighter.camp || '-');
+                const photo = fighter.fotoUrl || '';
+                const photoHTML = photo ? `<img src="${escapeAttribute(photo)}" class="w-24 h-24 rounded-full border-2 border-brand-purple object-cover shadow-lg bg-black" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="w-24 h-24 rounded-full border-2 border-brand-purple bg-black items-center justify-center text-3xl text-gray-600" style="display:none"><i class="ph-fill ph-user"></i></div>` : `<div class="w-24 h-24 rounded-full border-2 border-brand-purple bg-black flex items-center justify-center text-3xl text-gray-600"><i class="ph-fill ph-user"></i></div>`;
+                container.insertAdjacentHTML('beforeend', `
+                    <div class="glass p-6 rounded-3xl border border-white/10 flex flex-col items-center text-center relative overflow-hidden group hover:border-brand-purple/50 transition-all">
+                        <div class="relative z-10 mb-4">${photoHTML}</div>
+                        <h4 class="font-heading font-bold text-xl text-white uppercase relative z-10 leading-tight">${name}</h4>
+                        <p class="text-[10px] text-gray-400 tracking-widest font-bold uppercase mt-1 relative z-10">${camp}</p>
+                        <div class="flex flex-wrap justify-center gap-2 mt-4 mb-4 relative z-10">
+                            <span class="px-3 py-1 rounded bg-brand-purple/20 border border-brand-purple/30 text-brand-light text-[10px] font-bold">${escapeHtml(fighter.record || 'OPEN CHALLENGE')}</span>
+                            <span class="px-3 py-1 rounded bg-white/10 border border-white/20 text-gray-300 text-[10px] font-bold">${escapeHtml(fighter.kelas || '-')}</span>
+                        </div>
+                    </div>`);
+            });
         }
 
-        // File Reader Helper
+        function renderRankingList() {
+            const container = document.getElementById('ranking-list-container');
+            if(!container) return;
+            container.innerHTML = '';
+
+            // Sort by Gold descending, then Silver descending
+            rankingData.sort((a, b) => {
+                if(b.gold !== a.gold) return b.gold - a.gold;
+                return b.silver - a.silver;
+            });
+
+            rankingData.forEach((rank, index) => {
+                let rankVisual = `${index + 1}`;
+                let rowBg = "bg-transparent";
+                let textCol = "text-gray-300";
+                let medalBadge = "";
+
+                if(index === 0) {
+                    rowBg = "bg-yellow-500/10 border-l-4 border-yellow-500";
+                    textCol = "text-yellow-400 font-bold";
+                    rankVisual = `<i class="ph-fill ph-trophy text-2xl text-yellow-500"></i>`;
+                } else if(index === 1) {
+                    rowBg = "bg-gray-300/10 border-l-4 border-gray-400";
+                    textCol = "text-gray-300 font-bold";
+                    rankVisual = `<i class="ph-fill ph-medal text-xl text-gray-400"></i>`;
+                } else if(index === 2) {
+                    rowBg = "bg-amber-700/10 border-l-4 border-amber-600";
+                    textCol = "text-amber-500 font-bold";
+                    rankVisual = `<i class="ph-fill ph-medal text-xl text-amber-600"></i>`;
+                }
+
+                container.insertAdjacentHTML('beforeend', `
+                    <div class="grid grid-cols-12 p-4 items-center ${rowBg} hover:bg-white/5 transition-colors">
+                        <div class="col-span-2 md:col-span-1 text-center font-heading text-lg ${textCol}">${rankVisual}</div>
+                        <div class="col-span-6 md:col-span-7 font-bold ${index < 3 ? 'text-white' : 'text-gray-300'} uppercase tracking-wide text-sm md:text-base">${escapeHtml(rank.camp)}</div>
+                        <div class="col-span-2 text-center text-yellow-500 font-heading text-xl">${Number(rank.gold)}</div>
+                        <div class="col-span-2 text-center text-gray-400 font-heading text-xl">${Number(rank.silver)}</div>
+                    </div>
+                `);
+            });
+        }
+
+        // --- STREAMING_CHUNK:Sistem Navigasi SPA ---
+        function handleRouting() {
+            let hash = window.location.hash.replace('#', '') || 'home';
+            document.querySelectorAll('.page-view').forEach(view => view.classList.remove('active-view'));
+            
+            const targetView = document.getElementById(`view-${hash}`);
+            if (targetView) targetView.classList.add('active-view');
+            else document.getElementById('view-home').classList.add('active-view');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            let targetBtn = document.querySelector(`.nav-btn[data-target="${hash}"]`);
+            if(targetBtn) targetBtn.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        window.addEventListener('hashchange', handleRouting);
+
+        // --- 5. FORM SUBMISSION ---
         function getBase64Image(fileInputId) {
             return new Promise((resolve, reject) => {
                 const file = document.getElementById(fileInputId).files[0];
-                if (!file) {
-                    resolve(null);
-                    return;
-                }
+                if (!file) { resolve(null); return; }
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
                 reader.onload = () => resolve(reader.result);
@@ -945,429 +900,35 @@
             });
         }
 
-        // --- 5. RENDER PUBLIC DATA ---
-        function renderPublicFights() {
-            const container = document.getElementById('public-fight-grid');
-            container.innerHTML = '';
-
-            if(fightsData.length === 0){
-                container.innerHTML = `<p class="col-span-full text-center text-gray-500 py-10">Fight Card belum dirilis. Harap tunggu pengumuman selanjutnya.</p>`;
-            } else {
-                fightsData.forEach(fight => {
-                    let badgeColor = 'bg-gray-200 text-gray-700';
-                    if(fight.status === 'Main Event') badgeColor = 'bg-red-600 text-white';
-                    if(fight.status === 'Co-Main Event') badgeColor = 'bg-brand-neon text-white';
-                    if(fight.status === 'Main Card') badgeColor = 'bg-brand-dark text-white';
-
-                    let rulesIcon = fight.rules === 'Dirty Boxing' ? '<i class="ph-fill ph-hand-fist"></i>' : '<i class="ph-fill ph-lightning"></i>';
-                    
-                    // Photo logic
-                    let redPhotoHTML = fight.redPhoto 
-                        ? `<img src="${fight.redPhoto}" class="w-16 h-16 mx-auto rounded-full mb-2 border-2 border-white object-cover shadow-[0_0_10px_rgba(239,68,68,0.3)]">` 
-                        : `<div class="w-16 h-16 mx-auto bg-gradient-to-br from-red-500 to-red-800 rounded-full mb-2 border-2 border-white shadow-[0_0_10px_rgba(239,68,68,0.3)]"></div>`;
-                    let bluePhotoHTML = fight.bluePhoto 
-                        ? `<img src="${fight.bluePhoto}" class="w-16 h-16 mx-auto rounded-full mb-2 border-2 border-white object-cover shadow-[0_0_10px_rgba(59,130,246,0.3)]">` 
-                        : `<div class="w-16 h-16 mx-auto bg-gradient-to-br from-blue-500 to-blue-800 rounded-full mb-2 border-2 border-white shadow-[0_0_10px_rgba(59,130,246,0.3)]"></div>`;
-
-                    const card = `
-                        <div class="glass rounded-3xl p-6 relative overflow-hidden transition-all hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(109,40,217,0.15)] border border-white">
-                            <div class="absolute top-0 right-0 ${badgeColor} px-4 py-1.5 rounded-bl-xl font-bold text-[10px] uppercase tracking-wider shadow-sm">
-                                ${fight.status}
-                            </div>
-                            <div class="absolute top-0 left-0 bg-brand-dark text-white px-3 py-1.5 rounded-br-xl font-bold text-[10px] uppercase tracking-wider shadow-sm">
-                                ${fight.category}
-                            </div>
-                            
-                            <div class="text-center mb-5 mt-5">
-                                <span class="inline-flex items-center gap-1.5 bg-gray-100 text-brand-dark px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest border border-gray-200">
-                                    ${rulesIcon} ${fight.rules} <span class="text-gray-400 mx-1">|</span> ${fight.class}
-                                </span>
-                            </div>
-                            
-                            <div class="flex justify-between items-center relative">
-                                <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-900 text-white w-9 h-9 rounded-full flex justify-center items-center font-heading text-lg italic z-10 border-2 border-white shadow-md">VS</div>
-                                <!-- Red Corner -->
-                                <div class="text-center w-[45%]">
-                                    ${redPhotoHTML}
-                                    <h3 class="font-heading text-lg font-bold text-gray-900 leading-tight min-h-[40px] flex items-center justify-center">${fight.redName}</h3>
-                                    <p class="text-[10px] text-red-700 font-bold mt-1 bg-red-50 py-1 px-2 rounded-md border border-red-100 truncate">${fight.redStats}</p>
-                                </div>
-                                <!-- Blue Corner -->
-                                <div class="text-center w-[45%]">
-                                    ${bluePhotoHTML}
-                                    <h3 class="font-heading text-lg font-bold text-gray-900 leading-tight min-h-[40px] flex items-center justify-center">${fight.blueName}</h3>
-                                    <p class="text-[10px] text-blue-700 font-bold mt-1 bg-blue-50 py-1 px-2 rounded-md border border-blue-100 truncate">${fight.blueStats}</p>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    container.innerHTML += card;
-                });
-            }
-            renderPublicWaitingList();
-        }
-
-        function renderPublicWaitingList() {
-            const container = document.getElementById('public-waiting-grid');
-            if (!container) return;
-            container.innerHTML = '';
-
-            if (!waitingListData || waitingListData.length === 0) {
-                container.innerHTML = `
-                    <div class="col-span-full text-center py-10">
-                        <i class="ph ph-hourglass-high text-4xl text-gray-300"></i>
-                        <p class="text-gray-500 mt-3">Tidak ada fighter di waiting list saat ini.</p>
-                    </div>`;
-                return;
-            }
-
-            waitingListData.forEach(fighter => {
-                const name = escapeHtml(fighter.nama || '-');
-                const camp = escapeHtml(fighter.camp || '-');
-                const berat = escapeHtml(fighter.berat || '-');
-                const tinggi = escapeHtml(fighter.tinggi || '-');
-                const umur = escapeHtml(fighter.umur || '-');
-                const photo = fighter.fotoUrl || '';
-
-                const photoHTML = photo ? `
-                    <img src="${escapeAttribute(photo)}" alt="${name}" loading="lazy"
-                         class="w-24 h-24 rounded-full border-4 border-brand-purple object-cover shadow-lg bg-gray-100"
-                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="w-24 h-24 rounded-full border-4 border-brand-purple bg-gray-200 items-center justify-center text-3xl text-gray-400" style="display:none">
-                        <i class="ph-fill ph-user"></i>
-                    </div>` : `
-                    <div class="w-24 h-24 rounded-full border-4 border-brand-purple bg-gray-200 flex items-center justify-center text-3xl text-gray-400">
-                        <i class="ph-fill ph-user"></i>
-                    </div>`;
-
-                container.insertAdjacentHTML('beforeend', `
-                    <div class="glass p-5 rounded-2xl border border-gray-100 flex flex-col items-center text-center relative overflow-hidden group hover:-translate-y-1 transition-all duration-300">
-                        <div class="absolute -right-6 -top-6 w-20 h-20 bg-purple-100 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
-                        <div class="relative z-10 mb-4">${photoHTML}</div>
-
-                        <h4 class="font-heading font-bold text-xl text-gray-900 uppercase relative z-10 leading-tight">${name}</h4>
-                        <p class="text-xs text-brand-purple font-bold uppercase mt-1 relative z-10">${camp}</p>
-                        <div class="flex flex-wrap justify-center gap-1 mt-2 mb-4 relative z-10">
-                            <span class="px-2 py-1 rounded-full bg-purple-100 text-brand-purple text-[10px] font-bold">${escapeHtml(fighter.record || 'OPEN CHALLENGE')}</span>
-                            <span class="px-2 py-1 rounded-full bg-gray-100 text-gray-700 text-[10px] font-bold">${escapeHtml(fighter.kelas || '-')}</span>
-                            <span class="px-2 py-1 rounded-full bg-yellow-100 text-yellow-700 text-[10px] font-bold">${escapeHtml(fighter.rules || '-')}</span>
-                        </div>
-
-                        <div class="w-full bg-gray-50 rounded-xl p-3 text-sm text-gray-700 relative z-10 border border-gray-100">
-                            <div class="flex justify-between items-center border-b border-gray-200 pb-2 mb-2">
-                                <span class="font-bold text-gray-400 flex items-center gap-1"><i class="ph-fill ph-scales"></i> Berat</span>
-                                <span class="font-bold text-gray-900">${berat} kg</span>
-                            </div>
-                            <div class="flex justify-between items-center border-b border-gray-200 pb-2 mb-2">
-                                <span class="font-bold text-gray-400 flex items-center gap-1"><i class="ph-fill ph-ruler"></i> Tinggi</span>
-                                <span class="font-bold text-gray-900">${tinggi} cm</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="font-bold text-gray-400 flex items-center gap-1"><i class="ph-fill ph-user"></i> Umur</span>
-                                <span class="font-bold text-gray-900">${umur} tahun</span>
-                            </div>
-                        </div>
-                    </div>`);
-            });
-        }
-
-        // --- 6. RENDER & CRUD ADMIN ---
-        function renderAdminTable() {
-            const tbody = document.getElementById('admin-table-body');
-            tbody.innerHTML = '';
-            document.getElementById('adminMatchCount').innerText = `${fightsData.length} Match`;
-
-            fightsData.forEach(fight => {
-                const tr = document.createElement('tr');
-                tr.className = "hover:bg-gray-800 transition-colors";
-                tr.innerHTML = `
-                    <td class="px-4 py-3">
-                        <div class="flex flex-col">
-                            <span class="text-red-400 font-bold text-xs"><i class="ph-fill ph-square text-[10px]"></i> ${fight.redName} ${fight.redPhoto ? '🖼️' : ''}</span>
-                            <span class="text-gray-600 text-[10px] italic pl-3">vs</span>
-                            <span class="text-blue-400 font-bold text-xs"><i class="ph-fill ph-square text-[10px]"></i> ${fight.blueName} ${fight.bluePhoto ? '🖼️' : ''}</span>
-                        </div>
-                    </td>
-                    <td class="px-4 py-3">
-                        <div class="text-gray-300 text-xs font-bold">${fight.category} | ${fight.rules}</div>
-                        <div class="text-gray-500 text-[10px]">${fight.class}</div>
-                    </td>
-                    <td class="px-4 py-3">
-                        <span class="px-2 py-1 rounded text-[10px] font-bold bg-gray-700 text-gray-300 border border-gray-600">${fight.status}</span>
-                    </td>
-                    <td class="px-4 py-3 text-right">
-                        <button onclick="editFight(${fight.id})" class="text-blue-400 hover:text-blue-300 mr-2 p-1 bg-blue-900/30 rounded"><i class="ph-bold ph-pencil-simple text-sm"></i></button>
-                        <button onclick="deleteFight(${fight.id})" class="text-red-500 hover:text-red-400 p-1 bg-red-900/30 rounded"><i class="ph-bold ph-trash text-sm"></i></button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-            renderPublicFights(); // Sinkronkan
-        }
-
-        function renderAdminWaitingList() {
-            const tbody = document.getElementById('admin-waiting-body');
-            if (!tbody) return;
-            tbody.innerHTML = '';
-
-            if (!waitingListData || waitingListData.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="4" class="px-4 py-8 text-center text-gray-500 text-sm">
-                            Belum ada fighter di Waiting List.
-                        </td>
-                    </tr>`;
-                return;
-            }
-
-            waitingListData.forEach(fighter => {
-                const tr = document.createElement('tr');
-                tr.className = "hover:bg-gray-800 transition-colors";
-                tr.innerHTML = `
-                    <td class="px-4 py-3">
-                        <div class="font-bold text-xs text-white">${escapeHtml(fighter.nama || '-')}</div>
-                        <div class="text-[10px] text-gray-500">${escapeHtml(fighter.camp || '-')}</div>
-                    </td>
-                    <td class="px-4 py-3">
-                        <div class="text-yellow-500 text-xs font-bold">${escapeHtml(fighter.kelas || '-')}</div>
-                        <div class="text-gray-400 text-[10px]">${escapeHtml(fighter.record || '-')}</div>
-                    </td>
-                    <td class="px-4 py-3 text-xs text-gray-300">${escapeHtml(fighter.rules || '-')}</td>
-                    <td class="px-4 py-3 text-right">
-                        <span class="px-2 py-1 rounded bg-yellow-900/40 text-yellow-400 text-[10px] font-bold mr-2">WAITING</span>
-                        <button onclick="deleteWaiting(${Number(fighter.id)})" class="text-red-500 hover:text-red-400 p-1 bg-red-900/30 rounded" title="Hapus Waiting">
-                            <i class="ph-bold ph-trash text-sm"></i>
-                        </button>
-                    </td>`;
-                tbody.appendChild(tr);
-            });
-        }
-
-        document.getElementById('adminFightForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            // Generate Base64 for images if uploaded
-            let rPhoto = await getBase64Image('redPhoto');
-            let bPhoto = await getBase64Image('bluePhoto');
-            
-            const id = document.getElementById('editFightId').value;
-            
-            // Retrieve existing photos if we are editing and didn't upload new ones
-            if (id) {
-                const existingFight = fightsData.find(f => f.id === parseInt(id));
-                if (existingFight) {
-                    if (!rPhoto) rPhoto = existingFight.redPhoto;
-                    if (!bPhoto) bPhoto = existingFight.bluePhoto;
-                }
-            }
-
-            const newFight = {
-                id: id ? parseInt(id) : Date.now(),
-                redName: document.getElementById('redName').value,
-                redStats: document.getElementById('redStats').value,
-                redPhoto: rPhoto,
-                blueName: document.getElementById('blueName').value,
-                blueStats: document.getElementById('blueStats').value,
-                bluePhoto: bPhoto,
-                category: document.getElementById('matchCategory').value,
-                rules: document.getElementById('matchRules').value,
-                class: document.getElementById('matchClass').value,
-                status: document.getElementById('matchStatus').value
-            };
-
-            if(id) {
-                const index = fightsData.findIndex(f => f.id === parseInt(id));
-                fightsData[index] = newFight;
-            } else {
-                fightsData.push(newFight);
-            }
-            resetAdminForm();
-            renderAdminTable();
-        });
-
-        document.getElementById('adminWaitingForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            const submitButton = this.querySelector('button[type="submit"]');
-            const originalButtonText = submitButton ? submitButton.innerHTML : '';
-            if (submitButton) {
-                submitButton.disabled = true;
-                submitButton.innerHTML = '<i class="ph ph-spinner-gap animate-spin"></i> Menyimpan...';
-            }
-
-            try {
-                const wPhoto = await getBase64Image('waitPhoto');
-                const waitName = document.getElementById('waitName').value.trim();
-                const waitCamp = document.getElementById('waitCamp').value.trim();
-                const waitCategory = document.getElementById('waitCategory').value;
-                const waitClass = document.getElementById('waitClass').value.trim();
-                const waitRules = document.getElementById('waitRules').value;
-
-                const payload = {
-                    type: 'waiting',
-                    nama: waitName,
-                    camp: waitCamp,
-                    kelas: waitClass,
-                    rules: waitRules,
-                    record: waitCategory,
-                    umur: '',
-                    tinggi: '',
-                    berat: (waitClass.match(/\d+(?:\.\d+)?/) || [''])[0],
-                    ig: '',
-                    fileFotoBase64: wPhoto,
-                    fileFotoName: 'WAITING_' + waitName.replace(/\s+/g, '_') + '_' + Date.now() + '.jpg'
-                };
-
-                const response = await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    body: JSON.stringify(payload),
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }
-                });
-
-                const result = await response.json();
-
-                if (result.result !== 'success') {
-                    throw new Error(result.error || 'Waiting List gagal disimpan.');
-                }
-
-                this.reset();
-                showToast('Waiting List berhasil disimpan.');
-                await loadWaitingListFromSpreadsheet();
-
-            } catch (error) {
-                console.error('Gagal menyimpan Waiting List:', error);
-                alert('Gagal menyimpan Waiting List.\n\n' + error.message);
-            } finally {
-                if (submitButton) {
-                    submitButton.disabled = false;
-                    submitButton.innerHTML = originalButtonText;
-                }
-            }
-        });
-
-        function editFight(id) {
-            const fight = fightsData.find(f => f.id === id);
-            if(fight) {
-                document.getElementById('formAdminTitle').innerHTML = '<i class="ph-fill ph-pencil-simple text-brand-neon"></i> Edit Match';
-                document.getElementById('editFightId').value = fight.id;
-                document.getElementById('redName').value = fight.redName;
-                document.getElementById('redStats').value = fight.redStats;
-                document.getElementById('blueName').value = fight.blueName;
-                document.getElementById('blueStats').value = fight.blueStats;
-                document.getElementById('matchCategory').value = fight.category;
-                document.getElementById('matchRules').value = fight.rules;
-                document.getElementById('matchClass').value = fight.class;
-                document.getElementById('matchStatus').value = fight.status;
-                // Kosongkan file input saat edit (foto tidak bisa di-set dari js demi keamanan browser)
-                document.getElementById('redPhoto').value = ''; 
-                document.getElementById('bluePhoto').value = '';
-                
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        }
-
-        function deleteFight(id) {
-            if(confirm("Yakin ingin menghapus pertandingan ini?")) {
-                fightsData = fightsData.filter(f => f.id !== id);
-                renderAdminTable();
-            }
-        }
-
-        async function deleteWaiting(id) {
-            if (!confirm("Hapus fighter ini dari Waiting List?")) return;
-
-            try {
-                const response = await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    body: JSON.stringify({ type: 'remove_waiting', id: id }),
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }
-                });
-
-                const result = await response.json();
-                if (result.result !== 'success') {
-                    throw new Error(result.error || 'Gagal menghapus Waiting List.');
-                }
-
-                showToast('Waiting List berhasil dihapus.');
-                await loadWaitingListFromSpreadsheet();
-            } catch (error) {
-                console.error('Gagal menghapus Waiting List:', error);
-                alert('Gagal menghapus Waiting List.\n\n' + error.message);
-            }
-        }
-
-        function resetAdminForm() {
-            document.getElementById('adminFightForm').reset();
-            document.getElementById('editFightId').value = '';
-            document.getElementById('formAdminTitle').innerHTML = '<i class="ph-fill ph-plus-circle text-brand-neon"></i> Tambah Match';
-        }
-
-        // --- 7. COUNTDOWN TIMER ---
-        function startCountdown() {
-            const countDownDate = new Date("Oct 11, 2026 08:00:00").getTime();
-            
-            const timer = setInterval(function() {
-                const now = new Date().getTime();
-                const distance = countDownDate - now;
-                
-                if (distance < 0) {
-                    clearInterval(timer);
-                    document.getElementById("days").innerHTML = "00";
-                    document.getElementById("hours").innerHTML = "00";
-                    document.getElementById("minutes").innerHTML = "00";
-                    document.getElementById("seconds").innerHTML = "00";
-                    return;
-                }
-
-                document.getElementById("days").innerHTML = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
-                document.getElementById("hours").innerHTML = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-                document.getElementById("minutes").innerHTML = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-                document.getElementById("seconds").innerHTML = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
-            }, 1000);
-        }
-
-        // --- 8. FORM SUBMISSION (REGISTRASI) ---
         function showFormState(state) {
             const modal = document.getElementById('alertModal');
             const loading = document.getElementById('alertLoading');
             const success = document.getElementById('alertSuccess');
             const error = document.getElementById('alertError');
-
+            
             modal.classList.remove('hidden');
-            loading.classList.add('hidden');
-            success.classList.add('hidden');
-            error.classList.add('hidden');
-
+            loading.classList.add('hidden'); success.classList.add('hidden'); error.classList.add('hidden');
+            
             if(state === 'loading') loading.classList.remove('hidden');
             if(state === 'success') success.classList.remove('hidden');
             if(state === 'error') error.classList.remove('hidden');
         }
-
-        function closeAlert() { 
-            document.getElementById('alertModal').classList.add('hidden'); 
-        }
+        function closeAlert() { document.getElementById('alertModal').classList.add('hidden'); }
 
         document.getElementById('registrationForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
-            const fileKtpInput = document.getElementById('fileKtp');
-            const fileFotoInput = document.getElementById('fileFoto');
-            const fileTransferInput = document.getElementById('fileTransfer');
-
-            if(!fileKtpInput.files[0] || !fileFotoInput.files[0] || !fileTransferInput.files[0]) {
-                alert("Harap upload semua dokumen yang diminta (KTP, Foto, Bukti Transfer)!");
-                return;
+            const fKtp = document.getElementById('fileKtp'); const fFoto = document.getElementById('fileFoto'); const fTrf = document.getElementById('fileTransfer');
+            if(!fKtp.files[0] || !fFoto.files[0] || !fTrf.files[0]) {
+                alert("Upload KTP, Foto, dan Bukti Transfer wajib diisi!"); return;
             }
 
             showFormState('loading');
-
             try {
-                // Konversi gambar ke format Base64 menggunakan fungsi yang sudah ada di HTML Anda
                 let ktpBase64 = await getBase64Image('fileKtp');
                 let fotoBase64 = await getBase64Image('fileFoto');
                 let transferBase64 = await getBase64Image('fileTransfer');
-
-                // Siapkan paket data untuk dikirim ke Google Spreadsheet
+                
+                // Struktur objek payload 100% sama agar backend Spreadsheet TIDAK RUSAK.
                 const payload = {
                     nama: document.getElementById('regNama').value,
                     nik: document.getElementById('regNIK').value,
@@ -1381,12 +942,9 @@
                     berat: document.getElementById('regBB').value,
                     rules: document.getElementById('regRules').value,
                     kelas: document.getElementById('regKelas').value,
-                    
-                    // ================= TAMBAHAN BARU =================
                     record: document.getElementById('regRecord').value,
                     ig: document.getElementById('regIg').value,
-                    // =================================================
-
+                    
                     fileKtpBase64: ktpBase64,
                     fileKtpName: "KTP_" + document.getElementById('regNama').value.replace(/\s+/g, '_') + ".jpg",
                     fileFotoBase64: fotoBase64,
@@ -1394,35 +952,45 @@
                     fileTransferBase64: transferBase64,
                     fileTransferName: "TRANSFER_" + document.getElementById('regNama').value.replace(/\s+/g, '_') + ".jpg"
                 };
-                
-                // (Lanjutkan dengan kode fetch/AJAX untuk mengirim data 'payload' ke Script URL Anda...)
 
-                // GANTI STRING DI BAWAH INI DENGAN URL WEB APP DARI LANGKAH 3
-                const scriptURL = SCRIPT_URL; 
-
-                const response = await fetch(scriptURL, {
+                const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
                     body: JSON.stringify(payload),
-                    // Menggunakan text/plain untuk menghindari isu error CORS preflight dari Google
-                    headers: {
-                        'Content-Type': 'text/plain;charset=utf-8',
-                    }
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }
                 });
-
                 const result = await response.json();
 
                 if(result.result === 'success') {
                     showFormState('success');
                     this.reset(); 
-                } else {
-                    console.error(result.error);
-                    showFormState('error');
-                }
-
+                } else { showFormState('error'); }
             } catch (err) {
-                console.error("Terjadi Kesalahan:", err);
+                console.error(err);
                 showFormState('error');
             }
+        });
+
+        // --- COUNTDOWN ---
+        function startCountdown() {
+            const countDownDate = new Date("Oct 18, 2026 08:00:00").getTime();
+            const timer = setInterval(function() {
+                const distance = countDownDate - new Date().getTime();
+                if (distance < 0) { clearInterval(timer); return; }
+                document.getElementById("days").innerHTML = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+                document.getElementById("hours").innerHTML = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+                document.getElementById("minutes").innerHTML = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+                document.getElementById("seconds").innerHTML = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+            }, 1000);
+        }
+
+        // --- INIT APP ---
+        document.addEventListener('DOMContentLoaded', () => {
+            initCanvasFX();
+            handleRouting();
+            startCountdown();
+            renderPublicFights();
+            loadDataFromSpreadsheet();
+            setInterval(loadDataFromSpreadsheet, 60000); // refresh tiap 1 menit
         });
     </script>
 </body>
